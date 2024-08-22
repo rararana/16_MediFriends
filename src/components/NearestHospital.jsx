@@ -49,7 +49,7 @@ const NearestHospital = () => {
       try {
         // Fetch response from Overpass API (OpenStreetMap)
         const response = await fetch(
-          `https://overpass-api.de/api/interpreter?data=[out:json];node["amenity"~"Hospital|clinic|doctor"](around:3000,${lat},${lng});out;`
+          `https://overpass-api.de/api/interpreter?data=[out:json];node["amenity"~"hospital|clinic|doctor"](around:3000,${lat},${lng});out;`
         );
         const data = await response.json();
         setHospitals(data.elements);
@@ -85,15 +85,14 @@ const NearestHospital = () => {
 
   return (
     <div>
-      <h1 className="text-[3rem] my-4">Nearest Hospitals</h1>
+      <h1 className="text-[2.5rem] font-semibold my-4">Nearest Hospitals</h1>
       {userLocation && icons.userIcon && icons.hospitalIcon && (
-        <MapContainer center={userLocation} zoom={14} style={{ height: '500px', width: '500px' }}>
+        <MapContainer center={userLocation} zoom={14} style={{ height: '500px', width: '100%' }}>
           {/* Renders OpenStreetMap Map Tiles */}
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
-
           {/* User current position */}
           <Marker 
             position={userLocation} 
