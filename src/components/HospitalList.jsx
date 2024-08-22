@@ -9,7 +9,7 @@ const HospitalList = () => {
     const fetchHospitals = async (lat, lng) => {
       try {
         const response = await fetch(
-          `https://overpass-api.de/api/interpreter?data=[out:json];node["amenity"~"hospital|clinic"](around:10000,${lat},${lng});out;`
+          `https://overpass-api.de/api/interpreter?data=[out:json];node["amenity"~"hospital|clinic"](around:50000,${lat},${lng});out;`
         );
         const data = await response.json();
         
