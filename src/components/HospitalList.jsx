@@ -16,7 +16,8 @@ const HospitalList = () => {
         // Calculate distance for each hospital from user location and sort by distance
         const hospitalsWithDistance = data.elements.map(hospital => ({
           ...hospital,
-          distance: calculateDistance(lat, lng, hospital.lat, hospital.lon)
+          distance: calculateDistance(lat, lng, hospital.lat, hospital.lon),
+          googleMapsUrl: `https://www.google.com/maps?q=${hospital.lat},${hospital.lon}`
         })).sort((a, b) => a.distance - b.distance);
         
         // Take 10 nearest
@@ -82,6 +83,10 @@ const HospitalList = () => {
         <div key={index} className="p-2 border border-collapse rounded my-2">
           <h3 className="text-xl">{hospital.tags.name || 'Unknown Hospital'}</h3>
           <p>Distance: {hospital.distance.toFixed(2)} km</p>
+          <a href={hospital.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline"
+          >
+            View on Google Maps
+          </a>
         </div>
       ))}
     </div>
