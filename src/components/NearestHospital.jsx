@@ -9,10 +9,39 @@ const TileLayer = dynamic(() => import('react-leaflet').then((mod) => mod.TileLa
 const Marker = dynamic(() => import('react-leaflet').then((mod) => mod.Marker), { ssr: false });
 const Popup = dynamic(() => import('react-leaflet').then((mod) => mod.Popup), { ssr: false });
 
+// Custom icon for markers
+const useCustomIcons = () => {
+  const [icons, setIcons] = useState({});
+
+  useEffect(() => {
+    const L = require('leaflet');
+
+    const userIcon = new L.Icon({
+      iconUrl: '/location.png', 
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32]
+    });
+
+    const hospitalIcon = new L.Icon({
+      iconUrl: '/hospital.png', 
+      iconSize: [23, 23],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32]
+    });
+
+    // Update state with the icons
+    setIcons({ userIcon, hospitalIcon });
+  }, []);
+
+  return icons;
+};
+
 // Function to find nearest hospital
 const NearestHospital = () => {
   const [hospitals, setHospitals] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
+  const icons = useCustomIcons();
 
   useEffect(() => {
     // Fetch nearby hospitals based on user location with certain radius
@@ -57,7 +86,7 @@ const NearestHospital = () => {
   return (
     <div>
       <h1 className="text-[3rem] my-4">Nearest Hospitals</h1>
-      {userLocation && (
+      {userLocation && icons.userIcon && icons.hospitalIcon && (
         <MapContainer center={userLocation} zoom={14} style={{ height: '500px', width: '500px' }}>
           {/* Renders OpenStreetMap Map Tiles */}
           <TileLayer
@@ -66,7 +95,10 @@ const NearestHospital = () => {
           />
 
           {/* User current position */}
-          <Marker position={userLocation}>
+          <Marker 
+            position={userLocation} 
+            icon={icons.userIcon}
+          >
             <Popup>You are here</Popup>
           </Marker>
 
@@ -75,6 +107,7 @@ const NearestHospital = () => {
             <Marker
               key={index}
               position={[hospital.lat, hospital.lon]}
+              icon={icons.hospitalIcon}
             >
               <Popup>{hospital.tags.name || 'Unknown Hospital'}</Popup>
             </Marker>
