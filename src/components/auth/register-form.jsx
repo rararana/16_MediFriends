@@ -71,7 +71,7 @@ export const RegisterForm = () => {
 										<Input
 											{...field}
 											disabled={isPending}
-											placeholder="Aku Sigma"
+											placeholder="John Doe"
 											type="text	"
 											className="transition-all duration-400"
 										/>
