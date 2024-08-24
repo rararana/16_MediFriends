@@ -54,7 +54,6 @@ export const RegisterForm = () => {
 			headerLabel="Start Your Health Journey with Us 🌟"
 			backButtonLabel="Already have an account?"
 			backButtonHref="/auth/login"
-			showSocial
 		>
 			<Form {...form}>
 				<form
@@ -67,12 +66,12 @@ export const RegisterForm = () => {
 							name="name"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Namel</FormLabel>
+									<FormLabel>Name</FormLabel>
 									<FormControl>
 										<Input
 											{...field}
 											disabled={isPending}
-											placeholder="John Doe"
+											placeholder="Aku Sigma"
 											type="text	"
 											className="transition-all duration-400"
 										/>
@@ -91,7 +90,7 @@ export const RegisterForm = () => {
 										<Input
 											{...field}
 											disabled={isPending}
-											placeholder="john.doe@example.com"
+											placeholder="aku.sigma@example.com"
 											type="email"
 											className="transition-all duration-400"
 										/>

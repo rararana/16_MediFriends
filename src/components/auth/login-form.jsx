@@ -50,10 +50,9 @@ export const LoginForm = () => {
 	return (
 		<CardWrapper
 			headerTitle="Sign In"
-			headerLabel="Log in to your MediFriends account"
+			headerLabel="Log in to your MediFriends account 🫶"
 			backButtonLabel="Don't have an account?"
 			backButtonHref="/auth/register"
-			showSocial
 		>
 			<Form {...form}>
 				<form
@@ -71,7 +70,7 @@ export const LoginForm = () => {
 										<Input
 											{...field}
 											disabled={isPending}
-											placeholder="john.doe@example.com"
+											placeholder="aku.sigma@example.com"
 											type="email"
 											className="transition-all duration-400"
 										/>
