@@ -1,6 +1,7 @@
 "use server";
 
-import * as z from "zod";
+import { db } from "../lib/db";
+import bcrypt from "bcrypt";
 import { LoginSchema } from "@/schemas";
 
 export const login = async (values: any) => {
@@ -9,5 +10,24 @@ export const login = async (values: any) => {
 	if (!validatedFields.success) {
 		return { error: "Invalid fields" };
 	}
-	return { success: "Login Succesful! Enjoy your time on MediFriends!" };
+
+	const { email, password } = validatedFields.data;
+
+	const userExists = await db.user.findUnique({
+		where: { email },
+	});
+
+	if (!userExists) {
+		return { error: "Invalid email or password" };
+	}
+
+	const passwordMatch = await bcrypt.compare(password, userExists.password);
+
+	if (!passwordMatch) {
+		return { error: "Invalid email or password" };
+	}
+
+	// Optionally: Generate and return a JWT or session token here
+
+	return { success: "Login successful!" };
 };
