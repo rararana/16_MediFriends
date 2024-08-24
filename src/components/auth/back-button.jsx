@@ -7,7 +7,7 @@ export const BackButton = ({ label, href }) => {
 	return (
 		<Button
 			variant="link"
-			className="font-normal w-full"
+			className="font-normal w-full text-[#2f6aa9]"
 			size="small"
 			asChild
 		>
