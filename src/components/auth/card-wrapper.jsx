@@ -7,15 +7,23 @@ import { BackButton } from "@/components/auth/back-button";
 
 export const CardWrapper = ({
 	children,
+	headerTitle,
 	headerLabel,
 	backButtonLabel,
 	backButtonHref,
 	showSocial,
+	headerLevel = "h1", // Default to "h1" if not provided
+	headerClassName = "", // Custom className for additional styling
 }) => {
 	return (
-		<Card className="w-[400px] shadow-md">
+		<Card className="w-[400px] border border-gray shadow-md ">
 			<CardHeader>
-				<Header label={headerLabel} />
+				<Header
+					title={headerTitle}
+					label={headerLabel}
+					level={headerLevel}
+					className={headerClassName}
+				/>
 			</CardHeader>
 			<CardContent>{children}</CardContent>
 			{showSocial && (

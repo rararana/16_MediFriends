@@ -1,12 +1,12 @@
 import React from "react";
-import { LoginForm } from "@/components/auth/login-form";
+import { RegisterForm } from "@/components/auth/register-form";
 
-const LoginPage = () => {
+const RegisterPage = () => {
 	return (
 		<div className="bg-gray-950 flex min-h-screen flex-col items-center justify-center ">
-			<LoginForm />
+			<RegisterForm />
 		</div>
 	);
 };
 
-export default LoginPage;
+export default RegisterPage;
