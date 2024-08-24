@@ -19,6 +19,7 @@ import {
 import { CardWrapper } from "./card-wrapper";
 import { FormError } from "@/components//form-error";
 import { FormSuccess } from "@/components/form-success";
+import { login } from "@/actions/login";
 
 export const LoginForm = () => {
 	const form = useForm({
@@ -30,7 +31,7 @@ export const LoginForm = () => {
 	});
 
 	const onSubmit = (values) => {
-		console.log(values);
+		login(values);
 	};
 
 	return (
