@@ -34,32 +34,35 @@ const Form = () => {
   return (
     <>
      <div className="Form">
-        <form onSubmit={handleSubmit}>
-            <input required
+        <form onSubmit={handleSubmit} className="text-xs m-5">
+            <input className="bg-stone-50 mb-1 border-stone-200 border-[0.5px] rounded-md p-1 w-full" required
             type="text"
             value={hospital}
             placeholder="Nama Rumah Sakit"
             onChange={(e) => setHospital(e.target.value)}
             />
-            <input required
+            <br />
+            <input className="bg-stone-50 mb-1 border-stone-200 border-[0.5px] rounded-md p-1 w-full" required
             type="date"
             value={date}
             placeholder="Waktu Berkunjung"
             onChange={(e) => setDate(e.target.value)}
             />
-            <input required
+            <input className="bg-stone-50 mb-1 border-stone-200 border-[0.5px] rounded-md p-1 w-full" required
             type="text"
             value={diagnosis}
             placeholder="Diagnosa"
             onChange={(e) => setDiagnosis(e.target.value)}
             />
-            <input required
+            
+            <input className="bg-stone-50 mb-1 border-stone-200 border-[0.5px] rounded-md p-1 w-full" required
             type="text"
             value={treatment}
             placeholder="Pengobatan"
             onChange={(e) => setTreatment(e.target.value)}
             />
-            <button type="submit" disabled={isLoading}>
+            <br />
+            <button className="inline-block ml-100 bg-blue-500 rounded-md p-2 text-white " type="submit" disabled={isLoading}>
               {isLoading && <span>Memproses...</span>}
               {!isLoading && <span>Simpan</span>}
             </button>

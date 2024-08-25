@@ -16,8 +16,8 @@ const Datas = async() => {
             {datas.map((data) => {
             return (
             <CardList>
-                <div className="font-semibold rounded-md mb-3 bg-stone-200 p-1">{data.name}</div> 
-                <div className="rounded-md bg-stone-200 p-1">
+                <div className="font-semibold rounded-md mb-3 bg-gradient-to-br from-stone-200 to-stone-50 p-1">{data.name}</div> 
+                <div className="rounded-md bg-gradient-to-br from-stone-200 to-stone-50 p-1">
                     <div>{data.address.zipcode}</div>
                     <div>{data.company.name}</div>
                     <div>{data.company.catchPhrase}</div>
