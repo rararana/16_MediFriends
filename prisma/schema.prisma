@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  age           Int?
+  birthDate     String?
+  height        Int?
+  weight        Int?
+  bmi           Float?
+  bloodType     String?
+  allergy       String?
+  diseaseHistory   DiseaseHistory[] // Relation to DiseaseHistory
+  visitHistory     VisitHistory[]   // Relation to VisitHistory
+  vaccineHistory   VaccineHistory[] // Relation to VaccineHistory
+  sleepHistory     SleepHistory[]   // Relation to SleepHistory
+  accounts        Account[]
+}
+
+model Article {
+  id      Int       @id @default(autoincrement())
+  type    String
+  title   String
+  author  String
+  content String
+  source  String
+}
+
+model VisitHistory {
+  id                  String    @id @default(cuid())
+  userId              String
+  visitDate           DateTime
+  clinicHospitalName  String
+  diagnosis           String
+  treatment           String
+
+  user                User      @relation(fields: [userId], references: [id])
+}
+
+model VaccineHistory {
+  id                  String    @id @default(cuid())
+  userId              String
+  vaccineName         String
+  vaccineDate         DateTime
+  clinicHospitalName  String
+
+  user                User      @relation(fields: [userId], references: [id])
+}
+
+model SleepHistory {
+  id            String    @id @default(cuid())
+  userId        String
+  date          DateTime
+  bedtime       DateTime
+  sleepDuration Int       // Minutes
+  sleepGoal     Int       // Minutes
+
+  user          User      @relation(fields: [userId], references: [id])
+}
+
+model DiseaseHistory {
+  id         String    @id @default(cuid())
+  userId     String
+  disease    String
+
+  user       User      @relation(fields: [userId], references: [id])
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
