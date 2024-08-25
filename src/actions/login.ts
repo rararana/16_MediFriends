@@ -2,7 +2,7 @@
 
 import { db } from "../lib/db";
 import bcrypt from "bcrypt";
-import { LoginSchema } from "@/schemas";
+import { LoginSchema } from "../schemas";
 
 export const login = async (values: any) => {
 	const validatedFields = LoginSchema.safeParse(values);
