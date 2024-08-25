@@ -4,7 +4,7 @@ export const CallToAction = () => {
 	return (
 		<section className="bg-gradient-to-r from-[#2487c5] to-[#6BC2EB] py-16 px-6 md:px-16 text-center">
 			<div className="max-w-2xl mx-auto">
-				<h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+				<h2 className="text-3xl md:text-4xl font-bold text-white mb-6 [text-shadow:0_0_4px_rgba(255,255,255,0.5),0_0_6px_rgba(255,255,255,0.3)]">
 					Ready to Get Started?
 				</h2>
 				<p className="text-lg text-white mb-8">
@@ -13,8 +13,8 @@ export const CallToAction = () => {
 					your well-being.
 				</p>
 				<a
-					href="/signup"
-					className="inline-block bg-white text-[#2487c5] text-lg font-semibold py-3 px-6 rounded-full shadow-md hover:bg-gray-100 transition duration-300"
+					href="/auth/login"
+					className="inline-block bg-white text-[#2487c5] text-lg font-semibold py-3 px-6 rounded-full shadow-md hover:scale-110 active:opacity-80 transition duration-200"
 				>
 					Sign Up
 				</a>
