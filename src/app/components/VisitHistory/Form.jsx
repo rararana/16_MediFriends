@@ -19,7 +19,7 @@ const Form = () => {
       hospital, date, diagnosis, treatment
     }
     //pake fake API untuk sementara waktu
-    const response = await fetch("https://jsonplaceholder.typicode.com/users", {
+    const response = await fetch("/api/visitHistory/createVisitHistory", {
       method: "POST",
       body: JSON.stringify(card)
     })
