@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +11,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className='bg-[#00c6e8] p-4 w-full'></div>
+        {children}
+      </body>
     </html>
   );
 }
