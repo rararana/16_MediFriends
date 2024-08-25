@@ -3,6 +3,7 @@
 import { db } from "../lib/db";
 import bcrypt from "bcrypt";
 import { LoginSchema } from "../schemas";
+import { redirect } from "next/navigation";
 
 export const login = async (values: any) => {
 	const validatedFields = LoginSchema.safeParse(values);
@@ -27,7 +28,6 @@ export const login = async (values: any) => {
 		return { error: "Invalid email or password" };
 	}
 
-	// Optionally: Generate and return a JWT or session token here
-
+	redirect("/");
 	return { success: "Login successful!" };
 };

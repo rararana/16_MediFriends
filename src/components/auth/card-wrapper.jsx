@@ -16,7 +16,7 @@ export const CardWrapper = ({
 	headerClassName = "", // Custom className for additional styling
 }) => {
 	return (
-		<Card className="w-[400px] border border-gray shadow-md;">
+		<Card className="w-[400px] border border-gray shadow-xl;">
 			<CardHeader>
 				<Header
 					title={headerTitle}

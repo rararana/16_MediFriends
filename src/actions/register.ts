@@ -5,6 +5,7 @@ import { RegisterSchema } from "../schemas";
 import { db } from "../lib/db";
 import bcrypt from "bcrypt";
 import { getUserByEmail } from "../data/user";
+import { redirect } from "next/navigation";
 
 export const register = async (values: any) => {
 	const validatedFields = RegisterSchema.safeParse(values);
@@ -30,5 +31,6 @@ export const register = async (values: any) => {
 		},
 	});
 
+	redirect("/auth/login");
 	return { success: "Account Created! Enjoy your time on MediFriends!" };
 };

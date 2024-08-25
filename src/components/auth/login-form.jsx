@@ -40,10 +40,18 @@ export const LoginForm = () => {
 		setSuccess("");
 
 		startTransition(() => {
-			login(values).then((data) => {
-				setError(data.error);
-				setSuccess(data.success);
-			});
+			login(values)
+				.then((data) => {
+					if (data && typeof data === "object") {
+						setError(data.error || "Default error message");
+						setSuccess(data.success);
+					} else {
+						setError("Unexpected response format");
+					}
+				})
+				.catch((error) => {
+					setError("Network or server error");
+				});
 		});
 	};
 
@@ -70,7 +78,7 @@ export const LoginForm = () => {
 										<Input
 											{...field}
 											disabled={isPending}
-											placeholder="aku.sigma@example.com"
+											placeholder="sparta.hmif@example.com"
 											type="email"
 											className="transition-all duration-400"
 										/>

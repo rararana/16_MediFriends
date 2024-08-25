@@ -99,6 +99,17 @@
 	main {
 		padding: 20px;
 	}
+
+	#landing-carousel-section {
+		height: 70vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#landing-signup-section {
+		height: 60vh;
+	}
 }
 
 @layer components {

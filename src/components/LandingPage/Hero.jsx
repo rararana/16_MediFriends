@@ -13,7 +13,7 @@ const Hero = () => {
 							</span>
 						</h1>
 					</div>
-					<div className="hero-box bg-gray-300 flex-grow max-h-[420px] bg-[url('/images/hero/hero-img-2.jpeg')] bg-cover bg-center"></div>
+					<div className="hero-box bg-gray-300 flex-grow max-h-[420px] bg-[url('/images/hero/hero-img-5.png')] bg-cover bg-center"></div>
 					<div className="grid grid-cols-5 gap-4 h-1/7 flex-grow">
 						<div className="hero-box col-span-3 bg-gray-400 bg-[url('/images/hero/hero-img-3.jpeg')] bg-cover bg-center"></div>
 						<div className="hero-box col-span-2 bg-gray-100 bg-[url('/images/hero/hero-img-4.jpeg')] bg-cover bg-center"></div>

@@ -42,8 +42,12 @@ export const RegisterForm = () => {
 
 		startTransition(() => {
 			register(values).then((data) => {
-				setError(data.error);
-				setSuccess(data.success);
+				if (data) {
+					setError(data.error || "Default error message");
+					setSuccess(data.success);
+				} else {
+					setError("Unexpected error occurred");
+				}
 			});
 		});
 	};
@@ -71,7 +75,7 @@ export const RegisterForm = () => {
 										<Input
 											{...field}
 											disabled={isPending}
-											placeholder="John Doe"
+											placeholder="Sparta Sigma"
 											type="text	"
 											className="transition-all duration-400"
 										/>
@@ -90,7 +94,7 @@ export const RegisterForm = () => {
 										<Input
 											{...field}
 											disabled={isPending}
-											placeholder="aku.sigma@example.com"
+											placeholder="sparta.hmif@example.com"
 											type="email"
 											className="transition-all duration-400"
 										/>
