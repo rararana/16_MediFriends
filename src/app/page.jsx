@@ -19,8 +19,6 @@ const HomePage = () => {
 			<div id="landing-signup-section">
 				<CallToAction />
 			</div>
-			{/* Nav */}
-			<MobileNav nav={nav} closeNav={closeNav} />
 		</>
 	);
 };

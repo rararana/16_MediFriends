@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import CardList from "../components/VisitHistory/CardList";
-import Form from "../components/VisitHistory/Form";
+import CardList from "../../components/VisitHistory/CardList";
+import Form from "../../components/VisitHistory/Form";
 import { useEffect, useState } from "react";
 
 const Datas = async () => {
