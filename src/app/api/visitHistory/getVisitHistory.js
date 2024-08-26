@@ -15,9 +15,7 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json(
       { message: "Fail to get visit history" },
-      {
-        data: "asfasdfsa"
-      },
+
       { status: 500 }
     );
   }
