@@ -31,6 +31,5 @@ export const register = async (values: any) => {
 		},
 	});
 
-	redirect("/auth/login");
 	return { success: "Account Created! Enjoy your time on MediFriends!" };
 };

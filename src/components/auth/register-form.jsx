@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 
 import { useState, useTransition } from "react";
 import { RegisterSchema } from "@/schemas";
@@ -26,6 +27,7 @@ export const RegisterForm = () => {
 	const [isPending, startTransition] = useTransition();
 	const [error, setError] = useState("");
 	const [success, setSuccess] = useState("");
+	const router = useRouter();
 
 	const form = useForm({
 		resolver: zodResolver(RegisterSchema),
@@ -42,11 +44,15 @@ export const RegisterForm = () => {
 
 		startTransition(() => {
 			register(values).then((data) => {
-				if (data) {
-					setError(data.error || "Default error message");
-					setSuccess(data.success);
+				if (data && typeof data === "object") {
+					if (data.error) {
+						setError(data.error || "Default error message");
+					} else if (data.success) {
+						setSuccess(data.success);
+						router.push("/auth/login");
+					}
 				} else {
-					setError("Unexpected error occurred");
+					setError("Unexpected response format");
 				}
 			});
 		});
