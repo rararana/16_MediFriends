@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
+import dynamic from "next/dynamic";
 
 // Dynamically import (leaflet imports) to make sure it's only used on the client side (not on the server side)
 const MapContainer = dynamic(

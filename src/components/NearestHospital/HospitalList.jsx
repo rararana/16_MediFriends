@@ -6,7 +6,7 @@ const HospitalList = () => {
 	const [userLocation, setUserLocation] = useState(null);
 
 	useEffect(() => {
-		// Fetch nearby hospitals based on user location with certain radius
+		// // Fetch nearby hospitals based on user location with certain radius
 		const fetchHospitals = async (lat, lng) => {
 			try {
 				const response = await fetch(
