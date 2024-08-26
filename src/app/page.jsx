@@ -1,51 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
+import Form from './components/Form';
 
 export default function Profile() {
-    const [formData, setFormData] = useState({
-        username: '',
-        phoneNumber: '',
-        email: '',
-        password: '',
-        twoFactorAuth: false
-    });
-
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
-            [name]: type === 'checkbox' ? checked : value
-        });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        // Here you would typically send the form data to a server
-        // For now, we'll just log it to the console
-        console.log("Form data submitted:", formData);
-
-        // Example of submitting form data to an API endpoint
-        try {
-            const response = await fetch('/api/submit-profile', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log('Form submitted successfully:', result);
-            } else {
-                console.error('Failed to submit form:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Error submitting form:', error);
-        }
-    };
 
     const ProfileCard = ({ user }) => (
         <div style={styles.card}>
@@ -74,59 +32,6 @@ export default function Profile() {
         </div>
     );
 
-    const SettingsForm = () => (
-        <form onSubmit={handleSubmit} style={styles.form}>
-            <div style={styles.inputGroup}>
-                <label>Username</label>
-                <input
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                />
-            </div>
-            <div style={styles.inputGroup}>
-                <label>Phone Number</label>
-                <input
-                    type="text"
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                />
-            </div>
-            <div style={styles.inputGroup}>
-                <label>Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                />
-            </div>
-            <div style={styles.inputGroup}>
-                <label>Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                />
-            </div>
-            <div style={styles.inputGroup}>
-                <label>
-                    <input
-                        type="checkbox"
-                        name="twoFactorAuth"
-                        checked={formData.twoFactorAuth}
-                        onChange={handleChange}
-                    />
-                    2 Factor Authentication
-                </label>
-            </div>
-            <button type="submit">Save</button>
-        </form>
-    );
-
     const user = {
         name: "John Doe",
         age: 30,
@@ -141,7 +46,7 @@ export default function Profile() {
     return (
         <>
             <ProfileCard user={user} />
-            <SettingsForm />
+            <Form />
         </>
     );
 }
