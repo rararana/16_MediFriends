@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import HospitalList from "@/components/NearestHospital/HospitalList";
 import NearestHospital from "@/components/NearestHospital/NearestHospital";
