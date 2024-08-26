@@ -1,17 +1,20 @@
-import Articles from "@/app/article/page";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { neon } from '@neondatabase/serverless';
+
 
 export async function GET() {
   try {
-    const allVisitHistory = await prisma.visitHistory.findMany();
+    const sql = neon(process.env.DATABASE_URL, { fullResults: true });
+    const allVisitHistory = await sql`SELECT * FROM posts WHERE id = ${postId}`;
+    console.log(allVisitHistory);
     return NextResponse.json(
       { message: "Successfully get all visit history", visitHistory : allVisitHistory},
       { status: 200 }
     );
   } catch (error) {
     return NextResponse.json(
-      { message: "Failed to get visit history" },
+      { message: "Fail to get visit history" },
       {
         data: "asfasdfsa"
       },

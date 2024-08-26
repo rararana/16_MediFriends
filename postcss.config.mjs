@@ -5,4 +5,12 @@ const config = {
   },
 };
 
+module.exports = {
+  plugins: {
+    'autoprefixer': {},
+    // other plugins
+  },
+};
+
+
 export default config;
