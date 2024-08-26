@@ -68,11 +68,12 @@ model SleepHistory {
   id            String    @id @default(cuid())
   userId        String
   date          DateTime
-  bedtime       DateTime
-  waketime      DateTime
-  sleepDuration Float    // Hours (Allows for fractional hours)
+  sleepStart    DateTime
+  wakeUp        DateTime
+  duration      Float    // Hours (Allows for fractional hours)
   sleepGoal     Float    // Hours (Allows for fractional hours)
-  sleepQuality  Int      // Quality rating
+  quality  Int      
+  goalAchieved Boolean
 
   user          User      @relation(fields: [userId], references: [id])
 }
