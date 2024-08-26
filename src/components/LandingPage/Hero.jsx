@@ -1,8 +1,21 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Hero = () => {
+	useEffect(() => {
+		AOS.init({
+			duration: 1000,
+			easing: "ease-in-out",
+			once: true,
+		});
+		AOS.refresh();
+	}, []);
+
 	return (
-		<div className="container mx-auto my-10 p-4 h-[150vh] overflow-hidden">
+		<div className="container mx-auto my-10 p-4 h-[150vh]">
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-full">
 				<div className="md:col-span-2 flex flex-col space-y-4">
 					<div className="hero-box bg-gradient-to-r from-[#6BC2EB] to-[#2487c5] min-h-[250px] flex items-center justify-center">
