@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import "leaflet/dist/leaflet.css";
 
 // Dynamically import (leaflet imports) to make sure it's only used on the client side (not on the server side)
 const MapContainer = dynamic(
@@ -28,14 +29,14 @@ const useCustomIcons = () => {
 		const L = require("leaflet");
 
 		const userIcon = new L.Icon({
-			iconUrl: "/location.png",
+			iconUrl: "/images/hospital/location.png",
 			iconSize: [32, 32],
 			iconAnchor: [16, 32],
 			popupAnchor: [0, -32],
 		});
 
 		const hospitalIcon = new L.Icon({
-			iconUrl: "/hospital.png",
+			iconUrl: "/images/hospital/hospital.png",
 			iconSize: [23, 23],
 			iconAnchor: [16, 32],
 			popupAnchor: [0, -32],
