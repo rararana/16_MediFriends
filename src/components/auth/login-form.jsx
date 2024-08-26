@@ -21,11 +21,13 @@ import { CardWrapper } from "./card-wrapper";
 import { FormError } from "@/components//form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
+import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
 	const [isPending, startTransition] = useTransition();
 	const [error, setError] = useState("");
 	const [success, setSuccess] = useState("");
+	const router = useRouter();
 
 	const form = useForm({
 		resolver: zodResolver(LoginSchema),
@@ -43,8 +45,13 @@ export const LoginForm = () => {
 			login(values)
 				.then((data) => {
 					if (data && typeof data === "object") {
-						setError(data.error || "Default error message");
-						setSuccess(data.success);
+						if (data.error) {
+							setError(data.error || "Default error message");
+						} else if (data.success) {
+							setSuccess(data.success);
+							// Redirect after success is set
+							router.push("/");
+						}
 					} else {
 						setError("Unexpected response format");
 					}
