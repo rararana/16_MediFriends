@@ -46,7 +46,7 @@ model Article {
 model VisitHistory {
   id                  String    @id @default(cuid())
   userId              String
-  visitDate           DateTime
+  visitDate           String
   clinicHospitalName  String
   diagnosis           String
   treatment           String

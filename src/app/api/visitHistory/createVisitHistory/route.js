@@ -9,7 +9,7 @@ export async function POST(request) {
     console.log(body)
 
     const { id, userId, visitDate, clinicHospitalName, diagnosis, treatment } = body;
-
+    
     const newVisitHistory = await db.visitHistory.create({
       data: {
         id,
