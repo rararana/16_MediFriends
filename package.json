@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"@auth/prisma-adapter": "^2.4.2",
+		"@clerk/nextjs": "^5.3.3",
 		"@heroicons/react": "^2.1.5",
 		"@hookform/resolvers": "^3.9.0",
 		"@prisma/client": "^5.18.0",
@@ -48,6 +49,7 @@
 		"@types/react": "18.3.4",
 		"eslint": "^8",
 		"eslint-config-next": "14.2.6",
+		"html-loader": "^5.1.0",
 		"postcss": "^8",
 		"prisma": "^5.18.0",
 		"tailwindcss": "^3.4.1"
