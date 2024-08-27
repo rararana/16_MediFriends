@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react';
 
 const Form = () => {
   const router = useRouter();
-  const [hospital, setHospital] = useState("");
-  const [date, setDate] = useState("");
+  const [clinicHospitalName, setHospital] = useState("");
+  const [visitDate, setDate] = useState("");
   const [diagnosis, setDiagnosis] = useState("");
   const [treatment, setTreatment] = useState("");
   const [isLoading, setIsLoading] = useState("");
@@ -16,9 +16,8 @@ const Form = () => {
     setIsLoading(true)
 
     const card = {
-      hospital, date, diagnosis, treatment
+      id:"3", userId: "cm08fuidt0000to4wrfk5w2xs", visitDate, clinicHospitalName, diagnosis, treatment
     }
-    //pake fake API untuk sementara waktu
     const response = await fetch("/api/visitHistory/createVisitHistory", {
       method: "POST",
       body: JSON.stringify(card)
@@ -37,14 +36,14 @@ const Form = () => {
         <form onSubmit={handleSubmit} className="text-xs m-5">
             <input className="bg-stone-50 mb-1 border-stone-200 border-[0.5px] rounded-md p-1 w-full" required
             type="text"
-            value={hospital}
+            value={clinicHospitalName}
             placeholder="Nama Rumah Sakit"
             onChange={(e) => setHospital(e.target.value)}
             />
             <br />
             <input className="bg-stone-50 mb-1 border-stone-200 border-[0.5px] rounded-md p-1 w-full" required
             type="date"
-            value={date}
+            value={visitDate}
             placeholder="Waktu Berkunjung"
             onChange={(e) => setDate(e.target.value)}
             />

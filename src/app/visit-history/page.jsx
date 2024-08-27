@@ -4,7 +4,7 @@ import CardList from "../../components/VisitHistory/CardList";
 import Form from "../../components/VisitHistory/Form";
 import { useEffect, useState } from "react";
 
-const Datas = async () => {
+const Datas = () => {
 	const [datas, setDatas] = useState([]);
 	const fetchData = async () => {
 		try {
@@ -12,15 +12,19 @@ const Datas = async () => {
 			if (!response.ok) {
 				throw new Error("Network response was not ok");
 			}
+			console.log(response);
 			const dataa = await response.json(); // Parsing the response as JSON
-			setDatas(dataa.articles || []); // Updating the state with the fetched
+			setDatas(dataa.allVisitHistory || []); // Updating the state with the fetched
 		} catch (error) {
 			console.error("Failed to fetch data:", error);
 		}
 	};
 
 	useEffect(() => {
-		fetchData();
+		const triggerFetch = async () => {
+			await fetchData();
+		}
+		triggerFetch();
 	}, []);
 
 	return (
