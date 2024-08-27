@@ -1,4 +1,6 @@
-"use client";
+// app/page.tsx
+
+"use client"; // Add this directive
 
 import React, { useState } from "react";
 import SleepForm from "../../components/SleepHistory/SleepForm";

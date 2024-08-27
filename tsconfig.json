@@ -28,8 +28,7 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"src/app/page.jsx",
-		"src/components/LandingPage/Hero.jsx",
-		"src/components/SleepHistory/SleepForm.jsx"
+		"src/components/LandingPage/Hero.jsx"
 	],
 	"exclude": ["node_modules"]
 }

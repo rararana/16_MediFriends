@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Add this directive
 
 import React, { useState } from "react";
 
@@ -36,21 +36,6 @@ const SleepForm: React.FC<SleepFormProps> = ({ onAddSleep }) => {
 			sleepGoal,
 			achieved
 		);
-
-		async () => {
-			const response = await fetch("/api/sleep-history", {
-				method: "POST",
-				body: JSON.stringify({
-					date,
-					sleepDuration: sleepDuration.toFixed(2),
-					quality,
-					sleepGoal,
-					achieved,
-				}),
-			}).then((response) => {
-				console.log(response.json());
-			});
-		};
 
 		setDate("");
 		setSleepStart("");

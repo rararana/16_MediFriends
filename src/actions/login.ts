@@ -3,8 +3,7 @@
 import { db } from "../lib/db";
 import bcrypt from "bcrypt";
 import { LoginSchema } from "../schemas";
-import { signIn } from "@/auth";
-import AuthError from "next-auth";
+import { redirect } from "next/navigation";
 
 export const login = async (values: any) => {
 	// Check login schema
@@ -16,24 +15,6 @@ export const login = async (values: any) => {
 
 	// Validate email/password fields
 	const { email, password } = validatedFields.data;
-	try {
-		await signIn("credentials", {
-			email,
-			password,
-		});
-	} catch (error) {
-		if (error instanceof AuthError) {
-			switch (error.type) {
-				case "CredentialsSignin":
-					console.log({ error: "Invalid Credentials!" });
-					return { error: "Invalid Credentials!" };
-				default:
-					console.log({ error: "Something went wrong!" });
-					return { error: "Something went wrong!" };
-			}
-		}
-		throw error;
-	}
 
 	// Check if user exists by email
 	const userExists = await db.user.findUnique({
