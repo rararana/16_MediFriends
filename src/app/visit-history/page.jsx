@@ -23,7 +23,7 @@ const Datas = () => {
 	useEffect(() => {
 		const triggerFetch = async () => {
 			await fetchData();
-		}
+		};
 		triggerFetch();
 	}, []);
 
