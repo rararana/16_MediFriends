@@ -1,39 +1,42 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { db } from "@/lib/db";
-import { useSession} from "next-auth/react";
 
-
-// api to create a new review
 export async function PUT(request) {
   try {
     const body = await request.json();
     console.log(body)
 
-    const { height, weight } = body;
-
-    const { data:session } = useSession();
-
-    const userId1 = session?.user?.id
-    console.log(userId1)
+    const { 
+      height,
+      weight,
+      age,
+      bloodType,
+      allergy,
+      bmi,
+      userId } = body;
 
     const newProfile = await db.user.update({
-        where: {
-            userId: userId1,
-        },
+      where: {
+        id: userId,  // Changed from userId to id
+      },
       data: {
-        height,
-        weight
+        height: parseInt(height),  // Ensure this is an integer
+        weight: parseInt(weight),  // Ensure this is an integer
+        age: parseInt(age),        // Ensure this is an integer
+        bloodType,
+        allergy,
+        bmi: parseFloat(bmi)       // Ensure this is a float
       },
     });
 
     return NextResponse.json(
-      { message: "Profile update successfully", user : newProfile },
+      { message: "Profile updated successfully", user: newProfile },
       { status: 200 }
     );
   } catch (error) {
     return NextResponse.json(
-      { message: "Profile update fail", error: error.message },
+      { message: "Profile update failed", error: error.message },
       { status: 500 }
     );
   }

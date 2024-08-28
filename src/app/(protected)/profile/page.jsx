@@ -5,6 +5,7 @@ import { User, Edit2, Save } from "lucide-react";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
 import Form from "@/components/Profile/Form";
+import { useSession} from "next-auth/react";
 
 export default function Profile() {
 	const [height, setHeight] = useState("");
@@ -15,6 +16,11 @@ export default function Profile() {
 	const [bmi, setBmi] = useState(null); // Initialize BMI state
 	const [isLoading, setIsLoading] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
+
+	const { data: session } = useSession();
+
+    const userId1 = session.user.id
+    console.log(userId1)
 
 	const calculateBMI = (height, weight) => {
 		if (height && weight) {
@@ -28,16 +34,48 @@ export default function Profile() {
 		e.preventDefault();
 		setIsLoading(true);
 
+		const heightInt = parseInt(height, 10);
+		const weightInt = parseInt(weight, 10);
+		const ageInt = parseInt(age, 10);
+
 		// Calculate BMI
 		const calculatedBmi = calculateBMI(height, weight);
 		setBmi(calculatedBmi);
 
-		// Fake API call
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-
-		setIsLoading(false);
-		setIsEditing(false);
-		alert("Data saved successfully!");
+		try {
+			const data = {
+				height: heightInt,
+				weight: weightInt,
+				age: ageInt,
+				bloodType,
+				allergy,
+				bmi: parseFloat(calculatedBmi),
+				userId: session.user.id, 
+			};
+	
+			// Send the data to your API route
+			const response = await fetch('/api/profile', {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			});
+	
+			const result = await response.json();
+	
+			if (response.ok) {
+				alert('Data saved successfully!');
+				setIsEditing(false);
+			} else {
+				alert(`Failed to save data: ${result.message}`);
+			}
+		} catch (error) {
+			console.error('Error:', error);
+			alert('An error occurred while saving data.');
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	const user = {
@@ -96,8 +134,8 @@ export default function Profile() {
 										placeholder="Enter blood type"
 									/>
 									<InfoItem
-										label="Height"
-										value={height || `${user.height} cm`}
+										label="Height (cm)"
+										value={height || ``}
 										isEditing={isEditing}
 										onChange={(e) =>
 											setHeight(e.target.value)
@@ -105,8 +143,8 @@ export default function Profile() {
 										placeholder="Enter height (cm)"
 									/>
 									<InfoItem
-										label="Weight"
-										value={weight || `${user.weight} kg`}
+										label="Weight (kg)"
+										value={weight || ``}
 										isEditing={isEditing}
 										onChange={(e) =>
 											setWeight(e.target.value)
