@@ -15,6 +15,7 @@ Fitur-fitur yang termasuk pelacak pola tidur, berat badan, riwayat medis, kunjun
 -   **Prisma**
 -   **PostgreSQL**
 -   **NextAuth**
+-   **Node.js**
 -   **Tailwind CSS**
 -   **CSS**
 -   **Javascript/Typescript**
