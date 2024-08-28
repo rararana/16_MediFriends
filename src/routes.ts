@@ -3,7 +3,7 @@
  * These routes do not require authentication
  * @type {string[]}
  */
-export const publicRoutes = ["/", "/sleep-history", "/visit-history"];
+export const publicRoutes = ["/"];
 /**
  * An array of routes that are used for authentication
  * These routes will redirect logged in users to /dashboard
