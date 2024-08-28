@@ -1,14 +1,18 @@
 "use client";
 import { useSession, signOut } from "next-auth/react";
-import { auth } from "@/auth";
 import NavDashboard from "@/components/NavDashboard";
 import Head from "next/head";
 import { useState } from "react";
 import MobileNav from "@/components/MobileNav";
+import Hero from "@/components/LandingPage/Hero";
+import { CarouselDemo } from "@/components/LandingPage/Carousel";
+import NavigationPage from "@/components/LandingPage/NavigationPage";
 
 const Dashboard = () => {
-	const session = useSession();
+	const { data: session } = useSession();
 	console.log(JSON.stringify(session));
+
+	const userId = session?.user?.id;
 
 	const [nav, setNav] = useState(false);
 	const openNav = () => setNav(true);
@@ -18,10 +22,18 @@ const Dashboard = () => {
 			<Head>
 				<title>Medifriends</title>
 			</Head>
+			<div id="landing-hero-section" className="mt-[6rem]">
+				<Hero />
+			</div>
+			<div>
+				<NavigationPage />
+			</div>
 			{/* Nav */}
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div className="absolute bottom-5">{JSON.stringify(session)}</div>
+			<div id="landing-carousel-section">
+				<CarouselDemo />
+			</div>
 		</>
 	);
 };

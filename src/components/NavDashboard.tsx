@@ -65,12 +65,13 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 					Friends
 				</h1>
 				<nav className="flex ml-auto gap-2">
-					<button
+					<Button
 						onClick={handleSignOut}
-						className="bg-[#ff5151] hover:bg-[#cf4646] active:bg-[#b43737] transition-all text-white px-4 py-2 rounded"
+						variant="outline"
+						className="border-[#ffffffc2] text-white bg-[#1f4e94] hover:bg-[#264476] active:bg-[#182c4d] hover:text-white rounded-sm py-2 px-6"
 					>
 						Log Out
-					</button>
+					</Button>
 					<div
 						onClick={openNav}
 						className="flex justify-center items-center ml-5"

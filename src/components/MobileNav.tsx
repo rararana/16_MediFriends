@@ -56,12 +56,12 @@ const MobileNav = ({ nav, closeNav }: Props) => {
 						>
 							<XMarkIcon className="w-full h-full" />
 						</div>
-						<div className="w-10 h-10 rounded-full overflow-hidden">
+						<div className="w-15 h-15 rounded-full overflow-hidden">
 							<Image
 								src="/images/profile-picture.png"
 								alt="Profile"
-								width={40}
-								height={40}
+								width={50}
+								height={50}
 								className="object-cover cursor-pointer"
 								onClick={() => router.push("/profile")}
 							/>
@@ -79,25 +79,17 @@ const MobileNav = ({ nav, closeNav }: Props) => {
 						<li>
 							<a
 								className="nav-link-mobile"
-								onClick={() => handleNavClick("/visit-history")}
-							>
-								Visit History
-							</a>
-						</li>
-						<li>
-							<a
-								className="nav-link-mobile"
-								onClick={() => handleNavClick("/article")}
-							>
-								Article
-							</a>
-						</li>
-						<li>
-							<a
-								className="nav-link-mobile"
 								onClick={() => handleNavClick("/sleep-history")}
 							>
 								Sleep Tracker
+							</a>
+						</li>
+						<li>
+							<a
+								className="nav-link-mobile"
+								onClick={() => handleNavClick("/visit-history")}
+							>
+								Visit History
 							</a>
 						</li>
 						<li>
@@ -108,6 +100,24 @@ const MobileNav = ({ nav, closeNav }: Props) => {
 								}
 							>
 								Nearest Hospital
+							</a>
+						</li>
+						<li>
+							<a
+								className="nav-link-mobile"
+								onClick={() =>
+									handleNavClick("/vaccine-history")
+								}
+							>
+								Vaccine Record
+							</a>
+						</li>
+						<li>
+							<a
+								className="nav-link-mobile"
+								onClick={() => handleNavClick("/article")}
+							>
+								Articles
 							</a>
 						</li>
 					</ul>
