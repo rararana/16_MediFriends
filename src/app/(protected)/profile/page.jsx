@@ -127,11 +127,6 @@ export default function Profile() {
 										placeholder="Enter allergy information"
 									/>
 								</div>
-								<InfoItem
-									label="Chronic Disease"
-									value={user.chronicDisease}
-									fullWidth
-								/>
 								{isEditing && (
 									<button
 										type="submit"

@@ -32,11 +32,10 @@ const ProfileDetails = ({ userData }) => {
 	);
 };
 
-// Example usage
 const user = {
-	username: "JohnDoe",
+	username: "Sparta Sigma",
 	phoneNumber: "+1234567890",
-	email: "john.doe@example.com",
+	email: "sparta.hmif@example.com",
 	password: "secret",
 };
 

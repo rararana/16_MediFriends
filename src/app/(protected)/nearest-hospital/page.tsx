@@ -16,11 +16,11 @@ export default function Home() {
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
 			<div className="container mx-auto mt-[6rem]">
-				<div className="min-h-screen grid grid-cols-2 gap-4">
+				<div className="min-h-screen grid grid-cols-2 gap-10">
 					<div className="max-w-[100%]">
 						<NearestHospital />
 					</div>
-					<div className="max-w-xl mt-[1.5rem]">
+					<div className="mt-[1.5rem]">
 						<HospitalList />
 					</div>
 				</div>
