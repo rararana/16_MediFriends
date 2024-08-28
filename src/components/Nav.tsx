@@ -58,20 +58,18 @@ const Nav = ({ openNav, closeNav }: Props) => {
 					Friends
 				</h1>
 				<nav className="flex ml-auto gap-2">
-					<Button
+					<button
 						onClick={() => router.push("/auth/register")}
-						variant="outline"
-						className="border-[#ffffffc2] text-white bg-[#3eacde] hover:bg-[#3e99ca] hover:text-white rounded-s-2xl px-7"
+						className="border-[#ffffffc2] border-2 px-7 py-3 text-white bg-[#3eacde] hover:bg-[#3e99ca] hover:text-white rounded-s-2xl"
 					>
 						Sign Up
-					</Button>
-					<Button
+					</button>
+					<button
 						onClick={() => router.push("/auth/login")}
-						variant="outline"
-						className="border-[#ffffffc2] text-white bg-[#6B9EEB] hover:bg-[#4e7dc8] hover:text-white rounded-e-2xl px-7"
+						className="border-[#ffffffc2] border-2 px-7 py-3 text-white bg-[#6B9EEB] hover:bg-[#4e7dc8] hover:text-white rounded-e-2xl"
 					>
 						Login
-					</Button>
+					</button>
 				</nav>
 			</div>
 		</header>
