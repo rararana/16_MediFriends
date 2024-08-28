@@ -16,7 +16,7 @@ const Form = () => {
     setIsLoading(true)
 
     const card = {
-      id: '2', userId: "cm08fuidt0000to4wrfk5w2xs", visitDate, clinicHospitalName, diagnosis, treatment
+      id: '3', userId: "cm08fuidt0000to4wrfk5w2xs", visitDate, clinicHospitalName, diagnosis, treatment
     }
     const response = await fetch("/api/visitHistory/createVisitHistory", {
       method: "POST",

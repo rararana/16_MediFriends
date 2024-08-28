@@ -1,6 +1,7 @@
 "use client"; // Add this directive
 
 import React from "react";
+import { useEffect, useState } from "react";
 
 interface SleepRecord {
 	date: string;
@@ -15,6 +16,22 @@ interface SleepTableProps {
 }
 
 const SleepTable: React.FC<SleepTableProps> = ({ records }) => {
+	
+	const [datas, setDatas] = useState([]);
+	const fetchData = async () => {
+		try {
+			const response = await fetch("/api/sleepHistory/getSleepHistory");
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
+			}
+			console.log(response);
+			const dataa = await response.json(); // Parsing the response as JSON
+			setDatas(dataa.allVisitHistory || []); // Updating the state with the fetched
+		} catch (error) {
+			console.error("Failed to fetch data:", error);
+		}
+	};
+
 	return (
 		<table>
 			<thead>
