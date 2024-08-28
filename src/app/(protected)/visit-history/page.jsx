@@ -40,8 +40,9 @@ const Datas = () => {
 					Data Kunjungan Rumah Sakit
 				</h1>
 				<Form />
-				{datas.map((data, index) => (
-					<CardList key={data.id || index}>
+				{datas.map((data) => (
+					<CardList key={data.id}>
+						{" "}
 						<div className="ml-5 font-semibold rounded-md text-xl mb-3 tracking-wider">
 							{data.clinicHospitalName}
 						</div>
