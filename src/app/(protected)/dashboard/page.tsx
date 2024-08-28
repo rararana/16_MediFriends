@@ -21,7 +21,7 @@ const Dashboard = () => {
 			{/* Nav */}
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div>{JSON.stringify(session)}</div>
+			<div className="absolute bottom-5">{JSON.stringify(session)}</div>
 		</>
 	);
 };

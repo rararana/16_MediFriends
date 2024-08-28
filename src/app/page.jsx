@@ -9,6 +9,7 @@ import MobileNav from "@/components/MobileNav";
 import Nav from "@/components/Nav";
 import "aos/dist/aos.css";
 import "../styles/globals.css";
+import Footer from "@/components/LandingPage/Footer";
 
 const HomePage = () => {
 	const [nav, setNav] = useState(false);

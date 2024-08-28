@@ -67,8 +67,8 @@ export function CarouselDemo() {
 					</CarouselItem>
 				))}
 			</CarouselContent>
-			<CarouselPrevious />
-			<CarouselNext />
+			<CarouselPrevious className="w-12 h-12 text-black bg-[#EEEEEE]" />
+			<CarouselNext className="w-12 h-12 text-black bg-[#EEEEEE]" />
 		</UiCarousel>
 	);
 }

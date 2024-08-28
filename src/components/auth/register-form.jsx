@@ -49,7 +49,9 @@ export const RegisterForm = () => {
 						setError(data.error || "Default error message");
 					} else if (data.success) {
 						setSuccess(data.success);
-						router.push("/auth/login");
+						setTimeout(() => {
+							router.push("/auth/login");
+						}, 2000);
 					}
 				} else {
 					setError("Unexpected response format");

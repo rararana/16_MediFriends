@@ -49,8 +49,9 @@ export const LoginForm = () => {
 							setError(data.error || "Default error message");
 						} else if (data.success) {
 							setSuccess(data.success);
-							// Redirect after success is set
-							router.push("/");
+							setTimeout(() => {
+								router.push("/");
+							}, 2000);
 						}
 					} else {
 						setError("Unexpected response format");
