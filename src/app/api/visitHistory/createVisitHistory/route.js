@@ -9,7 +9,6 @@ export async function POST(request) {
 		console.log("body", body);
 
 		const {
-			id,
 			userId,
 			visitDate,
 			clinicHospitalName,
@@ -19,7 +18,6 @@ export async function POST(request) {
 
 		const newVisitHistory = await db.visitHistory.create({
 			data: {
-				id,
 				userId,
 				visitDate,
 				clinicHospitalName,

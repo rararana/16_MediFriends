@@ -9,7 +9,6 @@ export async function POST(request) {
 		console.log(body);
 
 		const {
-			id,
 			userId,
 			vaccineName,
             vaccineDate,
@@ -18,7 +17,6 @@ export async function POST(request) {
 
 		const newVaccineHistory = await db.vaccineHistory.create({
 			data: {
-				id,
 				userId,
 				vaccineName,
                 vaccineDate,

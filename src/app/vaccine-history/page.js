@@ -49,7 +49,6 @@ export default function VaccineHistory() {
             const response = await fetch("/api/vaccineHistory/createVaccineHistory", {
                 method: "POST",
                 body: JSON.stringify({
-                    id: '2',
                     userId: "cm0dgb9lv0000r8ra38gr40ps",
                     vaccineName: form.vaccineName,
                     vaccineDate: form.date,
