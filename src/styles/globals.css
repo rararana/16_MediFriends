@@ -67,6 +67,10 @@
 		@apply bg-background text-foreground h-full m-0;
 	}
 
+	nav {
+		z-index: 1000;
+	}
+
 	/* Global styles for tables */
 	table {
 		width: 100%;
