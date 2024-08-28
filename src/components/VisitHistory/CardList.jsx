@@ -2,7 +2,7 @@ import React from 'react'
 
 const CardList = ({children}) => {
   return (
-    <div className="bg-gradient-to-br from-stone-300 to-stone-100 shadow-stone-300 shadow-md text-slate-900 text-xs mb-3 mx-3 p-3 rounded-xl ">
+    <div className="bg-gradient-to-r from-[#5eb9d4] to-[#93def5] shadow-lg shadow-gray-300 text-white mb-8 mx-28 py-6 px-4 rounded-xl ">
         {children}
     </div>
   )
