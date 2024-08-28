@@ -1,9 +1,9 @@
-import image50thn from '../../../../public/images/health-article/50tahun.png'
-import imagecovid from '../../../../public/images/health-article/covid.png'
-import imagekesehatandunia from '../../../../public/images/health-article/kesehatandunia.png'
-import imagepolio from '../../../../public/images/health-article/polio.png'
-import imagepolusi from '../../../../public/images/health-article/polusi.png'
-import imagerokok from '../../../../public/images/health-article/rokok.png'
+import image50thn from 'public/images/health-article/50tahun.png'
+import imagecovid from 'public/images/health-article/covid.png'
+import imagekesehatandunia from 'public/images/health-article/kesehatandunia.png'
+import imagepolio from 'public/images/health-article/polio.png'
+import imagepolusi from 'public/images/health-article/polusi.png'
+import imagerokok from 'public/images/health-article/rokok.png'
 
 export const articles = [
     {
