@@ -7,19 +7,27 @@ import NavDashboard from "@/components/NavDashboard";
 import Form from "@/components/Profile/Form";
 
 export default function Profile() {
-	const [height, setHeight] = useState("");
-	const [weight, setWeight] = useState("");
+	const [height, setHeight] = useState(""); // Keep these as strings
+	const [weight, setWeight] = useState(""); // Keep these as strings
 	const [age, setAge] = useState(20);
 	const [bloodType, setBloodType] = useState("O");
 	const [allergy, setAllergy] = useState("None");
-	const [bmi, setBmi] = useState(null); // Initialize BMI state
+	const [bmi, setBmi] = useState(null); // Ensure BMI is a number or null
 	const [isLoading, setIsLoading] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 
 	const calculateBMI = (height, weight) => {
-		if (height && weight) {
-			const heightInMeters = height / 100;
-			return (weight / (heightInMeters * heightInMeters)).toFixed(2);
+		const heightInMeters = parseFloat(height) / 100; // Convert height to meters
+		const weightInKg = parseFloat(weight); // Convert weight to kg
+
+		if (
+			!isNaN(heightInMeters) &&
+			!isNaN(weightInKg) &&
+			heightInMeters > 0
+		) {
+			return parseFloat(
+				(weightInKg / (heightInMeters * heightInMeters)).toFixed(2)
+			);
 		}
 		return null;
 	};
@@ -44,7 +52,7 @@ export default function Profile() {
 		name: "John Doe",
 		height: 175,
 		weight: 70,
-		bmi: bmi || 22.9,
+		bmi: bmi || 22.9, // Use calculated BMI or default
 		chronicDisease: "None",
 	};
 
@@ -103,6 +111,7 @@ export default function Profile() {
 											setHeight(e.target.value)
 										}
 										placeholder="Enter height (cm)"
+										type="number" // Ensure the input is of type number
 									/>
 									<InfoItem
 										label="Weight"
@@ -112,10 +121,11 @@ export default function Profile() {
 											setWeight(e.target.value)
 										}
 										placeholder="Enter weight (kg)"
+										type="number" // Ensure the input is of type number
 									/>
 									<InfoItem
 										label="BMI"
-										value={bmi || user.bmi}
+										value={bmi !== null ? bmi : user.bmi} // Display calculated BMI or default
 									/>
 									<a
 										href="https://www.ncbi.nlm.nih.gov/books/NBK541070/"
@@ -167,6 +177,7 @@ const InfoItem = ({
 	onChange,
 	fullWidth,
 	placeholder,
+	type = "text", // Default type is text
 }) => (
 	<div className={`${fullWidth ? "col-span-2" : ""}`}>
 		<label className="block text-sm font-medium text-gray-700">
@@ -174,7 +185,7 @@ const InfoItem = ({
 		</label>
 		{isEditing && onChange ? (
 			<input
-				type="text"
+				type={type}
 				value={value}
 				onChange={onChange}
 				className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
