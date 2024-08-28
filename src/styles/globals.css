@@ -119,6 +119,10 @@
 	#landing-signup-section {
 		height: 60vh;
 	}
+
+	.nav-box {
+		@apply p-7 bg-white shadow-lg rounded-lg cursor-pointer hover:bg-sky-200 transition ease-in-out;
+	}
 }
 
 @layer components {

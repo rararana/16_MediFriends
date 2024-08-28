@@ -6,7 +6,7 @@ import { useState } from "react";
 import MobileNav from "@/components/MobileNav";
 import Hero from "@/components/LandingPage/Hero";
 import { CarouselDemo } from "@/components/LandingPage/Carousel";
-import { CallToAction } from "@/components/LandingPage/CallToAction";
+import NavigationPage from "@/components/LandingPage/NavigationPage";
 
 const Dashboard = () => {
 	const { data: session } = useSession();
@@ -24,6 +24,9 @@ const Dashboard = () => {
 			</Head>
 			<div id="landing-hero-section" className="mt-[6rem]">
 				<Hero />
+			</div>
+			<div>
+				<NavigationPage />
 			</div>
 			{/* Nav */}
 			<MobileNav nav={nav} closeNav={closeNav} />
