@@ -42,7 +42,7 @@ export default function Profile() {
 
 	const user = {
 		name: "John Doe",
-		height: 0,
+		height: 175,
 		weight: 70,
 		bmi: bmi || 22.9,
 		chronicDisease: "None",
@@ -97,7 +97,7 @@ export default function Profile() {
 									/>
 									<InfoItem
 										label="Height"
-										value={height || ""}
+										value={height || `${user.height} cm`}
 										isEditing={isEditing}
 										onChange={(e) =>
 											setHeight(e.target.value)
