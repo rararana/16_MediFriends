@@ -50,11 +50,11 @@ const Datas = () => {
 				{datas.map((data) => {
 					return (
 						<CardList>
-							<div className="font-semibold rounded-md mb-3 bg-gradient-to-br from-stone-200 to-stone-50 p-1">
-								{data.name}
+							<div className="ml-5 font-semibold rounded-md text-xl mb-3 tracking-wider">
+								{data.clinicHospitalName}
 							</div>
-							<div className="rounded-md bg-gradient-to-br from-stone-200 to-stone-50 p-1">
-								<div>{data.clinicHospitalName}</div>
+							<div className="leading-relaxed mx-5 my-1 pl-5 rounded-md bg-sky-200 bg-opacity-40 text-lg border-sky-100 border-opacity-20 border-2 py-3">
+								<div>{data.visitDate}</div>
 								<div>{data.diagnose}</div>
 								<div>{data.treatment}</div>
 							</div>
