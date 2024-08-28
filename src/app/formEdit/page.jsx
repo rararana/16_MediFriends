@@ -1,10 +1,31 @@
 "use client";
 
 import React, { useState } from 'react';
-import Form from './components/Form';
-import Link from 'next/link';
 
 export default function Profile() {
+    const [height, setHeight] = useState("");
+    const [weight, setWeight] = useState("");
+    const [isLoading, setIsLoading] = useState("");
+
+    const handleSubmit = async(e) => {
+        e.preventDefault()
+        setIsLoading(true)
+    
+        const card = {
+          height, weight
+        }
+        //pake fake API untuk sementara waktu
+        const response = await fetch("", {
+          method: "POST",
+          body: card
+        })
+    
+        if(response.status == 201){
+          router.refresh()
+          router.push('..')
+        }
+    
+    }
 
     const ProfileCard = ({ user }) => (
         <div style={styles.card}>
@@ -20,8 +41,11 @@ export default function Profile() {
                 <div>
                     <p><strong>Name:</strong> {user.name}</p>
                     <p><strong>Age:</strong> {user.age}</p>
-                    <p><strong>Height:</strong> {user.height} cm</p>
-                    <p><strong>Weight:</strong> {user.weight} kg</p>
+                    <p><strong>Height:</strong>
+                    <input type="text" name="height" value={height} onChange={(e) => setHeight(e.target.value)} className='w-10'></input></p>
+                    <p><strong>Weight:</strong>
+                    <input type="text" name="weight" value={weight} onChange={(e) => setWeight(e.target.value)} className='w-10'></input>
+                    kg</p>
                     <p><strong>BMI:</strong> {(user.weight*10000/(user.height*user.height)).toFixed(2)} </p>
                 </div>
                 <div>
@@ -30,7 +54,11 @@ export default function Profile() {
                     <p><strong>Chronic Disease:</strong> {user.chronicDisease}</p>
                 </div>
             </div>
-            <Link href="/formEdit" className="inline-block float-right -mt-7 text-2xl text-white cursor-pointer"><div className='w-7'>✎</div></Link>
+            <br />
+            <button onSubmit={handleSubmit} className="inline-block ml-100 bg-blue-500 rounded-md p-2 text-white " type="submit" disabled={isLoading}>
+              {isLoading && <span>Memproses...</span>}
+              {!isLoading && <span>Simpan</span>}
+            </button>
         </div>
     );
 
@@ -48,7 +76,6 @@ export default function Profile() {
     return (
         <>
             <ProfileCard user={user} />
-            <Form />
         </>
     );
 }
