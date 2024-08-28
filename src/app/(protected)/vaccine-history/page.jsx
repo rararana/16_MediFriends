@@ -3,6 +3,7 @@
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
 import { useEffect, useState } from "react";
+import styles from "@/styles/styles.module.css";
 
 export default function VaccineHistory() {
 	const [vaccines, setVaccines] = useState([]);
@@ -100,7 +101,7 @@ export default function VaccineHistory() {
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
 			<div className="mt-[6rem] container">
-				<h1>Vaccine History</h1>
+				<h1 className={styles.bigBoldText}>Vaccine History</h1>
 				<form onSubmit={handleSubmit}>
 					<div>
 						<label>Vaccine Name:</label>
@@ -156,11 +157,11 @@ export default function VaccineHistory() {
 				</form>
 
 				<br />
-				<h2>Vaccine List</h2>
+				<h2 className={styles.bigBoldText2}>Vaccine List</h2>
 				<ul>
 					{vaccines.map((vaccine, index) => (
 						<li key={index}>
-							<strong>{vaccine.vaccineName}</strong>
+							<br /><h3 className={styles.bigBoldText3}>{vaccine.vaccineName}</h3>
 							<br />
 							Date: {vaccine.vaccineDate}
 							<br />
