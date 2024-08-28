@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { User, Edit2, Save } from "lucide-react"; // Import Lucide icons
+import { User, Edit2, Save } from "lucide-react";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
 import Form from "@/components/Profile/Form";
