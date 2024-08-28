@@ -1,101 +1,27 @@
 "use client";
 
 import React, { useState } from "react";
+import { User, Edit2, Save } from "lucide-react";
 
 export default function Profile() {
 	const [height, setHeight] = useState("");
 	const [weight, setWeight] = useState("");
-	const [isLoading, setIsLoading] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setIsLoading(true);
 
-		const card = {
-			height,
-			weight,
-		};
-		//pake fake API untuk sementara waktu
-		const response = await fetch("", {
-			method: "POST",
-			body: card,
-		});
+		const card = { height, weight };
 
-		if (response.status == 201) {
-			router.refresh();
-			router.push("..");
-		}
+		// Fake API call
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		setIsLoading(false);
+		setIsEditing(false);
+		alert("Data saved successfully!");
 	};
-
-	const ProfileCard = ({ user }) => (
-		<div style={styles.card}>
-			<div style={styles.header}>
-				<img
-					src="https://via.placeholder.com/100"
-					alt="profile"
-					style={styles.profileImage}
-				/>
-				<h2>Hello, {user.name}</h2>
-			</div>
-			<div style={styles.infoContainer}>
-				<div>
-					<p>
-						<strong>Name:</strong> {user.name}
-					</p>
-					<p>
-						<strong>Age:</strong> {user.age}
-					</p>
-					<p>
-						<strong>Height:</strong>
-						<input
-							type="text"
-							name="height"
-							value={height}
-							onChange={(e) => setHeight(e.target.value)}
-						></input>
-					</p>
-					<p>
-						<strong>Weight:</strong>
-						<input
-							type="text"
-							name="weight"
-							value={weight}
-							onChange={(e) => setWeight(e.target.value)}
-						></input>
-						kg
-					</p>
-					<p>
-						<strong>BMI:</strong>{" "}
-						{(
-							(user.weight * 10000) /
-							(user.height * user.height)
-						).toFixed(2)}{" "}
-					</p>
-				</div>
-				<div>
-					<p>
-						<strong>Blood Type:</strong> {user.bloodType}
-					</p>
-					<p>
-						<strong>Allergy:</strong> {user.allergy}
-					</p>
-					<p>
-						<strong>Chronic Disease:</strong> {user.chronicDisease}
-					</p>
-				</div>
-			</div>
-			<br />
-			<button
-				onSubmit={handleSubmit}
-				className="inline-block ml-100 bg-blue-500 rounded-md p-2 text-white "
-				type="submit"
-				disabled={isLoading}
-			>
-				{isLoading && <span>Memproses...</span>}
-				{!isLoading && <span>Simpan</span>}
-			</button>
-		</div>
-	);
 
 	const user = {
 		name: "John Doe",
@@ -109,53 +35,104 @@ export default function Profile() {
 	};
 
 	return (
-		<>
-			<ProfileCard user={user} />
-		</>
+		<div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+			<div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+				<div className="md:flex">
+					<div className="md:shrink-0">
+						<div className="h-48 w-full md:w-48 bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center">
+							<User size={64} color="white" />
+						</div>
+					</div>
+					<div className="p-8 w-full">
+						<div className="flex justify-between items-center mb-4">
+							<h2 className="text-2xl font-bold text-gray-800">
+								{user.name}
+							</h2>
+							<button
+								onClick={() => setIsEditing(!isEditing)}
+								className="text-blue-500 hover:text-blue-700"
+							>
+								<Edit2 size={20} />
+							</button>
+						</div>
+						<form onSubmit={handleSubmit}>
+							<div className="grid grid-cols-2 gap-4 mb-4">
+								<InfoItem
+									label="Age"
+									value={`${user.age} years`}
+								/>
+								<InfoItem
+									label="Blood Type"
+									value={user.bloodType}
+								/>
+								<InfoItem
+									label="Height"
+									value={height || `${user.height} cm`}
+									isEditing={isEditing}
+									onChange={(e) => setHeight(e.target.value)}
+								/>
+								<InfoItem
+									label="Weight"
+									value={weight || `${user.weight} kg`}
+									isEditing={isEditing}
+									onChange={(e) => setWeight(e.target.value)}
+								/>
+								<InfoItem
+									label="BMI"
+									value={user.bmi.toFixed(2)}
+								/>
+								<InfoItem
+									label="Allergy"
+									value={user.allergy}
+								/>
+							</div>
+							<InfoItem
+								label="Chronic Disease"
+								value={user.chronicDisease}
+								fullWidth
+							/>
+							{isEditing && (
+								<button
+									type="submit"
+									className={`mt-4 w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+										isLoading
+											? "opacity-50 cursor-not-allowed"
+											: ""
+									}`}
+									disabled={isLoading}
+								>
+									{isLoading ? (
+										"Saving..."
+									) : (
+										<>
+											<Save size={20} className="mr-2" />
+											Save Changes
+										</>
+									)}
+								</button>
+							)}
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	);
 }
 
-const styles = {
-	card: {
-		backgroundColor: "#87CEEB",
-		padding: "20px",
-		borderRadius: "10px",
-		width: "350px",
-		margin: "20px auto",
-		boxShadow: "0px 0px 10px rgba(0,0,0,0.1)",
-	},
-	header: {
-		textAlign: "center",
-	},
-	profileImage: {
-		borderRadius: "50%",
-		width: "100px",
-		height: "100px",
-	},
-	infoContainer: {
-		display: "flex",
-		justifyContent: "space-between",
-		marginTop: "20px",
-	},
-	form: {
-		backgroundColor: "#87CEEB",
-		padding: "20px",
-		borderRadius: "10px",
-		width: "350px",
-		margin: "20px auto",
-		boxShadow: "0px 0px 10px rgba(0,0,0,0.1)",
-	},
-	inputGroup: {
-		marginBottom: "15px",
-	},
-	label: {
-		display: "block",
-		marginBottom: "5px",
-	},
-	input: {
-		width: "100%",
-		padding: "8px",
-		borderRadius: "5px",
-		border: "1px solid #ccc",
-	},
-};
+const InfoItem = ({ label, value, isEditing, onChange, fullWidth }) => (
+	<div className={`${fullWidth ? "col-span-2" : ""}`}>
+		<label className="block text-sm font-medium text-gray-700">
+			{label}
+		</label>
+		{isEditing && onChange ? (
+			<input
+				type="text"
+				value={value}
+				onChange={onChange}
+				className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+			/>
+		) : (
+			<p className="mt-1 text-sm text-gray-900">{value}</p>
+		)}
+	</div>
+);

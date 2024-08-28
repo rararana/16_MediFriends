@@ -1,66 +1,31 @@
 "use client";
 
 import React, { useState } from "react";
+import { User, Edit2, Save } from "lucide-react"; // Import Lucide icons
 import Link from "next/link";
-import Form from "@/components/Profile/Form";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
+import Form from "@/components/Profile/Form";
 
 export default function Profile() {
-	const ProfileCard = ({ user }) => (
-		<div className="relative bg-sky-300 p-6 rounded-xl shadow-lg w-80 mx-auto">
-			<div className="text-center mb-4">
-				<img
-					src="https://via.placeholder.com/100"
-					alt="profile"
-					className="rounded-full w-24 h-24 mx-auto border-4 border-white shadow-md"
-				/>
-				<h2 className="text-2xl font-bold text-gray-800 mt-3">
-					Hello, {user.name}
-				</h2>
-			</div>
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-				<div className="space-y-2">
-					<p className="text-gray-700">
-						<strong>Name:</strong> {user.name}
-					</p>
-					<p className="text-gray-700">
-						<strong>Age:</strong> {user.age}
-					</p>
-					<p className="text-gray-700">
-						<strong>Height:</strong> {user.height} cm
-					</p>
-					<p className="text-gray-700">
-						<strong>Weight:</strong> {user.weight} kg
-					</p>
-					<p className="text-gray-700">
-						<strong>BMI:</strong>{" "}
-						{(
-							(user.weight * 10000) /
-							(user.height * user.height)
-						).toFixed(2)}
-					</p>
-				</div>
-				<div className="space-y-2">
-					<p className="text-gray-700">
-						<strong>Blood Type:</strong> {user.bloodType}
-					</p>
-					<p className="text-gray-700">
-						<strong>Allergy:</strong> {user.allergy}
-					</p>
-					<p className="text-gray-700">
-						<strong>Chronic Disease:</strong> {user.chronicDisease}
-					</p>
-				</div>
-			</div>
-			<Link
-				href="../profile-form"
-				className="absolute top-5 right-5 text-2xl text-white hover:text-sky-950 transition-all z-10"
-			>
-				<div className="w-7">✎</div>
-			</Link>
-		</div>
-	);
+	const [height, setHeight] = useState("");
+	const [weight, setWeight] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setIsLoading(true);
+
+		const card = { height, weight };
+
+		// Fake API call
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		setIsLoading(false);
+		setIsEditing(false);
+		alert("Data saved successfully!");
+	};
 
 	const user = {
 		name: "John Doe",
@@ -79,15 +44,116 @@ export default function Profile() {
 
 	return (
 		<>
-			<div className="">
-				{/* Nav */}
-				<MobileNav nav={nav} closeNav={closeNav} />
-				<NavDashboard openNav={openNav} closeNav={closeNav} />
-				<div className="mt-24">
-					<ProfileCard user={user} />
-					<Form />
+			{/* Navigation */}
+			<MobileNav nav={nav} closeNav={closeNav} />
+			<NavDashboard openNav={openNav} closeNav={closeNav} />
+			<div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 mt-24">
+				<div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+					<div className="md:flex">
+						<div className="md:shrink-0">
+							<div className="h-48 w-full md:w-48 bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center">
+								<User size={64} color="white" />
+							</div>
+						</div>
+						<div className="p-8 w-full">
+							<div className="flex justify-between items-center mb-4">
+								<h2 className="text-2xl font-bold text-gray-800">
+									{user.name}
+								</h2>
+								<button
+									onClick={() => setIsEditing(!isEditing)}
+									className="text-blue-500 hover:text-blue-700"
+								>
+									<Edit2 size={20} />
+								</button>
+							</div>
+							<form onSubmit={handleSubmit}>
+								<div className="grid grid-cols-2 gap-4 mb-4">
+									<InfoItem
+										label="Age"
+										value={`${user.age} years`}
+									/>
+									<InfoItem
+										label="Blood Type"
+										value={user.bloodType}
+									/>
+									<InfoItem
+										label="Height"
+										value={height || `${user.height} cm`}
+										isEditing={isEditing}
+										onChange={(e) =>
+											setHeight(e.target.value)
+										}
+									/>
+									<InfoItem
+										label="Weight"
+										value={weight || `${user.weight} kg`}
+										isEditing={isEditing}
+										onChange={(e) =>
+											setWeight(e.target.value)
+										}
+									/>
+									<InfoItem
+										label="BMI"
+										value={user.bmi.toFixed(2)}
+									/>
+									<InfoItem
+										label="Allergy"
+										value={user.allergy}
+									/>
+								</div>
+								<InfoItem
+									label="Chronic Disease"
+									value={user.chronicDisease}
+									fullWidth
+								/>
+								{isEditing && (
+									<button
+										type="submit"
+										className={`mt-4 w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+											isLoading
+												? "opacity-50 cursor-not-allowed"
+												: ""
+										}`}
+										disabled={isLoading}
+									>
+										{isLoading ? (
+											"Saving..."
+										) : (
+											<>
+												<Save
+													size={20}
+													className="mr-2"
+												/>
+												Save Changes
+											</>
+										)}
+									</button>
+								)}
+							</form>
+						</div>
+					</div>
 				</div>
+				<Form />
 			</div>
 		</>
 	);
 }
+
+const InfoItem = ({ label, value, isEditing, onChange, fullWidth }) => (
+	<div className={`${fullWidth ? "col-span-2" : ""}`}>
+		<label className="block text-sm font-medium text-gray-700">
+			{label}
+		</label>
+		{isEditing && onChange ? (
+			<input
+				type="text"
+				value={value}
+				onChange={onChange}
+				className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+			/>
+		) : (
+			<p className="mt-1 text-sm text-gray-900">{value}</p>
+		)}
+	</div>
+);
