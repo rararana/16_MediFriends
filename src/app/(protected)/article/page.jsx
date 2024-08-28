@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
-import HospitalList from "@/components/NearestHospital/HospitalList";
-import NearestHospital from "@/components/NearestHospital/NearestHospital";
+import ArticlePage from "@/components/ArticlePage/ArticlePage";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
+import { useState } from "react";
 
-export default function Home() {
+const Articles = () => {
 	const [nav, setNav] = useState(false);
 	const openNav = () => setNav(true);
 	const closeNav = () => setNav(false);
@@ -15,12 +14,11 @@ export default function Home() {
 			{/* Nav */}
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div className="container mx-auto mt-[6rem]">
-				<div className="min-h-screen">
-					<NearestHospital />
-					<HospitalList />
-				</div>
+			<div className="mt-[5rem]">
+				<ArticlePage />;
 			</div>
 		</>
 	);
-}
+};
+
+export default Articles;

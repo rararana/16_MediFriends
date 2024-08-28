@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import MobileNav from "../../components/MobileNav";
+import MobileNav from "@/components/MobileNav";
 
 // Sample data
 const articles = [

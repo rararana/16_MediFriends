@@ -101,13 +101,14 @@ const NearestHospital = () => {
 	return (
 		<div>
 			<h1 className="text-[2.5rem] font-semibold my-4">
-				Nearest Hospitals
+				Hospitals Near You
 			</h1>
 			{userLocation && icons.userIcon && icons.hospitalIcon && (
 				<MapContainer
 					center={userLocation}
 					zoom={14}
 					style={{ height: "500px", width: "100%" }}
+					className="relative z-0"
 				>
 					{/* Renders OpenStreetMap Map Tiles */}
 					<TileLayer

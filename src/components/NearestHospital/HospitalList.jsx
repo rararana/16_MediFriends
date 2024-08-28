@@ -97,11 +97,9 @@ const HospitalList = () => {
 			{hospitals.map((hospital, index) => (
 				<div
 					key={index}
-					className="p-2 border border-collapse rounded my-2"
+					className="p-2 border border-collapse rounded my-2 max-h-[500px] overflow-y-auto"
 				>
-					<h3 className="text-xl">
-						{hospital.tags.name || "Unknown Hospital"}
-					</h3>
+					<h3>{hospital.tags.name || "Unknown Hospital"}</h3>
 					<p>Distance: {hospital.distance.toFixed(2)} km</p>
 					<a
 						href={hospital.googleMapsUrl}
