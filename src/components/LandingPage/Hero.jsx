@@ -18,7 +18,10 @@ const Hero = () => {
 		<div className="container mx-auto my-10 p-4 h-[150vh]">
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-full">
 				<div className="md:col-span-2 flex flex-col space-y-4">
-					<div className="hero-box bg-gradient-to-r from-[#6BC2EB] to-[#2487c5] min-h-[250px] flex items-center justify-center">
+					<div
+						className="hero-box bg-gradient-to-r from-[#6BC2EB] to-[#2487c5] min-h-[250px] flex items-center justify-center"
+						data-aos="slide-right"
+					>
 						<h1 className="text-[4rem] lg:text-[6rem] font-poppins font-semibold">
 							Medi
 							<span className="text-white [text-shadow:0_0_8px_rgba(255,255,255,0.5),0_0_8px_rgba(255,255,255,0.6)]">
@@ -26,15 +29,30 @@ const Hero = () => {
 							</span>
 						</h1>
 					</div>
-					<div className="hero-box bg-gray-300 flex-grow max-h-[420px] bg-[url('/images/hero/hero-img-5.png')] bg-cover bg-center"></div>
+					<div
+						className="hero-box bg-gray-300 flex-grow max-h-[420px] bg-[url('/images/hero/hero-img-5.png')] bg-cover bg-center"
+						data-aos="fade-right"
+					></div>
 					<div className="grid grid-cols-5 gap-4 h-1/7 flex-grow">
-						<div className="hero-box col-span-3 bg-gray-400 bg-[url('/images/hero/hero-img-3.jpeg')] bg-cover bg-center"></div>
-						<div className="hero-box col-span-2 bg-gray-100 bg-[url('/images/hero/hero-img-4.jpeg')] bg-cover bg-center"></div>
+						<div
+							className="hero-box col-span-3 bg-gray-400 bg-[url('/images/hero/hero-img-3.jpeg')] bg-cover bg-center"
+							data-aos="fade-left"
+						></div>
+						<div
+							className="hero-box col-span-2 bg-gray-100 bg-[url('/images/hero/hero-img-4.jpeg')] bg-cover bg-center"
+							data-aos="fade-up"
+						></div>
 					</div>
 				</div>
 				<div className="flex flex-col space-y-4 h-full">
-					<div className="hero-box bg-gray-200 h-2/5 bg-[url('/images/hero/hero-img-1.jpeg')] bg-cover bg-center"></div>
-					<div className="hero-box bg-gradient-to-br from-[#2487c5] to-[#6BC2EB] flex-grow flex h-3/5 items-center justify-center">
+					<div
+						className="hero-box bg-gray-200 h-2/5 bg-[url('/images/hero/hero-img-1.jpeg')] bg-cover bg-center"
+						data-aos="fade-up"
+					></div>
+					<div
+						className="hero-box bg-gradient-to-br from-[#2487c5] to-[#6BC2EB] flex-grow flex h-3/5 items-center justify-center"
+						data-aos="zoom-in"
+					>
 						<h2 className="text-[2rem] md:text-[2.5rem] xl:text-[4rem] text-white text-left font-[600] overflow-hidden">
 							<div className="flex md:flex-col">
 								{/* Below md screen */}

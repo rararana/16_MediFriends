@@ -21,11 +21,7 @@ export default function Home() {
 				</h1>
 				<div style={styles.grid}>
 					{articles.map((article) => (
-						<ArticleCard
-							className="hover:scale-125"
-							key={article.id}
-							article={article}
-						/>
+						<ArticleCard key={article.id} article={article} />
 					))}
 				</div>
 			</div>

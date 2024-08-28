@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const ArticleCard = ({ article }) => {
+	useEffect(() => {
+		AOS.init({
+			duration: 1000,
+			easing: "ease-in-out",
+			once: true,
+		});
+		AOS.refresh();
+	}, []);
+
 	return (
 		<div
 			className="hover:scale-110 transition duration-500"
 			style={styles.card}
+			data-aos="slide-up"
 		>
 			<Link href={article.link} passHref>
 				<Image
