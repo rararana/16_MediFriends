@@ -1,4 +1,7 @@
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const NavigationPage = () => {
 	const router = useRouter();
@@ -6,6 +9,15 @@ const NavigationPage = () => {
 	const handleNavigation = (path) => {
 		router.push(path);
 	};
+
+	useEffect(() => {
+		AOS.init({
+			duration: 1000,
+			easing: "ease-in-out",
+			once: true,
+		});
+		AOS.refresh();
+	}, []);
 
 	return (
 		<div className="flex flex-col items-center justify-center min-h-[80vh] p-6 bg-gray-100">
@@ -16,6 +28,7 @@ const NavigationPage = () => {
 				<div
 					onClick={() => handleNavigation("/profile")}
 					className="nav-box"
+					data-aos="slide-up"
 				>
 					<h2 className="text-xl font-semibold mb-2">
 						Profile & BMI Calculator
@@ -27,6 +40,8 @@ const NavigationPage = () => {
 				<div
 					onClick={() => handleNavigation("/sleep-history")}
 					className="nav-box"
+					data-aos="slide-up"
+					data-aos-delay="100"
 				>
 					<h2 className="text-xl font-semibold mb-2">
 						Sleep Tracker
@@ -36,6 +51,8 @@ const NavigationPage = () => {
 				<div
 					onClick={() => handleNavigation("/visit-history")}
 					className="nav-box"
+					data-aos="slide-up"
+					data-aos-delay="100"
 				>
 					<h2 className="text-xl font-semibold mb-2">
 						Visit History
@@ -45,6 +62,8 @@ const NavigationPage = () => {
 				<div
 					onClick={() => handleNavigation("/vaccine-history")}
 					className="nav-box"
+					data-aos="slide-up"
+					data-aos-delay="200"
 				>
 					<h2 className="text-xl font-semibold mb-2">
 						Vaccine History
@@ -56,6 +75,8 @@ const NavigationPage = () => {
 				<div
 					onClick={() => handleNavigation("/nearest-hospital")}
 					className="nav-box"
+					data-aos="slide-up"
+					data-aos-delay="200"
 				>
 					<h2 className="text-xl font-semibold mb-2">
 						Nearest Hospital
@@ -65,6 +86,8 @@ const NavigationPage = () => {
 				<div
 					onClick={() => handleNavigation("/article")}
 					className="nav-box"
+					data-aos="slide-up"
+					data-aos-delay="300"
 				>
 					<h2 className="text-xl font-semibold mb-2">Article</h2>
 					<p className="text-gray-600">

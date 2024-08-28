@@ -1,39 +1,85 @@
-"use client";
+"use client"; // Ensure this file is treated as a Client Component
 
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import MobileNav from "@/components/MobileNav";
+import NavDashboard from "@/components/NavDashboard";
 
 // Sample data
 const articles = [
 	{
 		id: 1,
-		title: "Understanding Diabetes",
+		title: "Heart Disease",
 		excerpt:
 			"Learn about diabetes, its symptoms, causes, and management tips.",
-		image: "/images/diabetes.jpg",
+		image: "/images/disease-article/1.jpg",
+		link: "https://nutritionsource.hsph.harvard.edu/disease-prevention/cardiovascular-disease/",
 	},
 	{
 		id: 2,
-		title: "Heart Disease Awareness",
+		title: "About Mumps",
 		excerpt:
 			"Important information about heart disease prevention and treatment.",
-		image: "/images/heart-disease.jpg",
+		image: "/images/disease-article/2.jpg",
+		link: "https://www.cdc.gov/mumps/about/index.html",
 	},
 	{
 		id: 3,
-		title: "Managing Hypertension",
+		title: "Celiac Disease",
 		excerpt: "Effective strategies for managing high blood pressure.",
-		image: "/images/hypertension.jpg",
+		image: "/images/disease-article/3.jpg",
+		link: "https://www.nejm.org/doi/full/10.1056/NEJMcp1113994",
+	},
+	{
+		id: 4,
+		title: "Sexually Transmitted Infections (STIs): Overview and More",
+		excerpt: "Effective strategies for managing high blood pressure.",
+		image: "/images/disease-article/4.jpg",
+		link: "https://www.verywellhealth.com/std-overview-4581893",
+	},
+	{
+		id: 5,
+		title: "Cardiovascular diseases (CVDs)",
+		excerpt: "Effective strategies for managing high blood pressure.",
+		image: "/images/disease-article/5.jpg",
+		link: "https://www.who.int/news-room/fact-sheets/detail/cardiovascular-diseases-(cvds)",
+	},
+	{
+		id: 6,
+		title: "Diabetes",
+		excerpt: "Effective strategies for managing high blood pressure.",
+		image: "/images/disease-article/6.jpg",
+		link: "https://www.who.int/health-topics/diabetes",
+	},
+	{
+		id: 7,
+		title: "COVID-19 Mythbusters",
+		excerpt: "Effective strategies for managing high blood pressure.",
+		image: "/images/disease-article/7.jpg",
+		link: "https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public/myth-busters",
+	},
+	{
+		id: 8,
+		title: "Stunted growth ‘and’ obesity: the double burden of poor nutrition on our doorstep",
+		excerpt: "Effective strategies for managing high blood pressure.",
+		image: "/images/disease-article/8.jpg",
+		link: "https://theconversation.com/stunted-growth-and-obesity-the-double-burden-of-poor-nutrition-on-our-doorstep-50385",
+	},
+	{
+		id: 9,
+		title: "Chronic Obstructive Pulmonary Disease (COPD): Overview and More",
+		excerpt: "Effective strategies for managing high blood pressure.",
+		image: "/images/disease-article/9.jpg",
+		link: "https://www.verywellhealth.com/copd-4014741",
 	},
 ];
 
-const ArticlesPage: React.FC = () => {
+const ArticlesPage = () => {
 	const [nav, setNav] = useState(false);
 	const openNav = () => setNav(true);
 	const closeNav = () => setNav(false);
-
 	return (
 		<div>
 			<Head>
@@ -45,10 +91,8 @@ const ArticlesPage: React.FC = () => {
 			</Head>
 			{/* Nav */}
 			<MobileNav nav={nav} closeNav={closeNav} />
-			<header className="header">
-				<h1>Health Articles</h1>
-			</header>
-			<main className="main">
+			<NavDashboard openNav={openNav} closeNav={closeNav} />
+			<main className="main mt-[6rem]">
 				<section className="articles-grid">
 					{articles.map((article) => (
 						<div key={article.id} className="article-card">
@@ -60,23 +104,19 @@ const ArticlesPage: React.FC = () => {
 							<div className="article-content">
 								<h2>{article.title}</h2>
 								<p>{article.excerpt}</p>
-								<Link
-									href={`/articles/${article.id}`}
+								<a
+									href={article.link}
 									className="read-more"
+									target="_blank"
+									rel="noopener noreferrer"
 								>
 									Read More
-								</Link>
+								</a>
 							</div>
 						</div>
 					))}
 				</section>
 			</main>
-			<footer className="footer">
-				<p>
-					&copy; {new Date().getFullYear()} HealthSite. All rights
-					reserved.
-				</p>
-			</footer>
 			<style jsx>{`
 				.header {
 					background-color: #4caf50; /* Fresh green */
