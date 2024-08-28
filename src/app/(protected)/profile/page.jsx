@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { User, Edit2, Save } from "lucide-react"; // Import Lucide icons
-import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
 import Form from "@/components/Profile/Form";
@@ -10,14 +9,30 @@ import Form from "@/components/Profile/Form";
 export default function Profile() {
 	const [height, setHeight] = useState("");
 	const [weight, setWeight] = useState("");
+	const [age, setAge] = useState(30);
+	const [bloodType, setBloodType] = useState("O");
+	const [allergy, setAllergy] = useState("None");
+	const [bmi, setBmi] = useState(null); // Initialize BMI state
 	const [isLoading, setIsLoading] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
+
+	const calculateBMI = (height, weight) => {
+		if (height && weight) {
+			const heightInMeters = height / 100;
+			return (weight / (heightInMeters * heightInMeters)).toFixed(2);
+		}
+		return null;
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setIsLoading(true);
 
-		const card = { height, weight };
+		const profileData = { height, weight, age, bloodType, allergy };
+
+		// Calculate BMI and update state
+		const calculatedBmi = calculateBMI(height, weight);
+		setBmi(calculatedBmi);
 
 		// Fake API call
 		await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -29,12 +44,9 @@ export default function Profile() {
 
 	const user = {
 		name: "John Doe",
-		age: 30,
 		height: 175,
 		weight: 70,
-		bmi: 22.9,
-		bloodType: "O",
-		allergy: "None",
+		bmi: bmi || 22.9,
 		chronicDisease: "None",
 	};
 
@@ -71,11 +83,19 @@ export default function Profile() {
 								<div className="grid grid-cols-2 gap-4 mb-4">
 									<InfoItem
 										label="Age"
-										value={`${user.age} years`}
+										value={age}
+										isEditing={isEditing}
+										onChange={(e) => setAge(e.target.value)}
+										placeholder="Enter age"
 									/>
 									<InfoItem
 										label="Blood Type"
-										value={user.bloodType}
+										value={bloodType}
+										isEditing={isEditing}
+										onChange={(e) =>
+											setBloodType(e.target.value)
+										}
+										placeholder="Enter blood type"
 									/>
 									<InfoItem
 										label="Height"
@@ -84,6 +104,7 @@ export default function Profile() {
 										onChange={(e) =>
 											setHeight(e.target.value)
 										}
+										placeholder="Enter height (cm)"
 									/>
 									<InfoItem
 										label="Weight"
@@ -92,14 +113,20 @@ export default function Profile() {
 										onChange={(e) =>
 											setWeight(e.target.value)
 										}
+										placeholder="Enter weight (kg)"
 									/>
 									<InfoItem
 										label="BMI"
-										value={user.bmi.toFixed(2)}
+										value={bmi || user.bmi}
 									/>
 									<InfoItem
 										label="Allergy"
-										value={user.allergy}
+										value={allergy}
+										isEditing={isEditing}
+										onChange={(e) =>
+											setAllergy(e.target.value)
+										}
+										placeholder="Enter allergy information"
 									/>
 								</div>
 								<InfoItem
@@ -140,7 +167,14 @@ export default function Profile() {
 	);
 }
 
-const InfoItem = ({ label, value, isEditing, onChange, fullWidth }) => (
+const InfoItem = ({
+	label,
+	value,
+	isEditing,
+	onChange,
+	fullWidth,
+	placeholder,
+}) => (
 	<div className={`${fullWidth ? "col-span-2" : ""}`}>
 		<label className="block text-sm font-medium text-gray-700">
 			{label}
@@ -151,6 +185,7 @@ const InfoItem = ({ label, value, isEditing, onChange, fullWidth }) => (
 				value={value}
 				onChange={onChange}
 				className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+				placeholder={placeholder}
 			/>
 		) : (
 			<p className="mt-1 text-sm text-gray-900">{value}</p>
