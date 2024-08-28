@@ -4,31 +4,41 @@ import { db } from "@/lib/db";
 
 // api to create a new review
 export async function POST(request) {
-  try {
-    const body = await request.json();
-    console.log(body)
+	try {
+		const body = await request.json();
+		console.log("body", body);
 
-    const { id, userId, visitDate, clinicHospitalName, diagnosis, treatment } = body;
-    
-    const newVisitHistory = await db.visitHistory.create({
-      data: {
-        id,
-        userId, 
-        visitDate, 
-        clinicHospitalName, 
-        diagnosis, 
-        treatment,
-      },
-    });
+		const {
+			id,
+			userId,
+			visitDate,
+			clinicHospitalName,
+			diagnosis,
+			treatment,
+		} = body;
 
-    return NextResponse.json(
-      { message: "Visit history created successfully", visitHistory : newVisitHistory },
-      { status: 201 }
-    );
-  } catch (error) {
-    return NextResponse.json(
-      { message: "Visit history creation fail" },
-      { status: 500 }
-    );
-  }
+		const newVisitHistory = await db.visitHistory.create({
+			data: {
+				id,
+				userId,
+				visitDate,
+				clinicHospitalName,
+				diagnosis,
+				treatment,
+			},
+		});
+
+		return NextResponse.json(
+			{
+				message: "Visit history created successfully",
+				visitHistory: newVisitHistory,
+			},
+			{ status: 201 }
+		);
+	} catch (error) {
+		return NextResponse.json(
+			{ message: "Visit history creation fail" },
+			{ status: 500 }
+		);
+	}
 }

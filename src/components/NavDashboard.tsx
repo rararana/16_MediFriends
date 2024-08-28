@@ -5,13 +5,15 @@ import { Bars3Icon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 
 interface Props {
 	openNav: () => void;
 	closeNav: () => void;
 }
 
-const Nav = ({ openNav, closeNav }: Props) => {
+const NavDashboard = ({ openNav, closeNav }: Props) => {
+	const { data: session } = useSession();
 	const [activeNav, setActiveNav] = useState("#home");
 	const [isScrolled, setIsScrolled] = useState(false);
 	const router = useRouter();
@@ -41,6 +43,11 @@ const Nav = ({ openNav, closeNav }: Props) => {
 		};
 	}, []);
 
+	const handleSignOut = async () => {
+		await signOut();
+		router.push("/");
+	};
+
 	return (
 		<header
 			className={`fixed top-0 w-full h-[10vh] bg-gradient-to-r from-[#2487c5] via-[#3198c8] to-[#2487c5] z-10 transition-shadow duration-300 ${
@@ -58,24 +65,22 @@ const Nav = ({ openNav, closeNav }: Props) => {
 					Friends
 				</h1>
 				<nav className="flex ml-auto gap-2">
-					<Button
-						onClick={() => router.push("/auth/register")}
-						variant="outline"
-						className="border-[#ffffffc2] text-white bg-[#3eacde] hover:bg-[#3e99ca] hover:text-white rounded-s-2xl px-7"
+					<button
+						onClick={handleSignOut}
+						className="bg-[#ff5151] hover:bg-[#cf4646] active:bg-[#b43737] transition-all text-white px-4 py-2 rounded"
 					>
-						Sign Up
-					</Button>
-					<Button
-						onClick={() => router.push("/auth/login")}
-						variant="outline"
-						className="border-[#ffffffc2] text-white bg-[#6B9EEB] hover:bg-[#4e7dc8] hover:text-white rounded-e-2xl px-7"
+						Log Out
+					</button>
+					<div
+						onClick={openNav}
+						className="flex justify-center items-center ml-5"
 					>
-						Login
-					</Button>
+						<Bars3Icon className="w-[2rem] h-[2rem] cursor-pointer text-white" />
+					</div>
 				</nav>
 			</div>
 		</header>
 	);
 };
 
-export default Nav;
+export default NavDashboard;
