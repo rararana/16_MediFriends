@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function VaccineHistory() {
     const [vaccines, setVaccines] = useState([]);
@@ -11,12 +11,33 @@ export default function VaccineHistory() {
     });
     const [editIndex, setEditIndex] = useState(null);
 
+    const fetchData = async () => {
+		try {
+			const response = await fetch("/api/vaccineHistory/getVaccineHistory");
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
+			}
+			console.log(response);
+			const dataa = await response.json(); // Parsing the response as JSON
+			setVaccines(dataa.allVaccineHistory || []); // Updating the state with the fetched
+		} catch (error) {
+			console.error("Failed to fetch data:", error);
+		}
+	};
+
+    useEffect(() => {
+		const triggerFetch = async () => {
+			await fetchData();
+		};
+		triggerFetch();
+	}, []);
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (editIndex !== null) {
             const updateVaccines = vaccines.map((vaccine, index) =>
@@ -25,7 +46,21 @@ export default function VaccineHistory() {
             setVaccines(updateVaccines);
             setEditIndex(null);
         } else {
-            setVaccines([...vaccines, form]);
+            const response = await fetch("/api/vaccineHistory/createVaccineHistory", {
+                method: "POST",
+                body: JSON.stringify({
+                    id: '2',
+                    userId: "cm0dgb9lv0000r8ra38gr40ps",
+                    vaccineName: form.vaccineName,
+                    vaccineDate: form.date,
+                    clinicHospitalName: form.hospitalName
+                })
+            })
+            if (response.status == 201) {
+                const form = await response.json();
+                setVaccines([...vaccines, form]);
+            }
+            
         }
     
     setForm({ vaccineName: '', date: '', hospitalName: '' });
@@ -36,9 +71,17 @@ export default function VaccineHistory() {
         setEditIndex(index);
     };
 
-    const handleDelete = (index) => {
-        setVaccines(vaccines.filter((_,i) => i !== index));
+    const handleDelete = async (id) => {
+        const response = await fetch("/api/vaccineHistory/deleteVaccineHistory", {
+            method: "DELETE",
+            body: JSON.stringify({id})
+          })
+        
+          if (response.status == 200) {
+            setVaccines(vaccines.filter((_, i) => i !== id));
+		}
     };
+    
 
     return (
         <div>
@@ -57,7 +100,7 @@ export default function VaccineHistory() {
             <div>
             <label>Vaccine Date:</label>
             <input
-                type="date"
+                type="text"
                 name="date"
                 value={form.date}
                 onChange={handleInputChange}
@@ -99,12 +142,12 @@ export default function VaccineHistory() {
             {vaccines.map((vaccine, index) => (
             <li key={index}>
                 <strong>{vaccine.vaccineName}</strong><br />
-                Date: {vaccine.date}<br />
-                Hospital Name: {vaccine.hospitalName}
+                Date: {vaccine.vaccineDate}<br />
+                Hospital Name: {vaccine.clinicHospitalName}
                 <div>
                     <button onClick={() => handleEdit(index)}>Edit</button>
                     <br />
-                    <button onClick={() => handleDelete(index)}>Delete</button>
+                    <button onClick={() => handleDelete(vaccine.id)}>Delete</button>
                 </div>
             </li>
             ))}

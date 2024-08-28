@@ -11,7 +11,7 @@ export async function GET() {
 		);
 	} catch (error) {
 		return NextResponse.json(
-			{ message: "Fail to get vaccine history" },
+			{ message: "Fail to get vaccine history", error: error.message },
 
 			{ status: 500 }
 		);

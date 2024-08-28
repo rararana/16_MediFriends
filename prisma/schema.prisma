@@ -58,7 +58,7 @@ model VaccineHistory {
   id                  String    @id @default(cuid())
   userId              String
   vaccineName         String
-  vaccineDate         DateTime
+  vaccineDate         String
   clinicHospitalName  String
 
   user                User      @relation(fields: [userId], references: [id])

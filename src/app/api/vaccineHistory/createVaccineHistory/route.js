@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 export async function POST(request) {
 	try {
 		const body = await request.json();
-		console.log("body", body);
+		console.log(body);
 
 		const {
 			id,
