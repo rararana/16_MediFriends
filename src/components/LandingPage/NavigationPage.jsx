@@ -25,7 +25,7 @@ const NavigationPage = () => {
 					</p>
 				</div>
 				<div
-					onClick={() => handleNavigation("/sleep-tracker")}
+					onClick={() => handleNavigation("/sleep-history")}
 					className="nav-box"
 				>
 					<h2 className="text-xl font-semibold mb-2">

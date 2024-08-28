@@ -117,6 +117,12 @@ export default function Profile() {
 										label="BMI"
 										value={bmi || user.bmi}
 									/>
+									<a
+										href="https://www.ncbi.nlm.nih.gov/books/NBK541070/"
+										className="text-sm text-blue-600 hover:text-blue-800 underline break-words"
+									>
+										Check your BMI description Here
+									</a>
 									<InfoItem
 										label="Allergy"
 										value={allergy}
