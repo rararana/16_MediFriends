@@ -15,8 +15,8 @@ export default function Profile() {
           height, weight
         }
         //pake fake API untuk sementara waktu
-        const response = await fetch("", {
-          method: "POST",
+        const response = await fetch("/api/profile", {
+          method: "PUT",
           body: card
         })
     
