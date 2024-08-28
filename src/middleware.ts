@@ -32,7 +32,7 @@ export default auth(async (req) => {
 	}
 
 	if (!isLoggedIn && !isPublicRoute) {
-		return Response.redirect(new URL("/", nextUrl.origin), 302);
+		return Response.redirect(new URL("/auth/login", nextUrl.origin), 302);
 	}
 
 	return null;
