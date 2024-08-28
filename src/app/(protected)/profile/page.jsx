@@ -9,7 +9,7 @@ import Form from "@/components/Profile/Form";
 export default function Profile() {
 	const [height, setHeight] = useState("");
 	const [weight, setWeight] = useState("");
-	const [age, setAge] = useState(30);
+	const [age, setAge] = useState(20);
 	const [bloodType, setBloodType] = useState("O");
 	const [allergy, setAllergy] = useState("None");
 	const [bmi, setBmi] = useState(null); // Initialize BMI state
@@ -28,9 +28,7 @@ export default function Profile() {
 		e.preventDefault();
 		setIsLoading(true);
 
-		const profileData = { height, weight, age, bloodType, allergy };
-
-		// Calculate BMI and update state
+		// Calculate BMI
 		const calculatedBmi = calculateBMI(height, weight);
 		setBmi(calculatedBmi);
 
@@ -63,7 +61,7 @@ export default function Profile() {
 				<div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
 					<div className="md:flex">
 						<div className="md:shrink-0">
-							<div className="h-48 w-full md:w-48 bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center">
+							<div className="h-full w-full md:w-48 bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center">
 								<User size={64} color="white" />
 							</div>
 						</div>
@@ -147,13 +145,7 @@ export default function Profile() {
 										{isLoading ? (
 											"Saving..."
 										) : (
-											<>
-												<Save
-													size={20}
-													className="mr-2"
-												/>
-												Save Changes
-											</>
+											<>Save Changes</>
 										)}
 									</button>
 								)}
