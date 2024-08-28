@@ -12,3 +12,18 @@
     font-size: 22px;
     font-weight: bold;
 }
+
+
+.boxedButton {
+    padding: 5px 10px;
+    background-color: #509fd4; 
+    color: #000; 
+    cursor: pointer; 
+    border-radius: 5px;
+    font-size: 16px; 
+}
+  
+.boxedButton:hover {
+    background-color: #1076a5;
+}
+  

@@ -133,13 +133,14 @@ export default function VaccineHistory() {
 							required
 						/>
 					</div>
-					<button type="submit">
+					<button type="submit" className={styles.boxedButton}>
 						{editIndex !== null ? "Update Vaccine" : "Add Vaccine"}
 					</button>
 					{editIndex !== null && (
 						<>
 							<br />
 							<button
+								className={styles.boxedButton}
 								type="button"
 								onClick={() => {
 									setForm({
@@ -167,11 +168,12 @@ export default function VaccineHistory() {
 							<br />
 							Hospital Name: {vaccine.clinicHospitalName}
 							<div>
-								<button onClick={() => handleEdit(index)}>
+								<button className={styles.boxedButton} onClick={() => handleEdit(index)}>
 									Edit
 								</button>
 								<br />
 								<button
+									className={styles.boxedButton}
 									onClick={() => handleDelete(vaccine.id)}
 								>
 									Delete
