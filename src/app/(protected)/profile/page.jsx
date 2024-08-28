@@ -57,7 +57,7 @@ export default function Profile() {
 			{/* Navigation */}
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 mt-24">
+			<div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 mt-[3rem]">
 				<div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
 					<div className="md:flex">
 						<div className="md:shrink-0">

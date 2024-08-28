@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 interface SleepRecord {
 	date: string;
@@ -10,46 +10,48 @@ interface SleepRecord {
 	goalAchieved: boolean;
 }
 
-const SleepTable: React.FC = () => {
-	const [records, setRecords] = useState<SleepRecord[]>([]);
-	const userId = "your_user_id"; // Replace with actual userId
+interface SleepTableProps {
+	records: SleepRecord[];
+}
 
-	const fetchData = async () => {
-		try {
-			const response = await fetch(`/api/sleepHistory?userId=${userId}`);
-			if (!response.ok) {
-				throw new Error("Network response was not ok");
-			}
-			const data = await response.json();
-			setRecords(data.records || []);
-		} catch (error) {
-			console.error("Failed to fetch data:", error);
-		}
-	};
-
-	useEffect(() => {
-		fetchData();
-	}, []);
-
+const SleepTable: React.FC<SleepTableProps> = ({ records }) => {
 	return (
-		<table>
+		<table className="mt-5 w-full border-collapse border border-gray-300">
 			<thead>
 				<tr>
-					<th>Date</th>
-					<th>Sleep Duration (hours)</th>
-					<th>Sleep Goal (hours)</th>
-					<th>Sleep Goal Achieved</th>
-					<th>Sleep Quality</th>
+					<th className="border border-gray-300 px-4 py-2">Date</th>
+					<th className="border border-gray-300 px-4 py-2">
+						Sleep Duration (hours)
+					</th>
+					<th className="border border-gray-300 px-4 py-2">
+						Sleep Goal (hours)
+					</th>
+					<th className="border border-gray-300 px-4 py-2">
+						Sleep Goal Achieved
+					</th>
+					<th className="border border-gray-300 px-4 py-2">
+						Sleep Quality
+					</th>
 				</tr>
 			</thead>
 			<tbody>
 				{records.map((record, index) => (
 					<tr key={index}>
-						<td>{record.date}</td>
-						<td>{record.duration}</td>
-						<td>{record.sleepGoal}</td>
-						<td>{record.goalAchieved ? "Yes" : "No"}</td>
-						<td>{record.quality}</td>
+						<td className="border border-gray-300 px-4 py-2">
+							{record.date}
+						</td>
+						<td className="border border-gray-300 px-4 py-2">
+							{record.duration.toFixed(2)}
+						</td>
+						<td className="border border-gray-300 px-4 py-2">
+							{record.sleepGoal}
+						</td>
+						<td className="border border-gray-300 px-4 py-2">
+							{record.goalAchieved ? "Yes" : "No"}
+						</td>
+						<td className="border border-gray-300 px-4 py-2">
+							{record.quality}
+						</td>
 					</tr>
 				))}
 			</tbody>

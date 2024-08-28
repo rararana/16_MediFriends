@@ -75,6 +75,7 @@
 	table {
 		width: 100%;
 		border-collapse: collapse;
+		@apply divide-y divide-gray-200 bg-white shadow-md rounded-md;
 	}
 
 	th,
@@ -82,6 +83,10 @@
 		padding: 12px;
 		text-align: left;
 		border-bottom: 1px solid #ddd;
+	}
+
+	td {
+		@apply px-6 py-4 whitespace-nowrap text-sm text-gray-500;
 	}
 
 	th {

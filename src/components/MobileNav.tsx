@@ -79,25 +79,17 @@ const MobileNav = ({ nav, closeNav }: Props) => {
 						<li>
 							<a
 								className="nav-link-mobile"
-								onClick={() => handleNavClick("/visit-history")}
-							>
-								Visit History
-							</a>
-						</li>
-						<li>
-							<a
-								className="nav-link-mobile"
-								onClick={() => handleNavClick("/article")}
-							>
-								Article
-							</a>
-						</li>
-						<li>
-							<a
-								className="nav-link-mobile"
 								onClick={() => handleNavClick("/sleep-history")}
 							>
 								Sleep Tracker
+							</a>
+						</li>
+						<li>
+							<a
+								className="nav-link-mobile"
+								onClick={() => handleNavClick("/visit-history")}
+							>
+								Visit History
 							</a>
 						</li>
 						<li>
@@ -108,6 +100,14 @@ const MobileNav = ({ nav, closeNav }: Props) => {
 								}
 							>
 								Nearest Hospital
+							</a>
+						</li>
+						<li>
+							<a
+								className="nav-link-mobile"
+								onClick={() => handleNavClick("/article")}
+							>
+								Article
 							</a>
 						</li>
 					</ul>

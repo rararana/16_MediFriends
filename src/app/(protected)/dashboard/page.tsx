@@ -31,7 +31,6 @@ const Dashboard = () => {
 			<div id="landing-carousel-section">
 				<CarouselDemo />
 			</div>
-			<div className="absolute bottom-5">{JSON.stringify(session)}</div>
 		</>
 	);
 };
