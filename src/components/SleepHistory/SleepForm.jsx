@@ -41,8 +41,11 @@ const SleepForm = ({ onAddSleep }) => {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="w-full max-w-[400px] bg-white p-4 space-y-4"
+			className="w-full max-w-md shadow-lg rounded-lg bg-white p-6 space-y-4"
 		>
+			<h2 className="text-2xl font-bold text-gray-800 mb-6">
+				Add Sleep Record
+			</h2>
 			<div>
 				<label
 					htmlFor="date"
@@ -56,7 +59,7 @@ const SleepForm = ({ onAddSleep }) => {
 					value={date}
 					onChange={(e) => setDate(e.target.value)}
 					required
-					className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+					className="mt-1 bg-gray-100 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-400 focus:border-transparent transition duration-150 sm:text-sm"
 				/>
 			</div>
 			<div>
@@ -72,7 +75,7 @@ const SleepForm = ({ onAddSleep }) => {
 					value={sleepStart}
 					onChange={(e) => setSleepStart(e.target.value)}
 					required
-					className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+					className="mt-1 bg-gray-100 block w-full px-3 py-2 border border-gray-300 rounded-md"
 				/>
 			</div>
 			<div>
@@ -88,7 +91,7 @@ const SleepForm = ({ onAddSleep }) => {
 					value={wakeUp}
 					onChange={(e) => setWakeUp(e.target.value)}
 					required
-					className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+					className="mt-1 bg-gray-100 block w-full px-3 py-2 border border-gray-300 rounded-md"
 				/>
 			</div>
 
@@ -107,7 +110,7 @@ const SleepForm = ({ onAddSleep }) => {
 					min="1"
 					max="5"
 					required
-					className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+					className="mt-1 bg-gray-100 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-400 focus:border-transparent transition duration-150 sm:text-sm"
 				/>
 			</div>
 			<div>
@@ -125,12 +128,12 @@ const SleepForm = ({ onAddSleep }) => {
 					min="7"
 					max="17"
 					required
-					className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+					className="mt-1 bg-gray-100 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-400 focus:border-transparent transition duration-150 sm:text-sm"
 				/>
 			</div>
 			<button
 				type="submit"
-				className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+				className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-400"
 			>
 				Add Record
 			</button>
