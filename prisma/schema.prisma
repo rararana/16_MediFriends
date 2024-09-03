@@ -67,9 +67,9 @@ model VaccineHistory {
 model SleepHistory {
   id            String    @id @default(cuid())
   userId        String
-  date          DateTime
-  sleepStart    DateTime
-  wakeUp        DateTime
+  date          String
+  sleepStart    String
+  wakeUp        String
   duration      Float    // Hours (Allows for fractional hours)
   sleepGoal     Float    // Hours (Allows for fractional hours)
   quality  Int      
