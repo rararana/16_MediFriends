@@ -1,8 +1,7 @@
-"use client"; // Ensure this file is treated as a Client Component
+"use client";
 
 import React, { useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import Image from "next/image";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
@@ -20,15 +19,6 @@ const articles = [
 	{
 		id: 2,
 		title: "About Mumps",
-		excerpt:
-			"Important information about heart disease prevention and treatment.",
-		image: "/images/disease-article/2.jpg",
-		link: "https://www.cdc.gov/mumps/about/index.html",
-	},
-	{
-		id: 3,
-		title: "Celiac Disease",
-		excerpt: "Effective strategies for managing high blood pressure.",
 		image: "/images/disease-article/3.jpg",
 		link: "https://www.nejm.org/doi/full/10.1056/NEJMcp1113994",
 	},
@@ -80,6 +70,7 @@ const ArticlesPage = () => {
 	const [nav, setNav] = useState(false);
 	const openNav = () => setNav(true);
 	const closeNav = () => setNav(false);
+
 	return (
 		<div>
 			<Head>
@@ -92,21 +83,31 @@ const ArticlesPage = () => {
 			{/* Nav */}
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<main className="main mt-[6rem]">
-				<section className="articles-grid">
+			<main className="pt-[7rem] px-4">
+				<section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 					{articles.map((article) => (
-						<div key={article.id} className="article-card">
-							<img
-								src={article.image}
-								alt={article.title}
-								className="article-image"
-							/>
-							<div className="article-content">
-								<h2>{article.title}</h2>
-								<p>{article.excerpt}</p>
+						<div
+							key={article.id}
+							className="flex flex-col border border-gray-200 rounded-lg overflow-hidden bg-white shadow-lg transition-transform transform hover:scale-105"
+						>
+							<div className="w-full h-64 relative border border-gray-400">
+								<Image
+									src={article.image}
+									alt={article.title}
+									className="object-cover"
+									fill
+								/>
+							</div>
+							<div className="p-4 flex flex-col flex-grow">
+								<h2 className="text-xl font-semibold text-gray-800 mb-2 truncate">
+									{article.title}
+								</h2>
+								<p className="text-gray-600 mb-4 flex-grow truncate">
+									{article.excerpt}
+								</p>
 								<a
 									href={article.link}
-									className="read-more"
+									className="text-green-500 font-semibold hover:underline"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
@@ -117,67 +118,9 @@ const ArticlesPage = () => {
 					))}
 				</section>
 			</main>
-			<style jsx>{`
-				.header {
-					background-color: #4caf50; /* Fresh green */
-					color: white;
-					padding: 20px;
-					text-align: center;
-					border-bottom: 4px solid #388e3c; /* Darker green for emphasis */
-				}
-				.main {
-					padding: 20px;
-				}
-				.articles-grid {
-					display: grid;
-					grid-template-columns: repeat(
-						auto-fill,
-						minmax(300px, 1fr)
-					);
-					gap: 20px;
-				}
-				.article-card {
-					border: 1px solid #ddd;
-					border-radius: 8px;
-					overflow: hidden;
-					background-color: #fff;
-					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-					transition: transform 0.2s;
-				}
-				.article-card:hover {
-					transform: scale(1.02);
-				}
-				.article-image {
-					width: 100%;
-					height: 200px;
-					object-fit: cover;
-				}
-				.article-content {
-					padding: 15px;
-				}
-				.article-content h2 {
-					margin: 0;
-					font-size: 1.5rem;
-					color: #333;
-				}
-				.article-content p {
-					color: #666;
-				}
-				.read-more {
-					color: #4caf50; /* Fresh green */
-					text-decoration: none;
-					font-weight: bold;
-				}
-				.read-more:hover {
-					text-decoration: underline;
-				}
-				.footer {
-					background-color: #f1f1f1;
-					padding: 10px;
-					text-align: center;
-					border-top: 1px solid #ddd;
-				}
-			`}</style>
+			<footer className="bg-gray-100 py-2 text-center border-t border-gray-200">
+				{/* Footer content */}
+			</footer>
 		</div>
 	);
 };
