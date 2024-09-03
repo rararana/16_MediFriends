@@ -2,19 +2,12 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 
-// api to create a new review
-export async function POST(request) {
+export async function POST(request: NextRequest) {
 	try {
 		const body = await request.json();
-		console.log("body", body);
 
-		const {
-			userId,
-			visitDate,
-			clinicHospitalName,
-			diagnosis,
-			treatment,
-		} = body;
+		const { userId, visitDate, clinicHospitalName, diagnosis, treatment } =
+			body;
 
 		const newVisitHistory = await db.visitHistory.create({
 			data: {
