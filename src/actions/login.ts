@@ -2,7 +2,7 @@
 
 import { LoginSchema } from "../schemas";
 import * as z from "zod";
-import { AuthError } from "next-auth";
+import AuthError from "next-auth";
 import { signIn } from "@/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
