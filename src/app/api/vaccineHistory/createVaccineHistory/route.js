@@ -8,18 +8,13 @@ export async function POST(request) {
 		const body = await request.json();
 		console.log(body);
 
-		const {
-			userId,
-			vaccineName,
-            vaccineDate,
-			clinicHospitalName,
-		} = body;
+		const { userId, vaccineName, vaccineDate, clinicHospitalName } = body;
 
 		const newVaccineHistory = await db.vaccineHistory.create({
 			data: {
 				userId,
 				vaccineName,
-                vaccineDate,
+				vaccineDate,
 				clinicHospitalName,
 			},
 		});
@@ -38,3 +33,5 @@ export async function POST(request) {
 		);
 	}
 }
+
+export const runtime = "nodejs";

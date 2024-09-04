@@ -6,7 +6,10 @@ export async function GET() {
 		const allVaccineHistory = await db.vaccineHistory.findMany();
 		console.log(allVaccineHistory);
 		return NextResponse.json(
-			{ message: "Successfully get all vaccine history", allVaccineHistory },
+			{
+				message: "Successfully get all vaccine history",
+				allVaccineHistory,
+			},
 			{ status: 200 }
 		);
 	} catch (error) {
@@ -17,3 +20,5 @@ export async function GET() {
 		);
 	}
 }
+
+export const runtime = "nodejs";

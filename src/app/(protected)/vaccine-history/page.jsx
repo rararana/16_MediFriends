@@ -162,13 +162,19 @@ export default function VaccineHistory() {
 				<ul>
 					{vaccines.map((vaccine, index) => (
 						<li key={index}>
-							<br /><h3 className={styles.bigBoldText3}>{vaccine.vaccineName}</h3>
+							<br />
+							<h3 className={styles.bigBoldText3}>
+								{vaccine.vaccineName}
+							</h3>
 							<br />
 							Date: {vaccine.vaccineDate}
 							<br />
 							Hospital Name: {vaccine.clinicHospitalName}
 							<div>
-								<button className={styles.boxedButton} onClick={() => handleEdit(index)}>
+								<button
+									className={styles.boxedButton}
+									onClick={() => handleEdit(index)}
+								>
 									Edit
 								</button>
 								<br />

@@ -3,16 +3,17 @@ import { db } from "@/lib/db";
 
 export async function DELETE(request) {
 	try {
-        const { id } = await request.json();
+		const { id } = await request.json();
 
-		const newVaccineHistory = await db.vaccineHistory.delete(
-            {
-                where: {id: id}
-            }
-        );
+		const newVaccineHistory = await db.vaccineHistory.delete({
+			where: { id: id },
+		});
 		console.log(newVaccineHistory);
 		return NextResponse.json(
-			{ message: "Successfully delete vaccine history", newVaccineHistory },
+			{
+				message: "Successfully delete vaccine history",
+				newVaccineHistory,
+			},
 			{ status: 200 }
 		);
 	} catch (error) {
@@ -23,3 +24,5 @@ export async function DELETE(request) {
 		);
 	}
 }
+
+export const runtime = "nodejs";
