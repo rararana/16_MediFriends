@@ -2,7 +2,6 @@
 
 import { LoginSchema } from "../schemas";
 import * as z from "zod";
-import AuthError from "next-auth";
 import { signIn } from "@/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
@@ -16,23 +15,20 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 	const { email, password } = validatedFields.data;
 
 	try {
-		await signIn("credentials", {
+		const result = await signIn("credentials", {
 			email,
 			password,
 			redirectTo: DEFAULT_LOGIN_REDIRECT,
 		});
-		return { success: "Login successful" };
-	} catch (error) {
-		if (error instanceof AuthError) {
-			switch (error.type) {
-				case "CredentialsSignin":
-					console.log({ error: "Invalid credentials!" });
-					return { error: "Invalid credentials!" };
-				default:
-					console.log({ error: "Something went wrong!" });
-					return { error: "Something went wrong!" };
-			}
+
+		if (!result?.ok) {
+			// Check the error message or create custom error handling
+			return { error: "Invalid credentials!" };
 		}
-		throw error;
+
+		return { success: "Login successful" };
+	} catch (error: any) {
+		console.error("Login error:", error.message);
+		return { error: "Something went wrong!" };
 	}
 };
