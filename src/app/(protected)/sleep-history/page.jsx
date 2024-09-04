@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import SleepForm from "@/components/SleepHistory/SleepForm";
 import SleepTable from "@/components/SleepHistory/SleepTable";
@@ -16,27 +16,30 @@ export default function SleepHistoryPage() {
 	const openNav = () => setNav(true);
 	const closeNav = () => setNav(false);
 
-	useEffect(() => {
+	const fetchSleepHistory = useCallback(async () => {
 		if (userId) {
-			fetchSleepHistory();
+			try {
+				const response = await fetch(
+					`/api/sleepHistory/getSleepHistory?userId=${userId}`
+				);
+				const data = await response.json();
+				if (response.ok) {
+					setRecords(data.records);
+				} else {
+					console.error(
+						"Failed to fetch sleep history:",
+						data.message
+					);
+				}
+			} catch (error) {
+				console.error("Error fetching sleep history:", error);
+			}
 		}
 	}, [userId]);
 
-	const fetchSleepHistory = async () => {
-		try {
-			const response = await fetch(
-				`/api/sleepHistory/getSleepHistory?userId=${userId}`
-			);
-			const data = await response.json();
-			if (response.ok) {
-				setRecords(data.records);
-			} else {
-				console.error("Failed to fetch sleep history:", data.message);
-			}
-		} catch (error) {
-			console.error("Error fetching sleep history:", error);
-		}
-	};
+	useEffect(() => {
+		fetchSleepHistory();
+	}, [fetchSleepHistory]);
 
 	const handleAddSleep = async (newRecord) => {
 		try {

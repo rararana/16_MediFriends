@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState, useCallback } from "react";
 import VisitForm from "@/components/VisitHistory/VisitForm";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
@@ -13,31 +14,34 @@ const Datas = () => {
 	const { data: session } = useSession();
 	const userId = session?.user?.id;
 
-	useEffect(() => {
-		if (userId) {
-			fetchVisitHistory();
-		}
-	}, [userId]);
-
 	const openNav = () => setNav(true);
 	const closeNav = () => setNav(false);
 
-	const fetchVisitHistory = async () => {
-		try {
-			const response = await fetch(
-				`/api/visitHistory/getVisitHistory?userId=${userId}`
-			);
+	const fetchVisitHistory = useCallback(async () => {
+		if (userId) {
+			try {
+				const response = await fetch(
+					`/api/visitHistory/getVisitHistory?userId=${userId}`
+				);
 
-			const data = await response.json();
-			if (response.ok) {
-				setDatas(data.datas);
-			} else {
-				console.error("Failed to fetch visit history:", data.message);
+				const data = await response.json();
+				if (response.ok) {
+					setDatas(data.datas);
+				} else {
+					console.error(
+						"Failed to fetch visit history:",
+						data.message
+					);
+				}
+			} catch (error) {
+				console.error("Error fetching visit history:", error);
 			}
-		} catch (error) {
-			console.error("Error fetching visit history:", error);
 		}
-	};
+	}, [userId]);
+
+	useEffect(() => {
+		fetchVisitHistory();
+	}, [fetchVisitHistory]);
 
 	const handleAddVisit = async (newVisit) => {
 		try {
