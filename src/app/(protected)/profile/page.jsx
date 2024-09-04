@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { User, Edit2, Save } from "lucide-react";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
-import Form from "@/components/Profile/Form";
+import { useSession } from "next-auth/react";
 
 export default function Profile() {
 	const [height, setHeight] = useState(""); // Keep these as strings
@@ -15,6 +15,10 @@ export default function Profile() {
 	const [bmi, setBmi] = useState(null); // Ensure BMI is a number or null
 	const [isLoading, setIsLoading] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
+
+	const { data: session } = useSession();
+	const name = session?.user?.name;
+	const email = session?.user?.email;
 
 	const calculateBMI = (height, weight) => {
 		const heightInMeters = parseFloat(height) / 100; // Convert height to meters
@@ -49,10 +53,10 @@ export default function Profile() {
 	};
 
 	const user = {
-		name: "John Doe",
+		name: name,
 		height: 175,
 		weight: 70,
-		bmi: bmi || 22.9, // Use calculated BMI or default
+		bmi: bmi || 22.9,
 		chronicDisease: "None",
 	};
 
@@ -65,7 +69,7 @@ export default function Profile() {
 			{/* Navigation */}
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 mt-[3rem]">
+			<div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 mt-[4rem]">
 				<div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
 					<div className="md:flex">
 						<div className="md:shrink-0">
@@ -111,7 +115,7 @@ export default function Profile() {
 											setHeight(e.target.value)
 										}
 										placeholder="Enter height (cm)"
-										type="number" // Ensure the input is of type number
+										type="number"
 									/>
 									<InfoItem
 										label="Weight"
@@ -121,11 +125,11 @@ export default function Profile() {
 											setWeight(e.target.value)
 										}
 										placeholder="Enter weight (kg)"
-										type="number" // Ensure the input is of type number
+										type="number"
 									/>
 									<InfoItem
 										label="BMI"
-										value={bmi !== null ? bmi : user.bmi} // Display calculated BMI or default
+										value={bmi !== null ? bmi : user.bmi}
 									/>
 									<a
 										href="https://www.ncbi.nlm.nih.gov/books/NBK541070/"
@@ -164,7 +168,32 @@ export default function Profile() {
 						</div>
 					</div>
 				</div>
-				<Form />
+				<div className="bg-white p-7 rounded-lg shadow-xl border max-w-sm mx-auto my-10">
+					<div className="mb-4">
+						<label className="block mb-2 font-semibold">
+							Username
+						</label>
+						<p className="w-full p-2 border rounded-md border-gray-300 bg-white">
+							{name}
+						</p>
+					</div>
+					<div className="mb-4">
+						<label className="block mb-2 font-semibold">
+							Email
+						</label>
+						<p className="w-full p-2 border rounded-md border-gray-300 bg-white">
+							{email}
+						</p>
+					</div>
+					<div className="mb-4">
+						<label className="block mb-2 font-semibold">
+							Password
+						</label>
+						<p className="w-full p-2 border rounded-md border-gray-300 bg-white">
+							********
+						</p>
+					</div>
+				</div>
 			</div>
 		</>
 	);

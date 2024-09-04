@@ -1,6 +1,7 @@
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 
 interface Props {
@@ -14,6 +15,9 @@ const MobileNav = ({ nav, closeNav }: Props) => {
 	const overlayVisibility = nav ? "block" : "hidden";
 	const navRef = useRef<HTMLDivElement>(null);
 	const overlayRef = useRef<HTMLDivElement>(null);
+
+	const { data: session } = useSession();
+	const name = session?.user?.name;
 
 	const handleNavClick = (path: string) => {
 		closeNav();
@@ -56,15 +60,25 @@ const MobileNav = ({ nav, closeNav }: Props) => {
 						>
 							<XMarkIcon className="w-full h-full" />
 						</div>
-						<div className="w-15 h-15 rounded-full overflow-hidden">
-							<Image
-								src="/images/profile-picture.png"
-								alt="Profile"
-								width={50}
-								height={50}
-								className="object-cover cursor-pointer"
-								onClick={() => router.push("/profile")}
-							/>
+						<div className="flex items-center space-x-3">
+							{name && (
+								<span
+									className="text-[30px] cursor-pointer"
+									onClick={() => router.push("/profile")}
+								>
+									{name}
+								</span>
+							)}
+							<div className="w-15 h-15 rounded-full overflow-hidden">
+								<Image
+									src="/images/profile-picture.png"
+									alt="Profile"
+									width={50}
+									height={50}
+									className="object-cover cursor-pointer"
+									onClick={() => router.push("/profile")}
+								/>
+							</div>
 						</div>
 					</div>
 					<ul className="flex flex-col mt-[3rem] space-y-7">
