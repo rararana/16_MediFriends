@@ -58,13 +58,13 @@ const Nav = ({ openNav, closeNav }: Props) => {
 				<nav className="flex ml-auto gap-2 flex-wrap">
 					<button
 						onClick={() => router.push("/auth/register")}
-						className="border-[#ffffffc2] border-2 px-5 py-2 text-sm md:text-base text-white bg-[#3eacde] hover:bg-[#3e99ca] hover:text-white rounded-s-2xl"
+						className="border-[#ffffffc2] border-2 px-5 md:px-7 py-3 text-sm md:text-base text-white bg-[#3eacde] hover:bg-[#3e99ca] hover:text-white rounded-s-2xl"
 					>
 						Sign Up
 					</button>
 					<button
 						onClick={() => router.push("/auth/login")}
-						className="border-[#ffffffc2] border-2 px-5 py-2 text-sm md:text-base text-white bg-[#6B9EEB] hover:bg-[#4e7dc8] hover:text-white rounded-e-2xl"
+						className="border-[#ffffffc2] border-2 px-5 md:px-7 py-3 text-sm md:text-base text-white bg-[#6B9EEB] hover:bg-[#4e7dc8] hover:text-white rounded-e-2xl"
 					>
 						Login
 					</button>
