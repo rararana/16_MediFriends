@@ -1,8 +1,7 @@
-import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { db } from "@/lib/db";
 
-export async function PUT(request) {
+export async function PUT(request: NextRequest) {
 	try {
 		const body = await request.json();
 		console.log(body);
@@ -11,15 +10,15 @@ export async function PUT(request) {
 
 		const newProfile = await db.user.update({
 			where: {
-				id: userId, // Changed from userId to id
+				id: userId,
 			},
 			data: {
-				height: parseInt(height), // Ensure this is an integer
-				weight: parseInt(weight), // Ensure this is an integer
-				age: parseInt(age), // Ensure this is an integer
+				height: parseInt(height),
+				weight: parseInt(weight),
+				age: parseInt(age),
 				bloodType,
 				allergy,
-				bmi: parseFloat(bmi), // Ensure this is a float
+				bmi: parseFloat(bmi),
 			},
 		});
 
