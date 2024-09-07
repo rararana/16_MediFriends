@@ -44,10 +44,8 @@ export const LoginForm = () => {
 					setError(result.error);
 				} else if (result.success) {
 					setSuccess(result.success);
-					setTimeout(() => {
-						router.push("/dashboard");
-						router.refresh();
-					}, 1000);
+					router.push("/dashboard");
+					router.refresh();
 				}
 			} catch (error) {
 				setError("An unexpected error occurred");
