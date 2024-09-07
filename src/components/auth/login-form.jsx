@@ -1,10 +1,8 @@
 "use client";
-
+import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { LoginSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -16,12 +14,10 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-
 import { CardWrapper } from "./card-wrapper";
-import { FormError } from "@/components//form-error";
+import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
-import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
 	const [isPending, startTransition] = useTransition();
@@ -41,25 +37,21 @@ export const LoginForm = () => {
 		setError("");
 		setSuccess("");
 
-		startTransition(() => {
-			login(values)
-				.then((data) => {
-					if (data && typeof data === "object") {
-						if (data.error) {
-							setError(data.error || "Default error message");
-						} else if (data.success) {
-							setSuccess(data.success);
-							setTimeout(() => {
-								router.push("/");
-							}, 2000);
-						}
-					} else {
-						setError("Unexpected response format");
-					}
-				})
-				.catch((error) => {
-					setError("Network or server error");
-				});
+		startTransition(async () => {
+			try {
+				const result = await login(values);
+				if (result.error) {
+					setError(result.error);
+				} else if (result.success) {
+					setSuccess(result.success);
+					setTimeout(() => {
+						router.push("/dashboard");
+						router.refresh();
+					}, 1000);
+				}
+			} catch (error) {
+				setError("An unexpected error occurred");
+			}
 		});
 	};
 
@@ -75,7 +67,7 @@ export const LoginForm = () => {
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="space-y-6"
 				>
-					<div className="space-y-4 ">
+					<div className="space-y-4">
 						<FormField
 							control={form.control}
 							name="email"
