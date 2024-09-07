@@ -1,9 +1,11 @@
 "use client";
 
+import React, { useEffect, useState, useCallback } from "react";
+import { useSession } from "next-auth/react";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
-import { useEffect, useState } from "react";
 import styles from "@/styles/styles.module.css";
+
 
 export default function VaccineHistory() {
 	const [vaccines, setVaccines] = useState([]);
@@ -13,29 +15,35 @@ export default function VaccineHistory() {
 		hospitalName: "",
 	});
 	const [editIndex, setEditIndex] = useState(null);
+	const { data: session } = useSession();
+	const userId = session?.user?.id;
 
-	const fetchData = async () => {
-		try {
-			const response = await fetch(
-				"/api/vaccineHistory/getVaccineHistory"
-			);
-			if (!response.ok) {
-				throw new Error("Network response was not ok");
+
+	const fetchData = useCallback ( async () => {
+		if(userId) {
+			console.log(userId)
+			try {
+				const response = await fetch(
+					`/api/vaccineHistory/getVaccineHistory?userId=${userId}`
+				);
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				console.log(response);
+				const dataa = await response.json();
+				setVaccines(dataa.allVaccineHistory || []);
+			} catch (error) {
+				console.error("Failed to fetch data:", error);
 			}
-			console.log(response);
-			const dataa = await response.json();
-			setVaccines(dataa.allVaccineHistory || []);
-		} catch (error) {
-			console.error("Failed to fetch data:", error);
 		}
-	};
+	}, [userId]);
 
 	useEffect(() => {
 		const triggerFetch = async () => {
 			await fetchData();
 		};
 		triggerFetch();
-	}, []);
+	}, [fetchData]);
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;

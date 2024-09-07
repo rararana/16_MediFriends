@@ -1,9 +1,22 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-export async function GET() {
+export async function GET(request) {
 	try {
-		const allVaccineHistory = await db.vaccineHistory.findMany();
+		const { searchParams } = new URL(request.url);
+		const userId = searchParams.get("userId");
+
+		if (!userId) {
+			return NextResponse.json(
+				{ message: "User ID is required" },
+				{ status: 400 }
+			);
+		}
+
+		const allVaccineHistory = await db.vaccineHistory.findMany({
+				where: {userId}
+		});
+		
 		console.log(allVaccineHistory);
 		return NextResponse.json(
 			{
