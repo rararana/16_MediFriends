@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Bars3Icon } from "@heroicons/react/20/solid";
-import Link from "next/link";
-import { Button } from "./ui/button";
+
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -57,16 +55,16 @@ const Nav = ({ openNav, closeNav }: Props) => {
 					</span>
 					Friends
 				</h1>
-				<nav className="flex ml-auto gap-2">
+				<nav className="flex ml-auto gap-2 flex-wrap">
 					<button
 						onClick={() => router.push("/auth/register")}
-						className="border-[#ffffffc2] border-2 px-7 py-3 text-white bg-[#3eacde] hover:bg-[#3e99ca] hover:text-white rounded-s-2xl"
+						className="border-[#ffffffc2] border-2 px-5 md:px-7 py-3 text-sm md:text-base text-white bg-[#3eacde] hover:bg-[#3e99ca] hover:text-white rounded-s-2xl"
 					>
 						Sign Up
 					</button>
 					<button
 						onClick={() => router.push("/auth/login")}
-						className="border-[#ffffffc2] border-2 px-7 py-3 text-white bg-[#6B9EEB] hover:bg-[#4e7dc8] hover:text-white rounded-e-2xl"
+						className="border-[#ffffffc2] border-2 px-5 md:px-7 py-3 text-sm md:text-base text-white bg-[#6B9EEB] hover:bg-[#4e7dc8] hover:text-white rounded-e-2xl"
 					>
 						Login
 					</button>

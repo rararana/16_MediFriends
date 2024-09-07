@@ -22,7 +22,7 @@ const Hero = () => {
 						className="hero-box bg-gradient-to-r from-[#6BC2EB] to-[#2487c5] min-h-[250px] flex items-center justify-center"
 						data-aos="slide-right"
 					>
-						<h1 className="text-[4rem] lg:text-[6rem] font-poppins font-semibold">
+						<h1 className="text-[3rem] md:text-[4rem] lg:text-[6rem] font-poppins font-semibold">
 							Medi
 							<span className="text-white [text-shadow:0_0_8px_rgba(255,255,255,0.5),0_0_8px_rgba(255,255,255,0.6)]">
 								Friends
@@ -53,7 +53,7 @@ const Hero = () => {
 						className="hero-box bg-gradient-to-br from-[#2487c5] to-[#6BC2EB] flex-grow flex h-3/5 items-center justify-center"
 						data-aos="zoom-in"
 					>
-						<h2 className="text-[2rem] md:text-[2.5rem] xl:text-[4rem] text-white text-left font-[600] overflow-hidden">
+						<h2 className="text-[1rem] md:text-[2.5rem] xl:text-[4rem] text-white text-left font-[600] overflow-hidden">
 							<div className="flex md:flex-col">
 								{/* Below md screen */}
 								<span className="inline md:hidden mr-4">

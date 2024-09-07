@@ -1,28 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { User, Edit2, Save } from "lucide-react";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
 import { useSession } from "next-auth/react";
 
 export default function Profile() {
-	const [height, setHeight] = useState(""); // Keep these as strings
-	const [weight, setWeight] = useState(""); // Keep these as strings
-	const [age, setAge] = useState(20);
-	const [bloodType, setBloodType] = useState("O");
-	const [allergy, setAllergy] = useState("None");
-	const [bmi, setBmi] = useState(null); // Ensure BMI is a number or null
+	const [nav, setNav] = useState(false);
+	const openNav = () => setNav(true);
+	const closeNav = () => setNav(false);
+
+	const [profileData, setProfileData] = useState({
+		height: "",
+		weight: "",
+		age: "",
+		bloodType: "",
+		allergy: "",
+		bmi: null,
+	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 
 	const { data: session } = useSession();
 	const name = session?.user?.name;
 	const email = session?.user?.email;
+	const userId = session?.user?.id;
 
 	const calculateBMI = (height, weight) => {
-		const heightInMeters = parseFloat(height) / 100; // Convert height to meters
-		const weightInKg = parseFloat(weight); // Convert weight to kg
+		const heightInMeters = parseFloat(height) / 100;
+		const weightInKg = parseFloat(weight);
 
 		if (
 			!isNaN(heightInMeters) &&
@@ -36,33 +43,93 @@ export default function Profile() {
 		return null;
 	};
 
+	const fetchUserProfile = useCallback(async () => {
+		if (userId) {
+			try {
+				const response = await fetch(
+					`/api/profile/getUserProfile?userId=${userId}`
+				);
+				const data = await response.json();
+				if (response.ok) {
+					setProfileData({
+						height: data.userProfile.height || "",
+						weight: data.userProfile.weight || "",
+						age: data.userProfile.age || "",
+						bloodType: data.userProfile.bloodType || "",
+						allergy: data.userProfile.allergy || "",
+						bmi:
+							data.userProfile.bmi ||
+							calculateBMI(
+								data.userProfile.height,
+								data.userProfile.weight
+							) ||
+							null,
+					});
+				} else {
+					console.error(
+						"Failed to fetch user profile:",
+						data.message
+					);
+				}
+			} catch (error) {
+				console.error("Error fetching user profile:", error);
+			}
+		}
+	}, [userId]);
+
+	useEffect(() => {
+		fetchUserProfile();
+	}, [fetchUserProfile]);
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setIsLoading(true);
 
-		// Calculate BMI
-		const calculatedBmi = calculateBMI(height, weight);
-		setBmi(calculatedBmi);
+		const updatedProfileData = {
+			...profileData,
+			bmi: calculateBMI(profileData.height, profileData.weight),
+		};
 
-		// Fake API call
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		try {
+			const response = await fetch(`/api/profile/putUserProfile`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					...updatedProfileData,
+					userId: userId,
+				}),
+			});
+			if (!response.ok) {
+				throw new Error("Failed to update profile");
+			}
+
+			setProfileData(updatedProfileData);
+			alert("Data saved successfully!");
+		} catch (error) {
+			console.error("Error updating profile:", error);
+			alert("Failed to save data");
+		}
 
 		setIsLoading(false);
 		setIsEditing(false);
-		alert("Data saved successfully!");
 	};
 
-	const user = {
-		name: name,
-		height: 175,
-		weight: 70,
-		bmi: bmi || 22.9,
-		chronicDisease: "None",
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setProfileData((prev) => ({ ...prev, [name]: value }));
 	};
 
-	const [nav, setNav] = useState(false);
-	const openNav = () => setNav(true);
-	const closeNav = () => setNav(false);
+	const getDisplayValue = (key) => {
+		const value = profileData[key];
+		if (value === "") return "-";
+		if (key === "height") return `${value} cm`;
+		if (key === "weight") return `${value} kg`;
+		if (key === "bmi")
+			return value !== null ? value.toFixed(2) : "Not calculated";
+		return value;
+	};
 
 	return (
 		<>
@@ -80,7 +147,7 @@ export default function Profile() {
 						<div className="p-8 w-full">
 							<div className="flex justify-between items-center mb-4">
 								<h2 className="text-2xl font-bold text-gray-800">
-									{user.name}
+									{name}
 								</h2>
 								<button
 									onClick={() => setIsEditing(!isEditing)}
@@ -93,43 +160,51 @@ export default function Profile() {
 								<div className="grid grid-cols-2 gap-4 mb-4">
 									<InfoItem
 										label="Age"
-										value={age}
+										name="age"
+										value={profileData.age}
+										displayValue={getDisplayValue("age")}
 										isEditing={isEditing}
-										onChange={(e) => setAge(e.target.value)}
+										onChange={handleInputChange}
 										placeholder="Enter age"
+										type="number"
 									/>
 									<InfoItem
 										label="Blood Type"
-										value={bloodType}
+										name="bloodType"
+										value={profileData.bloodType}
+										displayValue={getDisplayValue(
+											"bloodType"
+										)}
 										isEditing={isEditing}
-										onChange={(e) =>
-											setBloodType(e.target.value)
-										}
+										onChange={handleInputChange}
 										placeholder="Enter blood type"
 									/>
 									<InfoItem
 										label="Height"
-										value={height || `${user.height} cm`}
+										name="height"
+										value={profileData.height}
+										displayValue={getDisplayValue("height")}
 										isEditing={isEditing}
-										onChange={(e) =>
-											setHeight(e.target.value)
-										}
+										onChange={handleInputChange}
 										placeholder="Enter height (cm)"
 										type="number"
 									/>
 									<InfoItem
 										label="Weight"
-										value={weight || `${user.weight} kg`}
+										name="weight"
+										value={profileData.weight}
+										displayValue={getDisplayValue("weight")}
 										isEditing={isEditing}
-										onChange={(e) =>
-											setWeight(e.target.value)
-										}
+										onChange={handleInputChange}
 										placeholder="Enter weight (kg)"
 										type="number"
 									/>
 									<InfoItem
 										label="BMI"
-										value={bmi !== null ? bmi : user.bmi}
+										name="bmi"
+										value={profileData.bmi}
+										displayValue={getDisplayValue("bmi")}
+										isEditing={false}
 									/>
 									<a
 										href="https://www.ncbi.nlm.nih.gov/books/NBK541070/"
@@ -139,12 +214,15 @@ export default function Profile() {
 									</a>
 									<InfoItem
 										label="Allergy"
-										value={allergy}
+										name="allergy"
+										value={profileData.allergy}
+										displayValue={getDisplayValue(
+											"allergy"
+										)}
 										isEditing={isEditing}
-										onChange={(e) =>
-											setAllergy(e.target.value)
-										}
+										onChange={handleInputChange}
 										placeholder="Enter allergy information"
+										fullWidth
 									/>
 								</div>
 								{isEditing && (
@@ -157,11 +235,10 @@ export default function Profile() {
 										}`}
 										disabled={isLoading}
 									>
-										{isLoading ? (
-											"Saving..."
-										) : (
-											<>Save Changes</>
-										)}
+										<Save size={20} className="mr-2" />
+										{isLoading
+											? "Saving..."
+											: "Save Changes"}
 									</button>
 								)}
 							</form>
@@ -201,27 +278,30 @@ export default function Profile() {
 
 const InfoItem = ({
 	label,
+	name,
 	value,
+	displayValue,
 	isEditing,
 	onChange,
 	fullWidth,
 	placeholder,
-	type = "text", // Default type is text
+	type = "text",
 }) => (
 	<div className={`${fullWidth ? "col-span-2" : ""}`}>
 		<label className="block text-sm font-medium text-gray-700">
 			{label}
 		</label>
-		{isEditing && onChange ? (
+		{isEditing ? (
 			<input
 				type={type}
+				name={name}
 				value={value}
 				onChange={onChange}
 				className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
 				placeholder={placeholder}
 			/>
 		) : (
-			<p className="mt-1 text-sm text-gray-900">{value}</p>
+			<p className="mt-1 text-sm text-gray-900">{displayValue}</p>
 		)}
 	</div>
 );
