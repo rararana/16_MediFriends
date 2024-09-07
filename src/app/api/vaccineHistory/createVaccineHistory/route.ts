@@ -1,13 +1,10 @@
-import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { db } from "@/lib/db";
 
-// api to create a new review
-export async function POST(request) {
+// API to create a new vaccine history record
+export async function POST(request: NextRequest) {
 	try {
 		const body = await request.json();
-		console.log(body);
-
 		const { userId, vaccineName, vaccineDate, clinicHospitalName } = body;
 
 		const newVaccineHistory = await db.vaccineHistory.create({
@@ -27,8 +24,12 @@ export async function POST(request) {
 			{ status: 201 }
 		);
 	} catch (error) {
+		console.error("Error creating vaccine history:", error);
 		return NextResponse.json(
-			{ message: "Vaccine history creation fail" },
+			{
+				message: "Vaccine history creation failed",
+				error: error.message,
+			},
 			{ status: 500 }
 		);
 	}

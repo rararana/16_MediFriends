@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { db } from "@/lib/db";
 
-export async function GET(request) {
+export async function GET(request: NextRequest) {
 	try {
 		const { searchParams } = new URL(request.url);
 		const userId = searchParams.get("userId");
@@ -14,14 +14,14 @@ export async function GET(request) {
 		}
 
 		const allVaccineHistory = await db.vaccineHistory.findMany({
-				where: {userId}
+			where: { userId },
 		});
-		
+
 		console.log(allVaccineHistory);
 		return NextResponse.json(
 			{
 				message: "Successfully get all vaccine history",
-				allVaccineHistory,
+				records: allVaccineHistory,
 			},
 			{ status: 200 }
 		);

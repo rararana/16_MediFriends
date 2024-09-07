@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { db } from "@/lib/db";
 
-export async function DELETE(request) {
+export async function DELETE(request: NextRequest) {
 	try {
 		const { id } = await request.json();
 

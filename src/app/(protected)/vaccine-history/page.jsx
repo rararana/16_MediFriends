@@ -2,100 +2,95 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import { useSession } from "next-auth/react";
+import VaccineHistory from "@/components/VaccineHistory/VaccineHistory";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
-import styles from "@/styles/styles.module.css";
 
-
-export default function VaccineHistory() {
-	const [vaccines, setVaccines] = useState([]);
-	const [form, setForm] = useState({
-		vaccineName: "",
-		date: "",
-		hospitalName: "",
-	});
-	const [editIndex, setEditIndex] = useState(null);
+export default function VaccineHistoryPage() {
+	const [records, setRecords] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 	const { data: session } = useSession();
 	const userId = session?.user?.id;
 
-
-	const fetchData = useCallback ( async () => {
-		if(userId) {
-			console.log(userId)
+	const fetchVaccineHistory = useCallback(async () => {
+		if (userId) {
+			setIsLoading(true);
 			try {
 				const response = await fetch(
 					`/api/vaccineHistory/getVaccineHistory?userId=${userId}`
 				);
-				if (!response.ok) {
-					throw new Error("Network response was not ok");
+				const data = await response.json();
+				if (response.ok) {
+					setRecords(data.records);
+				} else {
+					alert(data.message || "Failed to fetch vaccine history");
 				}
-				console.log(response);
-				const dataa = await response.json();
-				setVaccines(dataa.allVaccineHistory || []);
 			} catch (error) {
-				console.error("Failed to fetch data:", error);
+				console.error("Error fetching vaccine history:", error);
+				alert("Error fetching vaccine history");
+			} finally {
+				setIsLoading(false);
 			}
 		}
 	}, [userId]);
 
 	useEffect(() => {
-		const triggerFetch = async () => {
-			await fetchData();
-		};
-		triggerFetch();
-	}, [fetchData]);
+		fetchVaccineHistory();
+	}, [fetchVaccineHistory]);
 
-	const handleInputChange = (e) => {
-		const { name, value } = e.target;
-		setForm({ ...form, [name]: value });
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		if (editIndex !== null) {
-			const updateVaccines = vaccines.map((vaccine, index) =>
-				index === editIndex ? form : vaccine
-			);
-			setVaccines(updateVaccines);
-			setEditIndex(null);
-		} else {
+	const handleAddRecord = async (newRecord) => {
+		try {
 			const response = await fetch(
 				"/api/vaccineHistory/createVaccineHistory",
 				{
 					method: "POST",
-					body: JSON.stringify({
-						userId: "cm0dgb9lv0000r8ra38gr40ps",
-						vaccineName: form.vaccineName,
-						vaccineDate: form.date,
-						clinicHospitalName: form.hospitalName,
-					}),
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ userId, ...newRecord }),
 				}
 			);
-			if (response.status == 201) {
-				const form = await response.json();
-				setVaccines([...vaccines, form]);
+			const data = await response.json();
+			if (response.ok) {
+				setRecords((prevRecords) => [
+					...prevRecords,
+					data.vaccineHistory,
+				]);
+				alert("Vaccine record added successfully");
+				return true;
+			} else {
+				alert(data.message || "Failed to add vaccine record");
+				return false;
 			}
+		} catch (error) {
+			console.error("Error adding vaccine record:", error);
+			alert("Error adding vaccine record");
+			return false;
 		}
-
-		setForm({ vaccineName: "", date: "", hospitalName: "" });
 	};
 
-	const handleEdit = (index) => {
-		setForm(vaccines[index]);
-		setEditIndex(index);
-	};
-
-	const handleDelete = async (id) => {
-		const response = await fetch(
-			"/api/vaccineHistory/deleteVaccineHistory",
-			{
-				method: "DELETE",
-				body: JSON.stringify({ id }),
+	const handleDeleteRecord = async (id) => {
+		try {
+			const response = await fetch(
+				"/api/vaccineHistory/deleteVaccineHistory",
+				{
+					method: "DELETE",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ id }),
+				}
+			);
+			if (response.ok) {
+				setRecords((prevRecords) =>
+					prevRecords.filter((r) => r.id !== id)
+				);
+				alert("Vaccine record deleted successfully");
+				return true;
+			} else {
+				alert("Failed to delete vaccine record");
+				return false;
 			}
-		);
-
-		if (response.status == 200) {
-			setVaccines(vaccines.filter((_, i) => i !== id));
+		} catch (error) {
+			console.error("Error deleting vaccine record:", error);
+			alert("Error deleting vaccine record");
+			return false;
 		}
 	};
 
@@ -105,98 +100,14 @@ export default function VaccineHistory() {
 
 	return (
 		<div>
-			{/* Navigation */}
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div className="mt-[6rem] container">
-				<h1 className={styles.bigBoldText}>Vaccine History</h1>
-				<form onSubmit={handleSubmit}>
-					<div>
-						<label>Vaccine Name:</label>
-						<input
-							type="text"
-							name="vaccineName"
-							value={form.vaccineName}
-							onChange={handleInputChange}
-							required
-						/>
-					</div>
-					<div>
-						<label>Vaccine Date:</label>
-						<input
-							type="text"
-							name="date"
-							value={form.date}
-							onChange={handleInputChange}
-							required
-						/>
-					</div>
-					<div>
-						<label>Hospital Name:</label>
-						<input
-							type="text"
-							name="hospitalName"
-							value={form.hospitalName}
-							onChange={handleInputChange}
-							required
-						/>
-					</div>
-					<button type="submit" className={styles.boxedButton}>
-						{editIndex !== null ? "Update Vaccine" : "Add Vaccine"}
-					</button>
-					{editIndex !== null && (
-						<>
-							<br />
-							<button
-								className={styles.boxedButton}
-								type="button"
-								onClick={() => {
-									setForm({
-										vaccineName: "",
-										date: "",
-										hospitalName: "",
-									});
-									setEditIndex(null);
-								}}
-							>
-								Cancel Edit
-							</button>
-						</>
-					)}
-				</form>
-
-				<br />
-				<h2 className={styles.bigBoldText2}>Vaccine List</h2>
-				<ul>
-					{vaccines.map((vaccine, index) => (
-						<li key={index}>
-							<br />
-							<h3 className={styles.bigBoldText3}>
-								{vaccine.vaccineName}
-							</h3>
-							<br />
-							Date: {vaccine.vaccineDate}
-							<br />
-							Hospital Name: {vaccine.clinicHospitalName}
-							<div>
-								<button
-									className={styles.boxedButton}
-									onClick={() => handleEdit(index)}
-								>
-									Edit
-								</button>
-								<br />
-								<button
-									className={styles.boxedButton}
-									onClick={() => handleDelete(vaccine.id)}
-								>
-									Delete
-								</button>
-							</div>
-						</li>
-					))}
-				</ul>
-			</div>
+			<VaccineHistory
+				records={records}
+				isLoading={isLoading}
+				onAddRecord={handleAddRecord}
+				onDeleteRecord={handleDeleteRecord}
+			/>
 		</div>
 	);
 }
