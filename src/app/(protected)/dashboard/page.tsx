@@ -25,7 +25,7 @@ const Dashboard = () => {
 			{/* Nav */}
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
 			<div></div>
-			<div id="dashboard-navigation-page">
+			<div id="dashboard-navigation-page" className="mt-[4.5rem]">
 				<NavigationPage />
 			</div>
 			<div id="landing-hero-section">
@@ -34,7 +34,7 @@ const Dashboard = () => {
 			<div id="landing-carousel-section">
 				<CarouselDemo />
 			</div>
-			<nav className="mb-[4.5rem]">
+			<nav>
 				<MobileNav nav={nav} closeNav={closeNav} />
 			</nav>
 		</>

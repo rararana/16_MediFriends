@@ -97,7 +97,7 @@ const HospitalList = () => {
 			{hospitals.map((hospital, index) => (
 				<div
 					key={index}
-					className="p-5 border border-collapse rounded-xl my-2 max-h-[500px] overflow-y-auto transition-all hover:bg-sky-50 cursor-pointer"
+					className="p-5 border border-collapse shadow-md rounded-xl my-2 max-h-[500px] overflow-y-auto transition-all hover:bg-sky-50 cursor-pointer"
 				>
 					<h3>{hospital.tags.name || "Unknown Hospital"}</h3>
 					<p>Distance: {hospital.distance.toFixed(2)} km</p>

@@ -109,9 +109,11 @@ const MobileNav = ({ nav, closeNav }: Props) => {
 						<li>
 							<a
 								className="nav-link-mobile"
-								onClick={() => handleNavClick("/article")}
+								onClick={() =>
+									handleNavClick("/vaccine-history")
+								}
 							>
-								Articles
+								Vaccine Record
 							</a>
 						</li>
 						<li>
@@ -127,11 +129,9 @@ const MobileNav = ({ nav, closeNav }: Props) => {
 						<li>
 							<a
 								className="nav-link-mobile"
-								onClick={() =>
-									handleNavClick("/vaccine-history")
-								}
+								onClick={() => handleNavClick("/article")}
 							>
-								Vaccine Record
+								Articles
 							</a>
 						</li>
 					</ul>

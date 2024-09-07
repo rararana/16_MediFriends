@@ -69,7 +69,7 @@ export default function SleepHistoryPage() {
 		<>
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div className="mt-[6rem] min-h-screen p-4">
+			<div className="mt-[7rem] min-h-screen p-4">
 				<h1 className="text-3xl font-bold mb-4 text-center">
 					Sleep Tracker
 				</h1>

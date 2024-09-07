@@ -15,8 +15,8 @@ export default function Home() {
 			{/* Nav */}
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div className="container mx-auto mt-[6rem]">
-				<div className="min-h-screen grid grid-cols-2 gap-10">
+			<div className="container mx-auto mt-[8rem]">
+				<div className="min-h-screen">
 					<div className="max-w-[100%]">
 						<NearestHospital />
 					</div>

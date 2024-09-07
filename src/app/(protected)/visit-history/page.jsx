@@ -77,7 +77,7 @@ const Datas = () => {
 		<>
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div className="container mt-[7rem]">
+			<div className="container mt-[9rem]">
 				<h1 className="text-3xl font-semibold text-center">
 					Hospital Visit Records
 				</h1>
