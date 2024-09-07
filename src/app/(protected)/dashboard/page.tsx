@@ -22,18 +22,18 @@ const Dashboard = () => {
 			<Head>
 				<title>Medifriends</title>
 			</Head>
+			<div id="dashboard-navigation-page">
+				<NavigationPage />
+			</div>
 			<div id="landing-hero-section" className="mt-[6rem]">
 				<Hero />
 			</div>
-			<div>
-				<NavigationPage />
+			<div id="landing-carousel-section">
+				<CarouselDemo />
 			</div>
 			{/* Nav */}
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div id="landing-carousel-section">
-				<CarouselDemo />
-			</div>
 		</>
 	);
 };

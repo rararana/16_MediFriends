@@ -35,7 +35,7 @@ export const CallToAction = () => {
 				</p>
 				<a
 					onClick={() => router.push("/auth/register")}
-					className="inline-block cursor-pointer bg-white text-[#2487c5] text-lg font-semibold py-3 px-6 rounded-full shadow-md hover:scale-110 active:opacity-80 transition duration-200"
+					className="inline-block cursor-pointer bg-white text-[#2487c5] text-lg font-semibold py-3 px-6 rounded-full shadow-md active:opacity-80 transition-all duration-200"
 					data-aos="slide-up"
 					data-aos-delay="200"
 				>

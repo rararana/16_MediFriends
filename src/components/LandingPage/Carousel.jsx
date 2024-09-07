@@ -12,37 +12,28 @@ import "aos/dist/aos.css";
 
 const carouselItems = [
 	{
-		title: (
-			<>
-				<span className="text-white [text-shadow:0_0_4px_rgba(255,255,255,0.5),0_0_6px_rgba(255,255,255,0.3)]">
-					Track
-				</span>{" "}
-				your schedule
-			</>
-		),
+		title: "Track your Schedule",
+		description:
+			"Keep your activities on track and never miss out appointment with your doctor or forget to drink your medication.",
 		image: "/images/carousel/carousel-img-1.png",
+		gradientColor: "#6BC2EB",
+		titleAlignment: "text-left",
 	},
 	{
-		title: (
-			<>
-				<span className="text-white [text-shadow:0_0_4px_rgba(255,255,255,0.5),0_0_6px_rgba(255,255,255,0.3)]">
-					Record
-				</span>{" "}
-				your activity
-			</>
-		),
-		image: "/images/carousel/carousel-img-3.png",
-	},
-	{
-		title: (
-			<>
-				<span className="text-white [text-shadow:0_0_4px_rgba(255,255,255,0.5),0_0_6px_rgba(255,255,255,0.3)]">
-					Inform
-				</span>{" "}
-				you with news
-			</>
-		),
+		title: "Record your activity",
+		description:
+			"Keep a record of your daily activities and health metrics for better health management.",
 		image: "/images/carousel/carousel-img-2.png",
+		gradientColor: "#6BC2EB",
+		titleAlignment: "text-center",
+	},
+	{
+		title: "Inform you with news",
+		description:
+			"Stay updated with the latest health news and recommendations tailored to your needs.",
+		image: "/images/carousel/carousel-img-3.png",
+		gradientColor: "#6BC2EB",
+		titleAlignment: "text-right",
 	},
 ];
 
@@ -57,7 +48,7 @@ export function CarouselDemo() {
 	}, []);
 
 	return (
-		<div className="relative w-full max-w-2xl mx-auto">
+		<div className="relative w-full max-w-3xl mx-auto">
 			<UiCarousel className="w-full" data-aos="fade-up">
 				<CarouselContent>
 					{carouselItems.map((item, index) => (
@@ -67,16 +58,76 @@ export function CarouselDemo() {
 							data-aos-delay={`${index * 200}`}
 						>
 							<div className="p-6">
-								<Card className="max-w-md mx-auto">
-									<CardContent className="rounded-3xl flex flex-col items-center justify-center p-8 bg-gradient-to-br from-[#3fa2ff] to-[#6BC2EB]">
-										<h2 className="text-2xl font-bold mb-4">
-											{item.title}
+								<Card className="overflow-hidden rounded-3xl relative">
+									<div className="absolute top-0 left-0 right-0 px-8 py-4 z-10">
+										<h2
+											className={`mt-3 text-2xl md:text-4xl font-bold ${item.titleAlignment} text-black`}
+										>
+											<span className="text-white [text-shadow:0_0_4px_rgba(255,255,255,0.5),0_0_6px_rgba(255,255,255,0.3)]">
+												{item.title.split(" ")[0]}
+											</span>{" "}
+											{item.title
+												.split(" ")
+												.slice(1)
+												.join(" ")}
 										</h2>
-										<img
-											src={item.image}
-											alt={item.title}
-											className="w-25 h-25 rounded-full object-cover"
-										/>
+									</div>
+									<CardContent className="p-0 flex h-[300px]">
+										{index === 1 ? (
+											<>
+												<div
+													className="w-1/2 p-4 md:p-8 flex flex-col justify-center"
+													style={{
+														backgroundColor:
+															item.gradientColor,
+													}}
+												>
+													<p className="text-base md:text-lg text-white">
+														{item.description}
+													</p>
+												</div>
+												<div className="w-1/2 relative">
+													<img
+														src={item.image}
+														alt={item.title}
+														className="w-full h-full object-cover"
+													/>
+													<div
+														className="absolute inset-0"
+														style={{
+															background: `linear-gradient(to left, transparent, ${item.gradientColor})`,
+														}}
+													></div>
+												</div>
+											</>
+										) : (
+											<>
+												<div className="w-1/2 relative">
+													<img
+														src={item.image}
+														alt={item.title}
+														className="w-full h-full object-cover"
+													/>
+													<div
+														className="absolute inset-0"
+														style={{
+															background: `linear-gradient(to right, transparent, ${item.gradientColor})`,
+														}}
+													></div>
+												</div>
+												<div
+													className="w-1/2 p-4 md:p-8 flex flex-col justify-center"
+													style={{
+														backgroundColor:
+															item.gradientColor,
+													}}
+												>
+													<p className="text-base md:text-lg text-white">
+														{item.description}
+													</p>
+												</div>
+											</>
+										)}
 									</CardContent>
 								</Card>
 							</div>
