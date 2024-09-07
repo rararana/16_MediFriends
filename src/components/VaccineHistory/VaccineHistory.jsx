@@ -2,14 +2,13 @@ import React, { useState } from "react";
 
 export default function VaccineHistory({
 	records = [],
-	isLoading,
 	onAddRecord,
 	onDeleteRecord,
 }) {
 	const [form, setForm] = useState({
 		vaccineName: "",
 		vaccineDate: "",
-		hospitalName: "",
+		clinicHospitalName: "",
 	});
 
 	const handleInputChange = (e) => {
@@ -21,14 +20,16 @@ export default function VaccineHistory({
 		e.preventDefault();
 		const success = await onAddRecord(form);
 		if (success) {
-			setForm({ vaccineName: "", vaccineDate: "", hospitalName: "" });
+			setForm({
+				vaccineName: "",
+				vaccineDate: "",
+				clinicHospitalName: "",
+			});
 		}
 	};
 
 	const handleDelete = async (id) => {
-		if (window.confirm("Are you sure you want to delete this record?")) {
-			await onDeleteRecord(id);
-		}
+		await onDeleteRecord(id);
 	};
 
 	return (
@@ -79,16 +80,16 @@ export default function VaccineHistory({
 				</div>
 				<div>
 					<label
-						htmlFor="hospitalName"
+						htmlFor="clinicHospitalName"
 						className="block text-sm font-medium text-gray-600"
 					>
-						Hospital Name
+						Clinic/Hospital Name
 					</label>
 					<input
-						id="hospitalName"
-						name="hospitalName"
+						id="clinicHospitalName"
+						name="clinicHospitalName"
 						type="text"
-						value={form.hospitalName}
+						value={form.clinicHospitalName}
 						onChange={handleInputChange}
 						required
 						className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-transparent sm:text-sm"
@@ -97,26 +98,23 @@ export default function VaccineHistory({
 				<button
 					type="submit"
 					className="w-full py-2 px-4 bg-sky-500 text-white rounded-md shadow-sm hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500"
-					disabled={isLoading}
 				>
-					Add Vaccine
+					Add Record
 				</button>
 			</form>
 
 			<h2 className="text-2xl font-semibold text-gray-700">
 				Vaccine Records
 			</h2>
-			{isLoading ? (
-				<p className="text-gray-500">Loading...</p>
-			) : records.length > 0 ? (
-				<ul className="space-y-4">
+			{records.length > 0 ? (
+				<ul className="space-y-4 text-white">
 					{records.map((record) => (
 						<li
 							key={record.id}
-							className="bg-white shadow-lg rounded-lg p-4 flex flex-col space-y-2"
+							className="bg-[#3cade1] rounded-lg p-4 flex flex-col space-y-2"
 						>
-							<h3 className="text-xl font-semibold text-gray-800">
-								{record.vaccineName}
+							<h3 className="text-xl font-semibold">
+								<p>Vaccine Name: {record.vaccineName}</p>
 							</h3>
 							<p>
 								Date:{" "}
@@ -124,7 +122,7 @@ export default function VaccineHistory({
 									record.vaccineDate
 								).toLocaleDateString()}{" "}
 							</p>
-							<p>Hospital: {record.hospitalName}</p>
+							<p>Clinic/Hospital: {record.clinicHospitalName}</p>
 							<div className="mt-4">
 								<button
 									className="py-2 px-4 bg-red-500 text-white rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"

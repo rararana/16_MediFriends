@@ -104,7 +104,6 @@ export default function VaccineHistoryPage() {
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
 			<VaccineHistory
 				records={records}
-				isLoading={isLoading}
 				onAddRecord={handleAddRecord}
 				onDeleteRecord={handleDeleteRecord}
 			/>
