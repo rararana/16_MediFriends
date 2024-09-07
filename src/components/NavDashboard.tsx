@@ -49,11 +49,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 	};
 
 	return (
-		<header
-			className={`fixed top-0 w-full h-[10vh] bg-gradient-to-r from-[#2487c5] via-[#3198c8] to-[#2487c5] z-10 transition-shadow duration-300 ${
-				isScrolled ? "shadow-md bg-opacity-90" : ""
-			}`}
-		>
+		<header className="fixed top-0 w-full h-[10vh] bg-gradient-to-r from-[#2487c5] via-[#3198c8] to-[#2487c5] z-10 transition-shadow duration-300">
 			<div className="max-w-[93%] mx-auto h-full flex items-center justify-between">
 				<h1
 					className="text-3xl font-bold cursor-pointer"

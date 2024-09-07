@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AOS from "aos";
@@ -23,11 +25,11 @@ const NavigationPage = () => {
 		<div
 			className="relative flex flex-col items-center justify-center min-h-screen p-6 bg-cover bg-center"
 			style={{
-				backgroundImage: "url('images/hero/gunung.jpg')",
+				backgroundImage: "url('/images/hero/gunung.jpg')",
 			}}
 		>
 			<div className="absolute inset-0 bg-black opacity-80 backdrop-blur-sm"></div>
-			<div className="relative z-10 text-white">
+			<div className="relative text-white">
 				<h1 className="text-4xl font-bold mb-8 text-center [text-shadow:0_0_4px_rgba(255,255,255,0.5),0_0_6px_rgba(255,255,255,0.3)]">
 					Explore Your Health Insights
 				</h1>
@@ -69,7 +71,7 @@ const NavigationPage = () => {
 						<div
 							key={item.title}
 							onClick={() => handleNavigation(item.path)}
-							className="nav-box bg-white bg-opacity-10 backdrop-blur-md rounded-lg p-6 transition-all duration-300 hover:bg-opacity-20 hover:scale-105 cursor-pointer"
+							className="nav-box bg-white bg-opacity-10 backdrop-blur-md rounded-lg p-6 transition-all duration-500 hover:bg-opacity-20 hover:scale-105 cursor-pointer"
 							data-aos="fade-up"
 							data-aos-delay={index * 100}
 						>
