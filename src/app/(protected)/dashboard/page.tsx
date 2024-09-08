@@ -25,7 +25,7 @@ const Dashboard = () => {
 			{/* Nav */}
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
 			<div></div>
-			<div id="dashboard-navigation-page" className="mt-[4rem]">
+			<div id="dashboard-navigation-page" className="mt-[4.5rem]">
 				<NavigationPage />
 			</div>
 			<div id="landing-hero-section">
