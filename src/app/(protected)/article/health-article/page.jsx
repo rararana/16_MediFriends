@@ -15,6 +15,7 @@ import imagekesehatandunia from "public/images/health-article/kesehatandunia.png
 import imagepolio from "public/images/health-article/polio.png";
 import imagepolusi from "public/images/health-article/polusi.png";
 import imagerokok from "public/images/health-article/rokok.png";
+import Footer from "@/components/Footer/Footer";
 
 const articles = [
 	{
@@ -108,6 +109,9 @@ const Home = () => {
 					))}
 				</div>
 			</div>
+			<footer>
+				<Footer />
+			</footer>
 		</>
 	);
 };
