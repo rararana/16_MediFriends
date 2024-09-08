@@ -2,43 +2,19 @@
 
 > Medifriends Project - Tugas Milestone SPARTA HMIF 2024
 
-## Deskripsi
+## About
 
 MediFriends adalah sebuah aplikasi berbasis website yang bergerak di bidang kesehatan. Proyek ini bertujuan untuk menyediakan platform yang menyediakan wadah bagi pengguna untuk memantau kesehatan dan menerapkan gaya pola hidup sehat.
 
-Fitur-fitur yang termasuk pelacak pola tidur, berat badan, riwayat medis, kunjungan dokter, penghitung BMI, informasi rumah sakit terdekat, serta menyediakan artikel-artikel penting tentang kesehatan.
-
-## Teknologi yang digunakan
-
--   **Next.js**
--   **React**
--   **Prisma**
--   **PostgreSQL**
--   **NextAuth**
--   **Node.js**
--   **Tailwind CSS**
--   **CSS**
--   **Javascript/Typescript**
--   **Git/GitHub**
--   **Leaflet Library**
--   **Overpass API**
-
-## Struktur program
-
-Struktur program meliputi struktur program Next.js yang menggunakan konvensi app/ (seperti pada Next.js versi 13 ke atas),
-
--   Folder public/ : menyimpan file-file gambar
--   Folder actions/ : menyimpan file-file logika login dan register
--   Folder prisma/ : menyimpan schema-file untuk model database
--   Folder src/ : berupa sumber seluruh kode aplikasi, dengan subfolder:
-    -   app/ : menyimpan halaman aplikasi dan api yang digunakan
-    -   components/ : berisi komponen React yang digunakan di beberapa halaman
-    -   styles/ : berisi file CSS global untuk styling halaman
-    -   data/ & lib/ : berisi konfigurasi database yang digunakan
-    -   schemas/ : berisi skema validasi dan verifikasi
-    -   auth/middleware/routes : berisi keperluan untuk autentikasi dan keamanan web
+Fitur-fitur yang termasuk pelacak pola tidur, track kunjungan dokter, track riwayat medis seperti vaksin, kalkulator BMI, informasi rumah sakit terdekat, serta menyediakan artikel-artikel penting tentang kesehatan.
 
 ## Cara menjalankan program
+
+### Live Website
+
+Anda dapat mengakses live deployment website di [MediFriends Website](https://16-medifriends.vercel.app/)
+
+### Menjalankan di local
 
 1. **Clone repository:**
 
@@ -63,6 +39,37 @@ npm run dev
 4. **Access app in browser**
    Akses aplikasi dengan membuka
    `http://localhost:3000`
+
+## Teknologi yang digunakan
+
+-   **Next.js**
+-   **React**
+-   **Prisma**
+-   **PostgreSQL**
+-   **NextAuth**
+-   **Node.js**
+-   **Tailwind CSS**
+-   **CSS**
+-   **Javascript/Typescript**
+-   **Git/GitHub**
+-   **Leaflet Library**
+-   **Overpass API**
+-   **Lucide & shadcn**
+
+## Struktur program
+
+Struktur program meliputi struktur program Next.js yang menggunakan konvensi app/ (seperti pada Next.js versi 13 ke atas),
+
+-   Folder public/ : menyimpan file-file gambar/statis
+-   Folder actions/ : menyimpan file-file logika login dan register
+-   Folder prisma/ : menyimpan schema-file untuk model database
+-   Folder src/ : berupa sumber seluruh kode aplikasi, dengan subfolder:
+    -   app/ : menyimpan halaman aplikasi dan api yang digunakan
+    -   components/ : berisi komponen React yang digunakan di beberapa halaman
+    -   styles/ : berisi file CSS global untuk styling halaman
+    -   data/ & lib/ : berisi konfigurasi database yang digunakan
+    -   schemas/ : berisi skema validasi dan verifikasi
+    -   auth/middleware/routes : berisi keperluan untuk autentikasi dan keamanan web
 
 # Anggota kelompok dan rolenya
 
