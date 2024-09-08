@@ -45,7 +45,7 @@ const MobileNav = ({ nav, closeNav }: Props) => {
 		<>
 			<div
 				ref={overlayRef}
-				className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 ${overlayVisibility} z-[9999]`}
+				className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 ${overlayVisibility} z-[9999]`}
 				onClick={closeNav}
 			></div>
 			<div

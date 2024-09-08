@@ -5,6 +5,7 @@ import Head from "next/head";
 import Image from "next/image";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
+import Footer from "@/components/Footer/Footer";
 
 // Sample data
 const articles = [
@@ -118,6 +119,9 @@ const ArticlesPage = () => {
 					))}
 				</section>
 			</main>
+			<footer>
+				<Footer />
+			</footer>
 		</div>
 	);
 };

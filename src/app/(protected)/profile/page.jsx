@@ -5,6 +5,7 @@ import { User, Edit2, Save } from "lucide-react";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
 import { useSession } from "next-auth/react";
+import Footer from "@/components/Footer/Footer";
 
 export default function Profile() {
 	const [nav, setNav] = useState(false);
@@ -272,6 +273,9 @@ export default function Profile() {
 					</div>
 				</div>
 			</div>
+			<footer>
+				<Footer />
+			</footer>
 		</>
 	);
 }

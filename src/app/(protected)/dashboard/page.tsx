@@ -7,6 +7,7 @@ import MobileNav from "@/components/MobileNav";
 import Hero from "@/components/LandingPage/Hero";
 import { CarouselDemo } from "@/components/LandingPage/Carousel";
 import NavigationPage from "@/components/LandingPage/NavigationPage";
+import Footer from "@/components/Footer/Footer";
 
 const Dashboard = () => {
 	const { data: session } = useSession();
@@ -34,6 +35,9 @@ const Dashboard = () => {
 			<div id="landing-carousel-section">
 				<CarouselDemo />
 			</div>
+			<footer>
+				<Footer />
+			</footer>
 			<nav>
 				<MobileNav nav={nav} closeNav={closeNav} />
 			</nav>
