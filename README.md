@@ -2,7 +2,7 @@
 
 > Medifriends Project - Tugas Milestone SPARTA HMIF 2024
 
-## About
+## Deskripsi
 
 MediFriends adalah sebuah aplikasi berbasis website yang bergerak di bidang kesehatan. Proyek ini bertujuan untuk menyediakan platform yang menyediakan wadah bagi pengguna untuk memantau kesehatan dan menerapkan gaya pola hidup sehat.
 
