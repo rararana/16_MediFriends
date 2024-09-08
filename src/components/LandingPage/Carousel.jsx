@@ -22,7 +22,7 @@ const carouselItems = [
 	{
 		title: "Record your activity",
 		description:
-			"Keep a record of your daily activities and health metrics for better health management.",
+			"Keep your body on good health by keeping tabs on your sleep schedule, BMI score, and vaccine history",
 		image: "/images/carousel/carousel-img-2.png",
 		gradientColor: "#6BC2EB",
 		titleAlignment: "text-center",
@@ -30,7 +30,7 @@ const carouselItems = [
 	{
 		title: "Inform you with news",
 		description:
-			"Stay updated with the latest health news and recommendations tailored to your needs.",
+			"Don't be left out in this everychanging world. Get on with the latest news you can get about health",
 		image: "/images/carousel/carousel-img-3.png",
 		gradientColor: "#6BC2EB",
 		titleAlignment: "text-right",
