@@ -41,7 +41,7 @@ const Nav = ({ openNav, closeNav }: Props) => {
 
 	return (
 		<header
-			className={`fixed top-0 w-full h-[10vh] bg-gradient-to-r from-[#2487c5] via-[#3198c8] to-[#2487c5] z-10 transition-shadow duration-300 ${
+			className={`fixed top-0 w-full h-[10vh] bg-[#209CEE] z-10 transition-shadow duration-300 ${
 				isScrolled ? "shadow-md bg-opacity-90" : ""
 			}`}
 		>
