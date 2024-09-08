@@ -60,10 +60,10 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 					</span>
 					Friends
 				</h1>
-				<nav className="flex ml-auto gap-2">
+				<nav className="flex ml-auto md:gap-2">
 					<button
 						onClick={handleSignOut}
-						className="border-[#ffffffc2] border-2 text-white transition-all bg-[#1f4e94] hover:bg-[#233e6e] active:bg-[#182c4d] hover:text-white rounded-sm py-3 px-6"
+						className="border-[#ffffffc2] text-[12px] md:text-[16px] border-2 text-white transition-all bg-[#1f4e94] hover:bg-[#233e6e] active:bg-[#182c4d] hover:text-white rounded-sm py-1 px-3 md:py-3 md:px-6"
 					>
 						Log Out
 					</button>

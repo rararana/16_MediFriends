@@ -1,7 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { db } from "@/lib/db";
 
-// API to create a new vaccine history record
 export async function POST(request: NextRequest) {
 	try {
 		const body = await request.json();

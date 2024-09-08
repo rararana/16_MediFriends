@@ -60,10 +60,10 @@ const VisitForm = ({ onAddVisit }) => {
 					onChange={(e) => setTreatment(e.target.value)}
 				/>
 				<button
-					className="bg-sky-500 hover:bg-sky-600 text-white w-full font-semibold py-3 rounded-md transition duration-300 transform hover:scale-105"
+					className="bg-sky-500 hover:bg-sky-600 text-white w-full font-semibold py-3 rounded-md transition duration-300 transform"
 					type="submit"
 				>
-					Simpan
+					Add Record
 				</button>
 			</form>
 		</div>

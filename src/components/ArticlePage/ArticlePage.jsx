@@ -39,7 +39,7 @@ const ArticleBox = ({ title, imageSrc, altText, onClick }) => {
 					alt={altText}
 					width={400}
 					height={250}
-					className="w-full max-h-80 object-cover"
+					className="w-full object-cover max-h-[190px] md:max-h-[200px] lg: max-h-[250px]"
 				/>
 				<div className="absolute inset-0 bg-black bg-opacity-40 transition-opacity duration-300 opacity-0 group-hover:opacity-100"></div>
 				<div className="absolute bottom-0 left-0 right-0 p-4 text-white text-center transform translate-y-full transition-transform duration-300 group-hover:translate-y-0">

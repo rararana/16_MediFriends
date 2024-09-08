@@ -118,9 +118,6 @@ const ArticlesPage = () => {
 					))}
 				</section>
 			</main>
-			<footer className="bg-gray-100 py-2 text-center border-t border-gray-200">
-				{/* Footer content */}
-			</footer>
 		</div>
 	);
 };
