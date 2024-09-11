@@ -28,7 +28,7 @@ const NavigationPage = () => {
 				backgroundImage: "url('/images/hero/gunung.jpg')",
 			}}
 		>
-			<div className="absolute inset-0 bg-black opacity-80 backdrop-blur-sm"></div>
+			<div className="absolute inset-0 bg-black opacity-60 backdrop-blur-sm"></div>
 			<div className="relative text-white">
 				<h1 className="text-4xl font-bold mb-8 text-center [text-shadow:0_0_4px_rgba(255,255,255,0.5),0_0_6px_rgba(255,255,255,0.3)]">
 					Explore Your Health Insights
