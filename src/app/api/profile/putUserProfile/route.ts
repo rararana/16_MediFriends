@@ -4,8 +4,7 @@ import { db } from "@/lib/db";
 export async function PUT(request: NextRequest) {
 	try {
 		const body = await request.json();
-		console.log(body);
-
+		
 		const { height, weight, age, bloodType, allergy, bmi, userId } = body;
 
 		const newProfile = await db.user.update({

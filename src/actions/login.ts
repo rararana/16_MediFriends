@@ -29,7 +29,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 		}
 
 		return {
-			success: "Login succesful!, please wait a moment...",
+			success: "Login succesful! Redirecting...",
 		};
 	} catch (error) {
 		if (error instanceof AuthError) {
