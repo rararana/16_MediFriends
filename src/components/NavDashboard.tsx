@@ -2,10 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { Bars3Icon } from "@heroicons/react/20/solid";
-import Link from "next/link";
-import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import Image from "next/image";
 
 interface Props {
 	openNav: () => void;
@@ -49,31 +48,93 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 	};
 
 	return (
-		<header className="fixed top-0 w-full h-[10vh] bg-gradient-to-r from-[#209CEE] via-[#3dc1ff] to-[#209CEE] z-10 transition-shadow duration-300 ">
+		<header
+			className={`fixed top-0 w-full h-[10vh] bg-[#FFFFFF] border-b-2 border-gray-200 z-10 transition-shadow duration-300 ${
+				isScrolled ? "shadow-md" : ""
+			}`}
+		>
 			<div className="max-w-[93%] mx-auto h-full flex items-center justify-between">
-				<h1
-					className="text-3xl font-bold cursor-pointer"
-					onClick={() => (window.location.href = "#")}
-				>
-					<span className="text-white [text-shadow:0_0_8px_rgba(255,255,255,0.5),0_0_8px_rgba(255,255,255,0.3)]">
-						Medi
-					</span>
-					Friends
-				</h1>
-				<nav className="flex ml-auto md:gap-2">
+				<div className="flex items-center justify-between">
+					<Image
+						src="/images/logo/logo-medifriends.png"
+						alt="MediFriends Logo"
+						width={55}
+						height={60}
+						className="object-contain"
+					/>
+					<h1
+						className="text-3xl text-[#1D2F6F] font-bold cursor-pointer"
+						onClick={() => (window.location.href = "/dashboard")}
+					>
+						MediFriends
+					</h1>
+					<div className="nav-links ml-[3rem]">
+						<ul className="flex gap-10">
+							<li>
+								<a
+									href="/dashboard"
+									className="hover:text-sky-400"
+								>
+									Home
+								</a>
+							</li>
+							<li>
+								<a
+									href="/profile"
+									className="hover:text-sky-400"
+								>
+									Profile
+								</a>
+							</li>
+							<li>
+								<a
+									href="/visit-history"
+									className="hover:text-sky-400"
+								>
+									Visit History
+								</a>
+							</li>
+							<li>
+								<a
+									href="/sleep-history"
+									className="hover:text-sky-400"
+								>
+									Sleep Tracker
+								</a>
+							</li>
+							<li>
+								<a
+									href="article"
+									className="hover:text-sky-400"
+								>
+									Articles
+								</a>
+							</li>
+							<li>
+								<a
+									href="nearest-hospital"
+									className="hover:text-sky-400"
+								>
+									Nearby Hospitals
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div className="flex ml-auto md:gap-2">
 					<button
 						onClick={handleSignOut}
-						className="border-[#ffffffc2] text-[12px] md:text-[16px] border-2 text-white transition-all bg-[#1f4e94] hover:bg-[#233e6e] active:bg-[#182c4d] hover:text-white rounded-sm py-1 px-3 md:py-3 md:px-6"
+						className="relative py-2 rounded-md text-white bg-[#141414] isolation-auto z-10 border-2 before:absolute before:w-full before:transition-all before:duration-300 before:hover:w-full hover:text-white before:-right-full before:hover:right-0 before:rounded-full before:bg-[#A12347] before:-z-10 before:aspect-square before:hover:scale-150 overflow-hidden before:hover:duration-500 inline-flex items-center justify-center px-4 py-3 text-sm font-semibold text-black bg-white border rounded-lg shadow-sm gap-x-2 hover:bg-[#141414] disabled:opacity-50 disabled:pointer-events-none"
 					>
-						Log Out
+						Log out
 					</button>
 					<div
 						onClick={openNav}
-						className="flex justify-center items-center ml-5"
+						className="flex justify-center md:hidden items-center ml-5"
 					>
-						<Bars3Icon className="w-[2rem] h-[2rem] cursor-pointer text-white" />
+						<Bars3Icon className="w-[2rem] h-[2rem] cursor-pointer text-[#141414]" />
 					</div>
-				</nav>
+				</div>
 			</div>
 		</header>
 	);
