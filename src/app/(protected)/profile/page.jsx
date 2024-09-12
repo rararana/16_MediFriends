@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { User, Edit2, Save } from "lucide-react";
+import { User, Edit2, Save, Activity } from "lucide-react";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
 import { useSession } from "next-auth/react";
@@ -20,6 +20,11 @@ export default function Profile() {
 		allergy: "",
 		bmi: null,
 	});
+	const [calculatorData, setCalculatorData] = useState({
+		height: "",
+		weight: "",
+		bmi: null,
+	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 
@@ -28,7 +33,7 @@ export default function Profile() {
 	const email = session?.user?.email;
 	const userId = session?.user?.id;
 
-	const calculateBMI = (height, weight) => {
+	const calculateBMI = useCallback((height, weight) => {
 		const heightInMeters = parseFloat(height) / 100;
 		const weightInKg = parseFloat(weight);
 
@@ -42,7 +47,7 @@ export default function Profile() {
 			);
 		}
 		return null;
-	};
+	}, []);
 
 	const fetchUserProfile = useCallback(async () => {
 		if (userId) {
@@ -51,36 +56,46 @@ export default function Profile() {
 					`/api/profile/getUserProfile?userId=${userId}`
 				);
 				const data = await response.json();
+
 				if (response.ok) {
-					setProfileData({
+					const bmi = calculateBMI(
+						data.userProfile.height,
+						data.userProfile.weight
+					);
+					const profileUpdate = {
 						height: data.userProfile.height || "",
 						weight: data.userProfile.weight || "",
 						age: data.userProfile.age || "",
 						bloodType: data.userProfile.bloodType || "",
 						allergy: data.userProfile.allergy || "",
-						bmi:
-							data.userProfile.bmi ||
-							calculateBMI(
-								data.userProfile.height,
-								data.userProfile.weight
-							) ||
-							null,
+						bmi: bmi,
+					};
+					setProfileData(profileUpdate);
+					setCalculatorData({
+						height: profileUpdate.height,
+						weight: profileUpdate.weight,
+						bmi: bmi,
 					});
 				} else {
-					console.error(
-						"Failed to fetch user profile:",
-						data.message
-					);
+					console.error(data.message);
 				}
 			} catch (error) {
-				console.error("Error fetching user profile:", error);
+				console.error(error);
 			}
 		}
-	}, [userId]);
+	}, [userId, calculateBMI]);
 
 	useEffect(() => {
 		fetchUserProfile();
 	}, [fetchUserProfile]);
+
+	const BMIStatus = useCallback((bmi) => {
+		if (bmi < 18.5) return "Underweight";
+		if (bmi >= 18.5 && bmi < 24.9) return "Normal weight";
+		if (bmi >= 25 && bmi < 29.9) return "Overweight";
+		if (bmi >= 30) return "Obesity";
+		return "Invalid BMI";
+	}, []);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -94,22 +109,20 @@ export default function Profile() {
 		try {
 			const response = await fetch(`/api/profile/putUserProfile`, {
 				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					...updatedProfileData,
-					userId: userId,
-				}),
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ ...updatedProfileData, userId: userId }),
 			});
-			if (!response.ok) {
-				throw new Error("Failed to update profile");
-			}
+			if (!response.ok) throw new Error("Update profile failed");
 
 			setProfileData(updatedProfileData);
+			setCalculatorData({
+				height: updatedProfileData.height,
+				weight: updatedProfileData.weight,
+				bmi: updatedProfileData.bmi,
+			});
 			alert("Data saved successfully!");
 		} catch (error) {
-			console.error("Error updating profile:", error);
+			console.error(error);
 			alert("Failed to save data");
 		}
 
@@ -117,165 +130,261 @@ export default function Profile() {
 		setIsEditing(false);
 	};
 
-	const handleInputChange = (e) => {
+	const handleProfileInputChange = (e) => {
 		const { name, value } = e.target;
-		setProfileData((prev) => ({ ...prev, [name]: value }));
+		setProfileData((prev) => {
+			const updatedData = { ...prev, [name]: value };
+			if (name === "height" || name === "weight") {
+				updatedData.bmi = calculateBMI(
+					name === "height" ? value : prev.height,
+					name === "weight" ? value : prev.weight
+				);
+			}
+			return updatedData;
+		});
 	};
 
-	const getDisplayValue = (key) => {
-		const value = profileData[key];
+	const handleCalculatorInputChange = (e) => {
+		const { name, value } = e.target;
+		setCalculatorData((prev) => {
+			const updatedData = { ...prev, [name]: value };
+			updatedData.bmi = calculateBMI(
+				name === "height" ? value : prev.height,
+				name === "weight" ? value : prev.weight
+			);
+			return updatedData;
+		});
+	};
+
+	const getDisplayValue = (data, key) => {
+		const value = data[key];
 		if (value === "") return "-";
 		if (key === "height") return `${value} cm`;
 		if (key === "weight") return `${value} kg`;
-		if (key === "bmi")
-			return value !== null ? value.toFixed(2) : "Not calculated";
+		if (key === "bmi") return value !== null ? value.toFixed(2) : "-";
 		return value;
 	};
 
 	return (
 		<>
-			{/* Navigation */}
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 mt-[4rem]">
-				<div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-					<div className="md:flex">
-						<div className="md:shrink-0">
-							<div className="h-full w-full md:w-48 bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center">
-								<User size={64} color="white" />
+			<div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 mt-[4rem] bg-[#FAF8F5]">
+				<div className="max-w-7xl mx-auto">
+					<div className="md:flex md:space-x-6">
+						{/* Profile Information */}
+						<div className="md:w-1/2 bg-white rounded-xl shadow-md overflow-hidden mb-6 md:mb-0">
+							<div className="p-8">
+								<div className="flex items-center justify-between mb-6">
+									<div className="flex items-center space-x-4">
+										<div className="h-16 w-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center">
+											<User size={32} color="white" />
+										</div>
+										<h2 className="text-2xl font-bold text-gray-800">
+											{name}
+										</h2>
+									</div>
+									<button
+										onClick={() => setIsEditing(!isEditing)}
+										className="text-blue-500 hover:text-blue-700"
+									>
+										<Edit2 size={20} />
+									</button>
+								</div>
+								<form onSubmit={handleSubmit}>
+									<div className="grid grid-cols-2 gap-4 mb-4">
+										<InfoItem
+											label="Height (cm)"
+											name="height"
+											value={profileData.height}
+											displayValue={getDisplayValue(
+												profileData,
+												"height"
+											)}
+											isEditing={isEditing}
+											onChange={handleProfileInputChange}
+											placeholder="Enter height"
+											type="number"
+										/>
+										<InfoItem
+											label="Weight (kg)"
+											name="weight"
+											value={profileData.weight}
+											displayValue={getDisplayValue(
+												profileData,
+												"weight"
+											)}
+											isEditing={isEditing}
+											onChange={handleProfileInputChange}
+											placeholder="Enter weight"
+											type="number"
+										/>
+										<InfoItem
+											label="Age"
+											name="age"
+											value={profileData.age}
+											displayValue={getDisplayValue(
+												profileData,
+												"age"
+											)}
+											isEditing={isEditing}
+											onChange={handleProfileInputChange}
+											placeholder="Enter age"
+											type="number"
+										/>
+										<InfoItem
+											label="Blood Type"
+											name="bloodType"
+											value={profileData.bloodType}
+											displayValue={getDisplayValue(
+												profileData,
+												"bloodType"
+											)}
+											isEditing={isEditing}
+											onChange={handleProfileInputChange}
+											placeholder="Enter blood type"
+										/>
+										<InfoItem
+											label="Allergy"
+											name="allergy"
+											value={profileData.allergy}
+											displayValue={getDisplayValue(
+												profileData,
+												"allergy"
+											)}
+											isEditing={isEditing}
+											onChange={handleProfileInputChange}
+											placeholder="Enter allergy information"
+											fullWidth
+										/>
+									</div>
+									{isEditing && (
+										<button
+											type="submit"
+											className={`mt-4 w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+												isLoading
+													? "opacity-50 cursor-not-allowed"
+													: ""
+											}`}
+											disabled={isLoading}
+										>
+											<Save size={20} className="mr-2" />
+											{isLoading
+												? "Saving..."
+												: "Save Changes"}
+										</button>
+									)}
+								</form>
+								{/* Account Information */}
+								<div className="mt-8 bg-white p-7 rounded-lg border max-w-sm mx-auto">
+									<h3 className="text-xl font-bold mb-4">
+										Account Information
+									</h3>
+									<div className="space-y-4">
+										<div>
+											<label className="block mb-2 font-semibold">
+												Username
+											</label>
+											<p className="w-full p-2 border rounded-md border-gray-300 bg-gray-50">
+												{name}
+											</p>
+										</div>
+										<div>
+											<label className="block mb-2 font-semibold">
+												Email
+											</label>
+											<p className="w-full p-2 border rounded-md border-gray-300 bg-gray-50">
+												{email}
+											</p>
+										</div>
+										<div>
+											<label className="block mb-2 font-semibold">
+												Password
+											</label>
+											<p className="w-full p-2 border rounded-md border-gray-300 bg-gray-50">
+												********
+											</p>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div className="p-8 w-full">
-							<div className="flex justify-between items-center mb-4">
-								<h2 className="text-2xl font-bold text-gray-800">
-									{name}
-								</h2>
-								<button
-									onClick={() => setIsEditing(!isEditing)}
-									className="text-blue-500 hover:text-blue-700"
-								>
-									<Edit2 size={20} />
-								</button>
-							</div>
-							<form onSubmit={handleSubmit}>
-								<div className="grid grid-cols-2 gap-4 mb-4">
+
+						{/* BMI Calculator */}
+						<div className="md:w-1/2 bg-white rounded-xl shadow-md overflow-hidden">
+							<div className="p-8">
+								<div className="flex items-center space-x-4 mb-6">
+									<div className="h-12 w-12 bg-green-500 rounded-full flex items-center justify-center">
+										<Activity size={24} color="white" />
+									</div>
+									<h2 className="text-2xl font-bold text-gray-800">
+										BMI Calculator
+									</h2>
+								</div>
+								<div className="grid grid-cols-2 gap-4 mb-6">
 									<InfoItem
-										label="Age"
-										name="age"
-										value={profileData.age}
-										displayValue={getDisplayValue("age")}
-										isEditing={isEditing}
-										onChange={handleInputChange}
-										placeholder="Enter age"
-										type="number"
-									/>
-									<InfoItem
-										label="Blood Type"
-										name="bloodType"
-										value={profileData.bloodType}
-										displayValue={getDisplayValue(
-											"bloodType"
-										)}
-										isEditing={isEditing}
-										onChange={handleInputChange}
-										placeholder="Enter blood type"
-									/>
-									<InfoItem
-										label="Height"
+										label="Height (cm)"
 										name="height"
-										value={profileData.height}
-										displayValue={getDisplayValue("height")}
-										isEditing={isEditing}
-										onChange={handleInputChange}
-										placeholder="Enter height (cm)"
-										type="number"
-									/>
-									<InfoItem
-										label="Weight"
-										name="weight"
-										value={profileData.weight}
-										displayValue={getDisplayValue("weight")}
-										isEditing={isEditing}
-										onChange={handleInputChange}
-										placeholder="Enter weight (kg)"
-										type="number"
-									/>
-									<InfoItem
-										label="BMI"
-										name="bmi"
-										value={profileData.bmi}
-										displayValue={getDisplayValue("bmi")}
-										isEditing={false}
-									/>
-									<a
-										href="https://www.ncbi.nlm.nih.gov/books/NBK541070/"
-										className="text-sm text-blue-600 hover:text-blue-800 underline break-words"
-									>
-										Check your BMI description Here
-									</a>
-									<InfoItem
-										label="Allergy"
-										name="allergy"
-										value={profileData.allergy}
+										value={calculatorData.height}
 										displayValue={getDisplayValue(
-											"allergy"
+											calculatorData,
+											"height"
 										)}
-										isEditing={isEditing}
-										onChange={handleInputChange}
-										placeholder="Enter allergy information"
-										fullWidth
+										isEditing={true}
+										onChange={handleCalculatorInputChange}
+										placeholder="Enter height"
+										type="number"
+									/>
+									<InfoItem
+										label="Weight (kg)"
+										name="weight"
+										value={calculatorData.weight}
+										displayValue={getDisplayValue(
+											calculatorData,
+											"weight"
+										)}
+										isEditing={true}
+										onChange={handleCalculatorInputChange}
+										placeholder="Enter weight"
+										type="number"
 									/>
 								</div>
-								{isEditing && (
-									<button
-										type="submit"
-										className={`mt-4 w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
-											isLoading
-												? "opacity-50 cursor-not-allowed"
-												: ""
-										}`}
-										disabled={isLoading}
-									>
-										<Save size={20} className="mr-2" />
-										{isLoading
-											? "Saving..."
-											: "Save Changes"}
-									</button>
-								)}
-							</form>
+								<div className="bg-gray-100 shadow-md rounded-lg p-6 mb-6">
+									<div className="text-center">
+										<p className="text-lg font-semibold mb-2">
+											Your BMI
+										</p>
+										<p className="text-4xl font-bold text-green-400">
+											{getDisplayValue(
+												calculatorData,
+												"bmi"
+											)}
+										</p>
+									</div>
+									<div className="mt-4 text-center">
+										<p className="text-lg font-semibold mb-2">
+											Status
+										</p>
+										<p className="text-xl font-bold text-green-600">
+											{BMIStatus(calculatorData.bmi)}
+										</p>
+									</div>
+								</div>
+								<div className="text-[18px] text-gray-600">
+									<p>BMI Categories:</p>
+									<ul className="list-disc list-inside mt-2">
+										<li>Underweight: Less than 18.5</li>
+										<li>Normal weight: 18.5 - 24.9</li>
+										<li>Overweight: 25 - 29.9</li>
+										<li>Obesity: 30 or greater</li>
+									</ul>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div className="bg-white p-7 rounded-lg shadow-xl border max-w-sm mx-auto my-10">
-					<div className="mb-4">
-						<label className="block mb-2 font-semibold">
-							Username
-						</label>
-						<p className="w-full p-2 border rounded-md border-gray-300 bg-white">
-							{name}
-						</p>
-					</div>
-					<div className="mb-4">
-						<label className="block mb-2 font-semibold">
-							Email
-						</label>
-						<p className="w-full p-2 border rounded-md border-gray-300 bg-white">
-							{email}
-						</p>
-					</div>
-					<div className="mb-4">
-						<label className="block mb-2 font-semibold">
-							Password
-						</label>
-						<p className="w-full p-2 border rounded-md border-gray-300 bg-white">
-							********
-						</p>
 					</div>
 				</div>
 			</div>
-			<footer>
-				<Footer />
-			</footer>
+			<Footer />
 		</>
 	);
 }
@@ -292,7 +401,7 @@ const InfoItem = ({
 	type = "text",
 }) => (
 	<div className={`${fullWidth ? "col-span-2" : ""}`}>
-		<label className="block text-sm font-medium text-gray-700">
+		<label className="block text-sm font-medium text-gray-700 mb-1">
 			{label}
 		</label>
 		{isEditing ? (
@@ -301,11 +410,13 @@ const InfoItem = ({
 				name={name}
 				value={value}
 				onChange={onChange}
-				className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+				className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
 				placeholder={placeholder}
 			/>
 		) : (
-			<p className="mt-1 text-sm text-gray-900">{displayValue}</p>
+			<p className="w-full p-2 border rounded-md border-gray-300 bg-gray-50">
+				{displayValue}
+			</p>
 		)}
 	</div>
 );
