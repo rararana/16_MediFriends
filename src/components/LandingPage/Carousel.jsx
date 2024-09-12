@@ -16,7 +16,7 @@ const carouselItems = [
 		description:
 			"Keep your activities on track and never miss out appointment with your doctor or forget to drink your medication.",
 		image: "/images/carousel/carousel-img-1.png",
-		gradientColor: "#6BC2EB",
+		gradientColor: "#1D2F6F",
 		titleAlignment: "text-left",
 	},
 	{
@@ -24,7 +24,7 @@ const carouselItems = [
 		description:
 			"Keep your body on good health by keeping tabs on your sleep schedule, BMI score, and vaccine history",
 		image: "/images/carousel/carousel-img-2.png",
-		gradientColor: "#6BC2EB",
+		gradientColor: "#1D2F6F",
 		titleAlignment: "text-center",
 	},
 	{
@@ -32,7 +32,7 @@ const carouselItems = [
 		description:
 			"Don't be left out in this everychanging world. Get on with the latest news you can get about health",
 		image: "/images/carousel/carousel-img-3.png",
-		gradientColor: "#6BC2EB",
+		gradientColor: "#1D2F6F",
 		titleAlignment: "text-right",
 	},
 ];
@@ -61,15 +61,9 @@ export function CarouselDemo() {
 								<Card className="overflow-hidden rounded-3xl relative">
 									<div className="absolute top-0 left-0 right-0 px-8 py-4 z-10">
 										<h2
-											className={`mt-3 text-2xl md:text-4xl font-bold ${item.titleAlignment} text-black`}
+											className={`mt-3 text-2xl md:text-4xl font-bold ${item.titleAlignment} text-white`}
 										>
-											<span className="text-white [text-shadow:0_0_4px_rgba(255,255,255,0.5),0_0_6px_rgba(255,255,255,0.3)]">
-												{item.title.split(" ")[0]}
-											</span>{" "}
-											{item.title
-												.split(" ")
-												.slice(1)
-												.join(" ")}
+											{item.title}
 										</h2>
 									</div>
 									<CardContent className="p-0 flex h-[300px]">

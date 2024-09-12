@@ -16,6 +16,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 	const [activeNav, setActiveNav] = useState("#home");
 	const [isScrolled, setIsScrolled] = useState(false);
 	const router = useRouter();
+	const name = session?.user?.name;
 
 	// Function for smooth scrolling
 	const handleNavClick = (sectionId: string) => {
@@ -49,7 +50,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 
 	return (
 		<header
-			className={`fixed top-0 w-full h-[10vh] bg-[#FFFFFF] border-b-2 border-gray-200 z-10 transition-shadow duration-300 ${
+			className={`fixed top-0 w-full h-[80px] bg-[#FFFFFF] border-b-2 border-gray-200 z-10 transition-shadow duration-300 ${
 				isScrolled ? "shadow-md" : ""
 			}`}
 		>
@@ -73,7 +74,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 							<li>
 								<a
 									href="/dashboard"
-									className="hover:text-sky-400"
+									className="hover:text-[#1D2F6F] transition-colors"
 								>
 									Home
 								</a>
@@ -81,7 +82,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 							<li>
 								<a
 									href="/profile"
-									className="hover:text-sky-400"
+									className="hover:text-[#1D2F6F] transition-colors"
 								>
 									Profile
 								</a>
@@ -89,7 +90,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 							<li>
 								<a
 									href="/visit-history"
-									className="hover:text-sky-400"
+									className="hover:text-[#1D2F6F] transition-colors"
 								>
 									Visit History
 								</a>
@@ -97,7 +98,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 							<li>
 								<a
 									href="/sleep-history"
-									className="hover:text-sky-400"
+									className="hover:text-[#1D2F6F] transition-colors"
 								>
 									Sleep Tracker
 								</a>
@@ -105,7 +106,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 							<li>
 								<a
 									href="article"
-									className="hover:text-sky-400"
+									className="hover:text-[#1D2F6F] transition-colors"
 								>
 									Articles
 								</a>
@@ -113,7 +114,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 							<li>
 								<a
 									href="nearest-hospital"
-									className="hover:text-sky-400"
+									className="hover:text-[#1D2F6F]"
 								>
 									Nearby Hospitals
 								</a>
@@ -124,7 +125,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 				<div className="flex ml-auto md:gap-2">
 					<button
 						onClick={handleSignOut}
-						className="relative py-2 rounded-md text-white bg-[#141414] isolation-auto z-10 border-2 before:absolute before:w-full before:transition-all before:duration-300 before:hover:w-full hover:text-white before:-right-full before:hover:right-0 before:rounded-full before:bg-[#A12347] before:-z-10 before:aspect-square before:hover:scale-150 overflow-hidden before:hover:duration-500 inline-flex items-center justify-center px-4 py-3 text-sm font-semibold text-black bg-white border rounded-lg shadow-sm gap-x-2 hover:bg-[#141414] disabled:opacity-50 disabled:pointer-events-none"
+						className="relative py-2 rounded-md text-white bg-[#141414] isolation-auto z-10 border-2 before:absolute before:w-full before:transition-all before:duration-300 before:hover:w-full hover:text-white before:-right-full before:hover:right-0 before:rounded-full before:bg-[#A12347] before:-z-10 before:aspect-square before:hover:scale-150 overflow-hidden before:hover:duration-500 inline-flex items-center justify-center px-4 py-3 text-sm font-semibold border rounded-lg shadow-sm gap-x-2 hover:bg-[#141414] disabled:opacity-50 disabled:pointer-events-none"
 					>
 						Log out
 					</button>

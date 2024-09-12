@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -41,32 +41,39 @@ const Nav = ({ openNav, closeNav }: Props) => {
 
 	return (
 		<header
-			className={`fixed top-0 w-full h-[10vh] bg-[#209CEE] z-10 transition-shadow duration-300 ${
-				isScrolled ? "shadow-md bg-opacity-90" : ""
+			className={`fixed top-0 w-full h-[72px] bg-[#FAF8F5] z-10 transition-shadow duration-300 ${
+				isScrolled ? "shadow-md" : ""
 			}`}
 		>
 			<div className="max-w-[93%] mx-auto h-full flex items-center justify-between">
+				<Image
+					src="/images/logo/logo-medifriends.png"
+					alt="MediFriends Logo"
+					width={55}
+					height={60}
+					className="object-contain"
+				/>
 				<h1
-					className="text-3xl font-bold cursor-pointer"
-					onClick={() => (window.location.href = "#")}
+					className="text-3xl text-[#1D2F6F] font-bold cursor-pointer"
+					onClick={() => (window.location.href = "/dashboard")}
 				>
-					<span className="text-white [text-shadow:0_0_8px_rgba(255,255,255,0.5),0_0_8px_rgba(255,255,255,0.3)]">
-						Medi
-					</span>
-					Friends
+					MediFriends
 				</h1>
 				<nav className="flex ml-auto gap-2 flex-wrap">
 					<button
 						onClick={() => router.push("/auth/register")}
-						className="border-[#ffffffc2] border-2 px-5 md:px-7 py-3 text-sm md:text-base text-white bg-[#3eacde] hover:bg-[#3e99ca] hover:text-white rounded-s-2xl"
+						className="py-3 px-6 rounded-md text-white bg-[#1D2F6F] border border-[#1D2F6F] text-sm font-semibold shadow-sm inline-flex items-center justify-center transition-colors duration-300 ease-in-out hover:bg-[#111938] hover:border-[#162B4F]"
 					>
 						Sign Up
 					</button>
 					<button
 						onClick={() => router.push("/auth/login")}
-						className="border-[#ffffffc2] border-2 px-5 md:px-7 py-3 text-sm md:text-base text-white bg-[#6B9EEB] hover:bg-[#4e7dc8] hover:text-white rounded-e-2xl"
+						className="relative active:opacity-90 py-3 px-6 rounded-md text-[#1D2F6F] bg-[#FAF8F5] border border-[#1D2F6F] text-sm font-semibold shadow-sm inline-flex items-center justify-center overflow-hidden group"
 					>
-						Login
+						<span className="absolute inset-0 w-0 bg-[#1D2F6F] transition-all duration-300 ease-out group-hover:w-full"></span>
+						<span className="relative group-hover:text-[#FAF8F5] transition-colors duration-300 ease-out">
+							Login
+						</span>
 					</button>
 				</nav>
 			</div>

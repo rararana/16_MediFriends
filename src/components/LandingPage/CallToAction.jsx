@@ -17,7 +17,7 @@ export const CallToAction = () => {
 
 	return (
 		<section
-			className="bg-gradient-to-r from-[#2487c5] to-[#6BC2EB] py-16 px-6 md:px-16 text-center"
+			className="bg-[#1D2F6F] py-16 px-6 md:px-16 text-center"
 			data-aos="fade-up"
 		>
 			<div className="max-w-2xl mx-auto" data-aos="slide-up">
@@ -35,11 +35,12 @@ export const CallToAction = () => {
 				</p>
 				<a
 					onClick={() => router.push("/auth/register")}
-					className="inline-block cursor-pointer bg-white text-[#2487c5] text-lg font-semibold py-3 px-6 rounded-full shadow-md active:opacity-80 transition-all duration-200"
 					data-aos="slide-up"
 					data-aos-delay="200"
 				>
-					Sign Up
+					<button class="cursor-pointer text-white font-bold shadow-md hover:scale-[1.2] shadow-blue-400 rounded-full px-5 py-2 bg-gradient-to-bl from-blue-800 to-blue-900">
+						Sign Up
+					</button>
 				</a>
 			</div>
 		</section>
