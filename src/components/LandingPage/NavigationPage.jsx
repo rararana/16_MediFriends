@@ -30,7 +30,7 @@ const NavigationPage = () => {
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 					<div
 						onClick={() => handleNavigation("/profile")}
-						className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
+						className="bg-white rounded-xl p-6 border-2 border-[#FFFFFF] hover:border-[#3DAEF5] shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
 						data-aos="fade-up"
 					>
 						<div className="flex items-center mb-4">
@@ -48,7 +48,7 @@ const NavigationPage = () => {
 
 					<div
 						onClick={() => handleNavigation("/sleep-history")}
-						className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
+						className="bg-white rounded-xl p-6 border-2 border-[#FFFFFF] hover:border-[#3DAEF5] shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
 						data-aos="fade-up"
 						data-aos-delay="100"
 					>
@@ -67,7 +67,7 @@ const NavigationPage = () => {
 
 					<div
 						onClick={() => handleNavigation("/visit-history")}
-						className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
+						className="bg-white rounded-xl p-6 border-2 border-[#FFFFFF] hover:border-[#3DAEF5] shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
 						data-aos="fade-up"
 						data-aos-delay="200"
 					>
@@ -86,7 +86,7 @@ const NavigationPage = () => {
 
 					<div
 						onClick={() => handleNavigation("/vaccine-history")}
-						className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
+						className="bg-white rounded-xl p-6 border-2 border-[#FFFFFF] hover:border-[#3DAEF5] shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
 						data-aos="fade-up"
 						data-aos-delay="300"
 					>
@@ -105,7 +105,7 @@ const NavigationPage = () => {
 
 					<div
 						onClick={() => handleNavigation("/nearest-hospital")}
-						className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
+						className="bg-white rounded-xl p-6 border-2 border-[#FFFFFF] hover:border-[#3DAEF5] shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
 						data-aos="fade-up"
 						data-aos-delay="400"
 					>
@@ -122,7 +122,7 @@ const NavigationPage = () => {
 
 					<div
 						onClick={() => handleNavigation("/article")}
-						className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
+						className="bg-white rounded-xl p-6 border-2 border-[#FFFFFF] hover:border-[#3DAEF5] shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
 						data-aos="fade-up"
 						data-aos-delay="500"
 					>
