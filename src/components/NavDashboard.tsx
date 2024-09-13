@@ -144,7 +144,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 							className="flex items-center bg-white border-2 border-gray-100 px-2 py-2 rounded-lg ml-5 cursor-pointer"
 						>
 							<img
-								src="/images/hospital/avatar.png"
+								src="/images/hospital/avatar-doctor.jpeg"
 								alt="Profile Picture"
 								className="w-10 h-10 rounded-full border-2 border-gray-200"
 							/>

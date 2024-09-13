@@ -21,20 +21,20 @@ const NavigationPage = () => {
 	}, []);
 
 	return (
-		<div className="flex flex-col items-center justify-center min-h-screen p-6 bg-[#FAF8F5]">
-			<div className="w-full max-w-6xl">
-				<h1 className="text-5xl font-bold mb-12 text-center text-[#141414]">
+		<div className="relative flex flex-col items-center justify-center bg-[url('/images/hero/navigation-background.jpg')] bg-no-repeat bg-cover min-h-screen p-6 bg-[#FAF8F5]">
+			<div className="absolute inset-0 bg-gradient-to-b from-[#3DAEF5] to-[#1D2F6F] opacity-70 backdrop-blur-3xl"></div>
+			<div className="w-full max-w-6xl z-0">
+				<h1 className="text-5xl font-bold mb-12 text-center text-[#FAF8F5] ">
 					Explore Your Health Insights
 				</h1>
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					{/* Profile & BMI Calculator */}
 					<div
 						onClick={() => handleNavigation("/profile")}
 						className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
 						data-aos="fade-up"
 					>
 						<div className="flex items-center mb-4">
-							<div className="bg-[#1D2F6F] p-3 rounded-full mr-4">
+							<div className="bg-[#3DAEF5] p-3 rounded-full mr-4">
 								<User className="w-6 h-6 text-[#FAF8F5]" />
 							</div>
 							<h2 className="text-xl font-semibold text-[#141414]">
@@ -46,7 +46,6 @@ const NavigationPage = () => {
 						</p>
 					</div>
 
-					{/* Sleep Tracker */}
 					<div
 						onClick={() => handleNavigation("/sleep-history")}
 						className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
@@ -54,7 +53,7 @@ const NavigationPage = () => {
 						data-aos-delay="100"
 					>
 						<div className="flex items-center mb-4">
-							<div className="bg-[#1D2F6F] p-3 rounded-full mr-4">
+							<div className="bg-[#3DAEF5] p-3 rounded-full mr-4">
 								<Moon className="w-6 h-6 text-[#FAF8F5]" />
 							</div>
 							<h2 className="text-xl font-semibold text-[#141414]">
@@ -66,7 +65,6 @@ const NavigationPage = () => {
 						</p>
 					</div>
 
-					{/* Visit History */}
 					<div
 						onClick={() => handleNavigation("/visit-history")}
 						className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
@@ -74,7 +72,7 @@ const NavigationPage = () => {
 						data-aos-delay="200"
 					>
 						<div className="flex items-center mb-4">
-							<div className="bg-[#1D2F6F] p-3 rounded-full mr-4">
+							<div className="bg-[#3DAEF5] p-3 rounded-full mr-4">
 								<Calendar className="w-6 h-6 text-[#FAF8F5]" />
 							</div>
 							<h2 className="text-xl font-semibold text-[#141414]">
@@ -86,7 +84,6 @@ const NavigationPage = () => {
 						</p>
 					</div>
 
-					{/* Vaccine History */}
 					<div
 						onClick={() => handleNavigation("/vaccine-history")}
 						className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
@@ -94,7 +91,7 @@ const NavigationPage = () => {
 						data-aos-delay="300"
 					>
 						<div className="flex items-center mb-4">
-							<div className="bg-[#1D2F6F] p-3 rounded-full mr-4">
+							<div className="bg-[#3DAEF5] p-3 rounded-full mr-4">
 								<Syringe className="w-6 h-6 text-[#FAF8F5]" />
 							</div>
 							<h2 className="text-xl font-semibold text-[#141414]">
@@ -106,7 +103,6 @@ const NavigationPage = () => {
 						</p>
 					</div>
 
-					{/* Nearest Hospital */}
 					<div
 						onClick={() => handleNavigation("/nearest-hospital")}
 						className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
@@ -114,7 +110,7 @@ const NavigationPage = () => {
 						data-aos-delay="400"
 					>
 						<div className="flex items-center mb-4">
-							<div className="bg-[#1D2F6F] p-3 rounded-full mr-4">
+							<div className="bg-[#3DAEF5] p-3 rounded-full mr-4">
 								<Hospital className="w-6 h-6 text-[#FAF8F5]" />
 							</div>
 							<h2 className="text-xl font-semibold text-[#141414]">
@@ -124,7 +120,6 @@ const NavigationPage = () => {
 						<p className="text-gray-600">Find hospitals near you</p>
 					</div>
 
-					{/* Article */}
 					<div
 						onClick={() => handleNavigation("/article")}
 						className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 hover:bg-sky-50 active:bg-sky-100 cursor-pointer"
@@ -132,7 +127,7 @@ const NavigationPage = () => {
 						data-aos-delay="500"
 					>
 						<div className="flex items-center mb-4">
-							<div className="bg-[#1D2F6F] p-3 rounded-full mr-4">
+							<div className="bg-[#3DAEF5] p-3 rounded-full mr-4">
 								<Book className="w-6 h-6 text-[#FAF8F5]" />
 							</div>
 							<h2 className="text-xl font-semibold text-[#141414]">
