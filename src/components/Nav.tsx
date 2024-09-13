@@ -54,21 +54,21 @@ const Nav = ({ openNav, closeNav }: Props) => {
 					className="object-contain"
 				/>
 				<h1
-					className="text-3xl text-[#1D2F6F] font-bold cursor-pointer"
+					className="text-2xl md:text-3xl text-[#1D2F6F] font-bold cursor-pointer"
 					onClick={() => (window.location.href = "/dashboard")}
 				>
 					MediFriends
 				</h1>
-				<nav className="flex ml-auto gap-2 flex-wrap">
+				<nav className="flex ml-auto gap-2">
 					<button
 						onClick={() => router.push("/auth/register")}
-						className="py-3 px-6 rounded-md text-white bg-[#1D2F6F] border border-[#1D2F6F] text-sm font-semibold shadow-sm inline-flex items-center justify-center transition-colors duration-300 ease-in-out hover:bg-[#111938] hover:border-[#162B4F]"
+						className="py-2 px-4 sm:py-3 sm:px-6 rounded-md text-white bg-[#1D2F6F] border border-[#1D2F6F] text-[10px] sm:text-sm font-semibold shadow-sm inline-flex items-center justify-center transition-colors duration-300 ease-in-out hover:bg-[#111938] hover:border-[#162B4F]"
 					>
 						Sign Up
 					</button>
 					<button
 						onClick={() => router.push("/auth/login")}
-						className="relative active:opacity-90 py-3 px-6 rounded-md text-[#1D2F6F] bg-[#FAF8F5] border border-[#1D2F6F] text-sm font-semibold shadow-sm inline-flex items-center justify-center overflow-hidden group"
+						className="relative active:opacity-90 py-2 px-4 sm:py-3 sm:px-6 rounded-md text-[#1D2F6F] bg-[#FAF8F5] border border-[#1D2F6F] text-[10px] sm:text-sm font-semibold shadow-sm inline-flex items-center justify-center overflow-hidden group"
 					>
 						<span className="absolute inset-0 w-0 bg-[#1D2F6F] transition-all duration-300 ease-out group-hover:w-full"></span>
 						<span className="relative group-hover:text-[#FAF8F5] transition-colors duration-300 ease-out">
