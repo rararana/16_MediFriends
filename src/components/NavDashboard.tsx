@@ -66,9 +66,9 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 			<div className="max-w-[93%] mx-auto h-full flex items-center justify-between">
 				<div className="flex items-center">
 					<Image
-						src="/images/logo/logo-medifriends.png"
+						src="/images/logo/logo.png"
 						alt="MediFriends Logo"
-						width={55}
+						width={60}
 						height={60}
 						className="object-contain"
 					/>
