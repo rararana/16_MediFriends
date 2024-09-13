@@ -94,7 +94,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 								onClick={() => router.push("/profile")}
 								className={getNavButtonClassName("/profile")}
 							>
-								Profile
+								BMI Calculator
 							</button>
 						</li>
 						<li>
