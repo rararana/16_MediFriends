@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Bars3Icon } from "@heroicons/react/20/solid";
+import { Bars3Icon, ChevronDownIcon } from "@heroicons/react/20/solid"; // Import the ChevronDownIcon
 import { useRouter, usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
@@ -94,7 +94,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 								onClick={() => router.push("/profile")}
 								className={getNavButtonClassName("/profile")}
 							>
-								BMI Calculator
+								Profile
 							</button>
 						</li>
 						<li>
@@ -137,11 +137,11 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 						</li>
 					</ul>
 				</div>
-				<div className="flex items-center">
+				<div className="flex items-center ">
 					<div className="relative">
 						<div
 							onClick={handleDropdownToggle}
-							className="flex items-center bg-white border-2 border-gray-100 px-4 py-2 rounded-lg ml-5 cursor-pointer"
+							className="flex items-center bg-white border-2 border-gray-100 px-2 py-2 rounded-lg ml-5 cursor-pointer"
 						>
 							<img
 								src="/images/hospital/avatar.png"
@@ -151,6 +151,7 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 							<span className="ml-3 text-lg font-semibold text-gray-800">
 								Hi, {name}!
 							</span>
+							<ChevronDownIcon className="w-5 h-5 text-gray-600 ml-2" />{" "}
 						</div>
 						{isDropdownOpen && (
 							<div className="absolute right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg w-44">
