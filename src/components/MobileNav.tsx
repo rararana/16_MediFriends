@@ -71,7 +71,7 @@ const MobileNav = ({ nav, closeNav }: Props) => {
 							)}
 							<div className="w-15 h-15 rounded-full overflow-hidden">
 								<Image
-									src="/images/hospital/avatar.png"
+									src="/images/logo/logo-avatar.png"
 									alt="Profile"
 									width={50}
 									height={50}
