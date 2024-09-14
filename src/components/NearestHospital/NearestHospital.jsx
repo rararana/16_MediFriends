@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import dynamic from "next/dynamic";
 
-// Dynamically import (leaflet imports) to make sure it's only used on the client side (not on the server side)
 const MapContainer = dynamic(
 	() => import("react-leaflet").then((mod) => mod.MapContainer),
 	{ ssr: false }
@@ -21,7 +20,6 @@ const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
 	ssr: false,
 });
 
-// Custom icon for markers
 const useCustomIcons = () => {
 	const [icons, setIcons] = useState({});
 
@@ -42,24 +40,32 @@ const useCustomIcons = () => {
 			popupAnchor: [0, -32],
 		});
 
-		// Update state with the icons
-		setIcons({ userIcon, hospitalIcon });
+		const customHospitalIcon = new L.Icon({
+			iconUrl: "/images/hospital/hospital.png",
+			iconSize: [30, 30],
+			iconAnchor: [15, 30],
+			popupAnchor: [0, -30],
+		});
+
+		setIcons({ userIcon, hospitalIcon, customHospitalIcon });
 	}, []);
 
 	return icons;
 };
 
-// Function to find nearest hospital
 const NearestHospital = () => {
 	const [hospitals, setHospitals] = useState([]);
 	const [userLocation, setUserLocation] = useState(null);
 	const icons = useCustomIcons();
 
+	const customHospitals = [
+		{ name: "RS Annisa Medical Center", lat: -6.940626, lon: 107.755813 },
+		{ name: "Klinik Padjajaran", lat: -6.93114, lon: 107.772 },
+	];
+
 	useEffect(() => {
-		// Fetch nearby hospitals based on user location with certain radius
 		const fetchHospitals = async (lat, lng) => {
 			try {
-				// Fetch response from Overpass API (OpenStreetMap)
 				const response = await fetch(
 					`https://overpass-api.de/api/interpreter?data=[out:json];node["amenity"~"hospital|clinic|doctor"](around:3000,${lat},${lng});out;`
 				);
@@ -70,30 +76,26 @@ const NearestHospital = () => {
 			}
 		};
 
-		// Successful geolocation request handler
 		const handleGeolocationSuccess = (position) => {
 			const { latitude, longitude } = position.coords;
 			setUserLocation({ lat: latitude, lng: longitude });
 			fetchHospitals(latitude, longitude);
 		};
 
-		// Error geolocation request handler (if permission denied or location unavailable, then redirects to default location)
 		const handleGeolocationError = (error) => {
 			console.error("Error getting user location:", error);
-			setUserLocation({ lat: -6.893303, lng: 107.610387 }); // Default location (Bandung)
+			setUserLocation({ lat: -6.893303, lng: 107.610387 });
 			fetchHospitals(-6.893303, 107.610387);
 		};
 
-		// Checks if browser supports geolocation
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
 				handleGeolocationSuccess,
 				handleGeolocationError
 			);
 		} else {
-			// Geolocation is not supported
 			console.log("Geolocation ERROR!!!");
-			setUserLocation({ lat: -6.893303, lng: 107.610387 }); // Default location (Bandung)
+			setUserLocation({ lat: -6.893303, lng: 107.610387 });
 			fetchHospitals(-6.893303, 107.610387);
 		}
 	}, []);
@@ -103,37 +105,47 @@ const NearestHospital = () => {
 			<h1 className="text-[2.5rem] font-semibold my-4">
 				Hospitals Near You
 			</h1>
-			{userLocation && icons.userIcon && icons.hospitalIcon && (
-				<MapContainer
-					center={userLocation}
-					zoom={14}
-					style={{ height: "500px", width: "100%" }}
-					className="relative z-0"
-				>
-					{/* Renders OpenStreetMap Map Tiles */}
-					<TileLayer
-						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-					/>
-					{/* User current position */}
-					<Marker position={userLocation} icon={icons.userIcon}>
-						<Popup>You are here</Popup>
-					</Marker>
-
-					{/* Nearby hospitals position */}
-					{hospitals.map((hospital, index) => (
-						<Marker
-							key={index}
-							position={[hospital.lat, hospital.lon]}
-							icon={icons.hospitalIcon}
-						>
-							<Popup>
-								{hospital.tags.name || "Unknown Hospital"}
-							</Popup>
+			{userLocation &&
+				icons.userIcon &&
+				icons.hospitalIcon &&
+				icons.customHospitalIcon && (
+					<MapContainer
+						center={userLocation}
+						zoom={14}
+						style={{ height: "500px", width: "100%" }}
+						className="relative z-0"
+					>
+						<TileLayer
+							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+						/>
+						<Marker position={userLocation} icon={icons.userIcon}>
+							<Popup>You are here</Popup>
 						</Marker>
-					))}
-				</MapContainer>
-			)}
+
+						{hospitals.map((hospital, index) => (
+							<Marker
+								key={index}
+								position={[hospital.lat, hospital.lon]}
+								icon={icons.hospitalIcon}
+							>
+								<Popup>
+									{hospital.tags.name || "Unknown Hospital"}
+								</Popup>
+							</Marker>
+						))}
+
+						{customHospitals.map((hospital, index) => (
+							<Marker
+								key={`custom-${index}`}
+								position={[hospital.lat, hospital.lon]}
+								icon={icons.customHospitalIcon}
+							>
+								<Popup>{hospital.name}</Popup>
+							</Marker>
+						))}
+					</MapContainer>
+				)}
 		</div>
 	);
 };

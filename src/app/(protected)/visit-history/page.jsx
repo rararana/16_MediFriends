@@ -6,6 +6,7 @@ import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
 import { useSession } from "next-auth/react";
 import VisitCard from "@/components/VisitHistory/VisitCard";
+import Footer from "@/components/Footer/Footer";
 
 const Datas = () => {
 	const [datas, setDatas] = useState([]);
@@ -77,13 +78,16 @@ const Datas = () => {
 		<>
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div className="container mt-[9rem]">
+			<div className="container my-[9rem]">
 				<h1 className="text-3xl font-semibold text-center">
 					Hospital Visit Records
 				</h1>
 				<VisitForm onAddVisit={handleAddVisit} />
 				<VisitCard visits={datas} />
 			</div>
+			<footer>
+				<Footer />
+			</footer>
 		</>
 	);
 };

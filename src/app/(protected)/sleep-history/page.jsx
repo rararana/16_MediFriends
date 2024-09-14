@@ -6,6 +6,7 @@ import SleepForm from "@/components/SleepHistory/SleepForm";
 import SleepTable from "@/components/SleepHistory/SleepTable";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
+import Footer from "@/components/Footer/Footer";
 
 export default function SleepHistoryPage() {
 	const [records, setRecords] = useState([]);
@@ -69,7 +70,7 @@ export default function SleepHistoryPage() {
 		<>
 			<MobileNav nav={nav} closeNav={closeNav} />
 			<NavDashboard openNav={openNav} closeNav={closeNav} />
-			<div className="mt-[7rem] min-h-screen p-4">
+			<div className="my-[7rem] min-h-screen p-4">
 				<h1 className="text-3xl font-bold mb-4 text-center">
 					Sleep Tracker
 				</h1>
@@ -80,6 +81,9 @@ export default function SleepHistoryPage() {
 					<SleepTable records={records} />
 				</div>
 			</div>
+			<footer>
+				<Footer />
+			</footer>
 		</>
 	);
 }

@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import VaccineHistory from "@/components/VaccineHistory/VaccineHistory";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
+import Footer from "@/components/Footer/Footer";
 
 export default function VaccineHistoryPage() {
 	const [records, setRecords] = useState([]);
@@ -107,6 +108,9 @@ export default function VaccineHistoryPage() {
 				onAddRecord={handleAddRecord}
 				onDeleteRecord={handleDeleteRecord}
 			/>
+			<footer>
+				<Footer />
+			</footer>
 		</div>
 	);
 }

@@ -35,7 +35,7 @@ export default function VaccineHistory({
 	};
 
 	return (
-		<div className="w-full mt-[6rem] max-w-2xl mx-auto p-6 space-y-6">
+		<div className="w-full my-[9rem] max-w-2xl mx-auto p-6 space-y-6">
 			<h1 className="text-3xl font-bold text-gray-800">
 				Vaccine History
 			</h1>

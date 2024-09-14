@@ -5,6 +5,7 @@ import HospitalList from "@/components/NearestHospital/HospitalList";
 import NearestHospital from "@/components/NearestHospital/NearestHospital";
 import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
+import Footer from "@/components/Footer/Footer";
 
 export default function Home() {
 	const [nav, setNav] = useState(false);
@@ -25,6 +26,9 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
+			<footer>
+				<Footer />
+			</footer>
 		</>
 	);
 }
