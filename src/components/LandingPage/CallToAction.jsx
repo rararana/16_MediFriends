@@ -17,7 +17,7 @@ export const CallToAction = () => {
 
 	return (
 		<section
-			className="bg-[#141414] h-full py-16 px-6 md:px-16 text-center flex justify-center items-center"
+			className="bg-[#1D2F6F] h-full py-16 px-6 md:px-16 text-center flex justify-center items-center"
 			data-aos="fade-up"
 		>
 			<div className="max-w-2xl mx-auto" data-aos="slide-up">
@@ -38,7 +38,7 @@ export const CallToAction = () => {
 					data-aos="slide-up"
 					data-aos-delay="200"
 				>
-					<button class="cursor-pointer transition-transform active:opacity-80 text-white font-bold shadow-md hover:scale-[1.2] shadow-blue-400 rounded-full px-5 py-2 bg-gradient-to-bl from-blue-800 to-blue-900">
+					<button class="cursor-pointer transition-transform active:opacity-80 text-white font-bold shadow-md hover:scale-[1.2] shadow-blue-400 rounded-full px-5 py-2 bg-gradient-to-bl from-blue-800 to-sky-300">
 						Sign Up
 					</button>
 				</a>
