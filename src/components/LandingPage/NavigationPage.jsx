@@ -24,7 +24,7 @@ const NavigationPage = () => {
 		<div className="relative flex flex-col items-center justify-center bg-[url('/images/hero/navigation-background.jpg')] bg-no-repeat bg-cover min-h-screen p-6 bg-[#FAF8F5]">
 			<div className="absolute inset-0 bg-gradient-to-b from-[#3DAEF5] to-[#1D2F6F] opacity-70 backdrop-blur-3xl"></div>
 
-			<div className="w-full max-w-6xl z-10">
+			<div className="w-full max-w-6xl">
 				<h1
 					className="text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center text-[#FAF8F5]"
 					data-aos="slide-down"
