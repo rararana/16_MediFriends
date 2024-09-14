@@ -29,7 +29,9 @@ export default function VaccineHistory({
 	};
 
 	const handleDelete = async (id) => {
-		await onDeleteRecord(id);
+		if (window.confirm("Are you sure you want to delete this record?")) {
+			await onDeleteRecord(id);
+		}
 	};
 
 	return (

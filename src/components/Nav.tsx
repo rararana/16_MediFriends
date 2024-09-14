@@ -47,7 +47,7 @@ const Nav = ({ openNav, closeNav }: Props) => {
 		>
 			<div className="max-w-[93%] mx-auto h-full flex items-center justify-between">
 				<Image
-					src="/images/logo/logo-medifriends.png"
+					src="/images/logo/logo.png"
 					alt="MediFriends Logo"
 					width={55}
 					height={60}
