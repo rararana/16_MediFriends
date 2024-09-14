@@ -80,21 +80,13 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 					</h1>
 				</div>
 				<div className="hidden lg:flex items-center">
-					<ul className="flex gap-10">
+					<ul className="flex gap-8">
 						<li>
 							<button
 								onClick={() => router.push("/dashboard")}
 								className={getNavButtonClassName("/dashboard")}
 							>
 								Home
-							</button>
-						</li>
-						<li>
-							<button
-								onClick={() => router.push("/profile")}
-								className={getNavButtonClassName("/profile")}
-							>
-								BMI Calculator
 							</button>
 						</li>
 						<li>
@@ -115,6 +107,16 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 								)}
 							>
 								Sleep Tracker
+							</button>
+						</li>
+						<li>
+							<button
+								onClick={() => router.push("/vaccine-history")}
+								className={getNavButtonClassName(
+									"/vaccine-history"
+								)}
+							>
+								Vaccine History
 							</button>
 						</li>
 						<li>
@@ -141,18 +143,19 @@ const NavDashboard = ({ openNav, closeNav }: Props) => {
 					<div className="relative">
 						<div
 							onClick={handleDropdownToggle}
-							className="flex items-center bg-white border-2 border-gray-100 px-2 py-2 rounded-lg ml-5 cursor-pointer"
+							className="flex items-center bg-white border-2 border-gray-100 px-3 py-2 rounded-lg ml-5 cursor-pointer"
 						>
 							<img
-								src="/images/hospital/avatar-doctor.jpeg"
+								src="/images/logo/logo-avatar.png"
 								alt="Profile Picture"
 								className="w-10 h-10 rounded-full border-2 border-gray-200"
 							/>
-							<span className="ml-3 text-lg font-semibold text-gray-800">
+							<span className="ml-3 text-md font-semibold text-gray-800 truncate whitespace-nowrap">
 								Hi, {name}!
 							</span>
-							<ChevronDownIcon className="w-5 h-5 text-gray-600 ml-2" />{" "}
+							<ChevronDownIcon className="w-5 h-5 text-gray-600 ml-2" />
 						</div>
+
 						{isDropdownOpen && (
 							<div className="absolute right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg w-44">
 								<ul>

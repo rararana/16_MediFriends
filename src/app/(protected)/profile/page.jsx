@@ -6,6 +6,8 @@ import MobileNav from "@/components/MobileNav";
 import NavDashboard from "@/components/NavDashboard";
 import { useSession } from "next-auth/react";
 import Footer from "@/components/Footer/Footer";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function Profile() {
 	const [nav, setNav] = useState(false);
@@ -165,6 +167,15 @@ export default function Profile() {
 		return value;
 	};
 
+	useEffect(() => {
+		AOS.init({
+			duration: 1000,
+			easing: "ease-in-out",
+			once: true,
+		});
+		AOS.refresh();
+	}, []);
+
 	return (
 		<>
 			<MobileNav nav={nav} closeNav={closeNav} />
@@ -177,8 +188,12 @@ export default function Profile() {
 							<div className="p-8">
 								<div className="flex items-center justify-between mb-6">
 									<div className="flex items-center space-x-4">
-										<div className="h-16 w-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center">
-											<User size={32} color="white" />
+										<div className="h-14 w-14 bg-[#1D2F6F] rounded-full flex items-center justify-center">
+											<img
+												src="/images/logo/logo-avatar.png"
+												alt="Profile"
+												className="h-13 w-13 rounded-full"
+											/>
 										</div>
 										<h2 className="text-2xl font-bold text-gray-800">
 											{name}
