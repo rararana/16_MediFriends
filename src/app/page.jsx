@@ -7,7 +7,6 @@ import { CarouselDemo } from "../components/LandingPage/Carousel";
 import { CallToAction } from "../components/LandingPage/CallToAction";
 import MobileNav from "@/components/MobileNav";
 import Nav from "@/components/Nav";
-import AOS from "aos";
 import "aos/dist/aos.css";
 import "../styles/globals.css";
 import Footer from "@/components/Footer/Footer";
